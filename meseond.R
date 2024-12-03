@@ -1,2 +1,0 @@
-2nd trying projectsadfghj
-ujhuposaokijucygf
