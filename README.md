@@ -75,17 +75,17 @@ To investigate the relationships between plant taxonomy (e.g., family, genus) an
 
 **Ecological Analysis**:
 
-    Objective: Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration.
+-   Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration.
 
 -   Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration
 
-**Taxonomic Analysis -Phylogenetic Tree Integration**:
+**Phylogenetic Signal Testing**:
 
--   Compare families and genera to identify high-performing groups.
-
--   Create a phylogenetic tree for the species in the dataset.
+-   Use Open Tree of Life to construct a phylogenetic tree for the species in the dataset.
 
 -   Mapping Nectar Data:visualize the phylogenetic tree with sugar concentration mapped as a heatmap or colored tip
+
+-   Identify whether closely related species share similar nectar sugar concentrations
 
 
 
