@@ -8,7 +8,7 @@ In this project the students chose a scientific article and redo all possible st
 
 Group B: 
 
-Jorge Alberto Espejel Padilla, Mehedimae Hassan Sharif,Amala Thomas, Ei Mon Thant
+Espejel, Mehedi, Thomas, Ei Mon 
 
 ## Chosen article
 
@@ -73,21 +73,21 @@ To investigate the relationships between plant taxonomy (e.g., family, genus) an
 
 -   Perform hypothesis testing (e.g., ANOVA) to evaluate geographical differences in nectar sugar concentration.
 
-**Taxonomic Analysis**:
+**Ecological Analysis**:
 
--   Compare families and genera to identify high-performing groups.
+-   Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration.
 
--   Use regression models to evaluate the significance of family and genus as predictors of sugar concentration.
+-   Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration
 
-**Correlation Analysis**:
+**Phylogenetic Signal Testing**:
 
--   Compute a correlation matrix to explore relationships between taxonomic details, geographical presence, and sugar concentration.
+-   Use Open Tree of Life to construct a phylogenetic tree for the species in the dataset.
 
-**Advanced Modeling**:
+-   Mapping Nectar Data:visualize the phylogenetic tree with sugar concentration mapped as a heatmap or colored tip
 
--   Build a regression model with sugar concentration as the dependent variable, and taxonomic and geographical features as predictors.
+-   Identify whether closely related species share similar nectar sugar concentrations
 
--   Use this model to predict the potential impact of changes in geographical distribution or taxonomy on nectar sugar concentration.
+
 
 ## Files description
 
