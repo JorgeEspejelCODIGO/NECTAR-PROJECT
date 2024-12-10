@@ -8,7 +8,7 @@ In this project the students chose a scientific article and redo all possible st
 
 Group B: 
 
-Espejel, Mehedi, Thomas, Ei Mon
+Espejel, Mehedi, Thomas, Ei Mon 
 
 ## Chosen article
 
