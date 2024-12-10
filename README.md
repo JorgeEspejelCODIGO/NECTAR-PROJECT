@@ -73,21 +73,15 @@ To investigate the relationships between plant taxonomy (e.g., family, genus) an
 
 -   Perform hypothesis testing (e.g., ANOVA) to evaluate geographical differences in nectar sugar concentration.
 
-**Taxonomic Analysis**:
+**Taxonomic Analysis -Phylogenetic Tree Integration**:
 
 -   Compare families and genera to identify high-performing groups.
 
--   Use regression models to evaluate the significance of family and genus as predictors of sugar concentration.
+-   Create a phylogenetic tree for the species in the dataset.
 
-**Correlation Analysis**:
+-   Mapping Nectar Data:visualize the phylogenetic tree with sugar concentration mapped as a heatmap or colored tip
 
--   Compute a correlation matrix to explore relationships between taxonomic details, geographical presence, and sugar concentration.
 
-**Advanced Modeling**:
-
--   Build a regression model with sugar concentration as the dependent variable, and taxonomic and geographical features as predictors.
-
--   Use this model to predict the potential impact of changes in geographical distribution or taxonomy on nectar sugar concentration.
 
 ## Files description
 
