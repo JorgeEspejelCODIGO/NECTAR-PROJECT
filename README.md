@@ -73,6 +73,12 @@ To investigate the relationships between plant taxonomy (e.g., family, genus) an
 
 -   Perform hypothesis testing (e.g., ANOVA) to evaluate geographical differences in nectar sugar concentration.
 
+**Ecological Analysis**:
+
+    Objective: Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration.
+
+-   Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration
+
 **Taxonomic Analysis -Phylogenetic Tree Integration**:
 
 -   Compare families and genera to identify high-performing groups.
