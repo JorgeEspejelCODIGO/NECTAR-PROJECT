@@ -1,130 +1,198 @@
-# Step 1: Set your working directory to where the data file is stored
-setwd("~/Desktop/NECTAR-PROJECT")  # Adjust this path to where your CSV file is located
+# Step 1: Install and load required libraries
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(tidyr)) install.packages("tidyr")
+library(ggplot2)
+library(dplyr)
+library(tidyr)
 
-# Step 2: Load the dataset into R
+# Step 2: Set your working directory to where the data file is stored
+setwd("~/Desktop/NECTAR-PROJECT")  # Adjust this path to where the CSV file is located
+
+# Step 3: Load the dataset into R
 bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
 
-# Step 3: Check the structure of the data to ensure it loaded correctly
-str(bee_data)
+# Step 4: Basic visualization of sugar concentration distribution
+ggplot(bee_data, aes(x = sugar_concentration)) +
+  geom_histogram(binwidth = 2, fill = "blue", color = "black", alpha = 0.7) +
+  labs(
+    title = "Distribution of Sugar Concentration",
+    x = "Sugar Concentration (%)",
+    y = "Frequency"
+  ) +
+  theme_minimal()
 
-# Optionally, view the first few rows of the dataset to confirm
-head(bee_data)
+# Step 5: Boxplot of sugar concentration by family
+ggplot(bee_data, aes(x = Family, y = sugar_concentration)) +
+  geom_boxplot(fill = "lightblue", color = "black", outlier.color = "red") +
+  labs(
+    title = "Sugar Concentration by Family",
+    x = "Family",
+    y = "Sugar Concentration (%)"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+###########
 
-########
+# Install and load required libraries
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(tidyr)) install.packages("tidyr")
+if (!require(sf)) install.packages("sf")
+if (!require(rnaturalearth)) install.packages("rnaturalearth")
+if (!require(rnaturalearthdata)) install.packages("rnaturalearthdata")
 
-# Step 1: Filter the data for the Fabaceae family
-fabaceae_data <- bee_data[bee_data$Family == "Fabaceae", ]
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
 
-# Step 2: Select only the columns we need: sci_name, sugar_concentration, and type
-fabaceae_filtered <- fabaceae_data[, c("sci_name", "sugar_concentration", "type")]
+# Load world map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
 
-# Step 3: Check the structure of the new table to make sure it's correct
-str(fabaceae_filtered)
+# Summarize sugar concentration by continent
+continent_summary <- bee_data %>%
+  gather(key = "Region", value = "Presence", europe:australia) %>%
+  filter(Presence == "yes") %>%
+  group_by(Region) %>%
+  summarise(
+    mean_sugar = mean(sugar_concentration, na.rm = TRUE),
+    sd_sugar = sd(sugar_concentration, na.rm = TRUE),
+    n = n()
+  ) %>%
+  mutate(label = paste0("N = ", n, "\nMean = ", round(mean_sugar, 1), "\nSD = ", round(sd_sugar, 1)))
 
-# Optionally, view the first few rows of the filtered data
-head(fabaceae_filtered)
-
-######
-
-# Create the mapping between your dataset's species names and the Open Tree of Life's species names
-name_mapping <- c(
-  "Onobrychis viciiaefolia" = "Onobrychis_cyri_ott213478",
-  "Trifolium repens" = "Trifolium_repens_ott116218",
-  "Lotus corniculatus" = "Lotus_corniculatus_ott183572",
-  "Vicia nigricans" = "Vicia_nigricans_ott238365",
-  "Crotalaria micans" = "Crotalaria_micans_ott227361",
-  "Pongamia pinnata" = "Pongamia_pinnata_ott170183",
-  "Trifolium pratense" = "Trifolium_pratense_ott839027",
-  "Trifolium hybridium" = "Trifolium_hybridum_ott1066895",
-  "Trifolium incarnatum" = "Trifolium_incarnatum_ott705473",
-  "Medicago falcata" = "Medicago_falcata_ott1030374",
-  "Melilotus albus" = "Melilotus_albus_ott38042",
-  "Styphnolobium japonica" = "Styphnolobium_japonicum_ott935514",
-  "Adesmia candida" = "Adesmia_candida_ott593511",
-  "Adesmia filipes" = "Adesmia_filipes_ott3926236",
-  "Adesmia serrana" = "Adesmia_serrana_ott3926330",
-  "Anthrophyllum rigidum" = "Anarthrophyllum_rigidum_ott393217",
-  "Astragalus cruckshanksii" = "Astragalus_cruckshanksii_ott1093759",
-  "Hoffmannseggia trifolata" = "Hoffmannseggia_trifoliata_ott517680",
-  "Hoffmannseggia erecta" = "Hoffmannseggia_erecta_ott517690",
-  "Adesmia volkmanni" = "Adesmia_volckmannii_ott674927",
-  "Adesmia obcordata" = "Adesmia_obcordata_ott1064241",
-  "Adesmia villosa" = "Adesmia_villosa_ott853739"
+# Coordinates for continent labels (approximate)
+continent_coords <- data.frame(
+  Region = c("europe", "asia", "africa", "north_america", "south_america", "australia"),
+  lon = c(10, 100, 20, -100, -60, 135),
+  lat = c(50, 40, 0, 45, -15, -25)
 )
 
-# Apply the mapping to the 'sci_name' column in your table using dplyr's recode function
-library(dplyr)
+# Merge summary with coordinates
+continent_summary <- continent_summary %>%
+  inner_join(continent_coords, by = "Region")
 
-fabaceae_filtered <- fabaceae_filtered %>%
-  mutate(sci_name = recode(sci_name, !!!name_mapping))
-
-# Check the updated table to ensure that names have been changed
-head(fabaceae_filtered)
-
-# Step 2: Check for species names that didn't get mapped (i.e., NA values)
-missing_species <- fabaceae_filtered$sci_name[is.na(fabaceae_filtered$sci_name)]
-if(length(missing_species) > 0) {
-  print("Species with no match in name_mapping:")
-  print(missing_species)
-}
-
-########
-
-# Step 1: Remove duplicates by averaging sugar concentrations
-# Group by the 'sci_name' and calculate the mean of sugar concentrations for duplicates
-fabaceae_filtered_valid <- fabaceae_filtered[!is.na(fabaceae_filtered$sci_name), ]
-
-# Aggregate sugar concentration by 'sci_name', calculating the average for duplicates
-fabaceae_filtered_cleaned <- fabaceae_filtered_valid %>%
-  group_by(sci_name) %>%
-  summarise(sugar_concentration = mean(sugar_concentration, na.rm = TRUE), 
-            type = first(type))  # Take the first 'type' (assuming it doesn't change for each species)
-
-# Print the cleaned table
-print(fabaceae_filtered_cleaned)
-
-
+# Plot the world map with sugar concentration summary
+ggplot(data = world) +
+  geom_sf(fill = "gray95", color = "gray80") +
+  geom_point(data = continent_summary, aes(x = lon, y = lat, size = mean_sugar, color = mean_sugar), alpha = 0.8) +
+  geom_text(data = continent_summary, aes(x = lon, y = lat - 10, label = label), size = 3, hjust = 0.5) +
+  scale_color_viridis_c(name = "Mean Sugar Concentration") +
+  scale_size_continuous(name = "Mean Sugar Concentration") +
+  labs(
+    title = "Sugar Concentration by Continent",
+    subtitle = "Mean and SD of nectar sugar concentration (%)",
+    x = NULL,
+    y = NULL
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    panel.grid = element_blank()
+  )
+##########
+# Does locations have a significant impact on sugar concentration?
+# the choice between ANOVA and Kruskal-Wallis depends on the following considerations:
+#Shapiro-Wilk test
+# If p > 0.05: The data is approximately normal, and ANOVA can be used.
+#If p ≤ 0.05p: The data is not normal, so a non-parametric test like Kruskal-Wallis is more appropriate.
+# Shapiro-Wilk test for normality of sugar concentration
+shapiro_test <- shapiro.test(bee_data$sugar_concentration)
+print(shapiro_test)
+# W = 0.97619, p-value = 1.182e-06
+#This means the sugar concentration data does not follow a normal distribution.
+# We use Kruskal-Wallis test
 ###########
+# If p ≤ 0.05, there are significant differences in sugar concentration between continents.
 
-# Load required libraries
-library(rotl)
-library(ape)
+# Prepare the data
+long_data <- bee_data %>%
+  gather(key = "Continent", value = "Presence", europe:australia) %>%
+  filter(Presence == "yes")
 
-# Step 1: Extract the list of species names from the cleaned table
-species_names <- fabaceae_filtered_cleaned$sci_name
-print(species_names)
+# Perform the Kruskal-Wallis test
+kruskal_test <- kruskal.test(sugar_concentration ~ Continent, data = long_data)
+print(kruskal_test)
 
-# Step 2: Match species names with Open Tree of Life
-taxa <- tnrs_match_names(names = species_names)
-      
-####
-
-# Step 3: Check which names are unmatched
-unmatched_species <- taxa[is.na(taxa$ott_id), "submitted_name"]
-# Step 4: Print out the unmatched species names
-if(length(unmatched_species) > 0) {
-  print("The following species were not matched in the Open Tree of Life:")
-  print(unmatched_species)
-} else {
-  print("All species were matched successfully!")
-}
+# Kruskal-Wallis chi-squared = 1.0451, df = 5, p-value = 0.9588
+#Since  p = 0.9588 is much greater than 0.05, we fail to reject the null hypothesis.
+# This means there is no statistically significant difference in sugar concentration between continents
+############
+# Boxplot of sugar concentration by continent
+ggplot(long_data, aes(x = Continent, y = sugar_concentration, fill = Continent)) +
+  geom_boxplot(outlier.color = "red", alpha = 0.7) +
+  stat_summary(fun = mean, geom = "point", shape = 20, size = 3, color = "black", fill = "black") +
+  labs(
+    title = "Sugar Concentration Across Continents",
+    subtitle = "Kruskal-Wallis Test Result: p-value = 0.9588 (No Significant Differences)",
+    x = "Continent",
+    y = "Sugar Concentration (%)"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 14, face = "bold"),
+    plot.subtitle = element_text(size = 12, face = "italic")
+  )
 #########
+# Add a column to classify crop genera (adjust as needed based on your data)
+bee_data <- bee_data %>%
+  mutate(
+    crop = ifelse(type == "crop", "Crop", "Non-Crop")  # Adjust this based on your data
+  )
 
-# Step 1: Extract the OTT IDs for the matched species
-ott_ids <- taxa$ott_id[!is.na(taxa$ott_id)]  # Only take valid OTT IDs (those that were matched)
+# Create a boxplot of sugar concentration by genus
+ggplot(bee_data, aes(x = reorder(Genus, sugar_concentration, FUN = median), y = sugar_concentration, fill = crop)) +
+  geom_boxplot(outlier.color = "black", alpha = 0.8) +
+  geom_hline(yintercept = c(65, 35, 20), linetype = "dashed", color = c("red", "orange", "yellow"), size = 0.8) +
+  annotate("text", x = 1, y = 66, label = "Optimal (>65%)", hjust = 0, color = "red", size = 3) +
+  annotate("text", x = 1, y = 36, label = "Adequate (35–65%)", hjust = 0, color = "orange", size = 3) +
+  annotate("text", x = 1, y = 21, label = "Low (<35%)", hjust = 0, color = "yellow", size = 3) +
+  labs(
+    title = "Nectar Sugar Concentration on a Genus Level",
+    subtitle = "Crop genera are highlighted in red. KW test: Chi-sq = 1.045, p = 0.9588",
+    x = "Genus",
+    y = "Sugar Concentration (%)",
+    fill = "Type"
+  ) +
+  scale_fill_manual(values = c("Crop" = "red", "Non-Crop" = "gray")) +
+  theme_minimal() +
+  theme(
+    legend.position = "top",
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 8),
+    plot.title = element_text(size = 14, face = "bold"),
+    plot.subtitle = element_text(size = 12, face = "italic")
+  )
+#########
+#Just for crops
+# Filter the dataset for crop genera
+crop_data <- bee_data %>%
+  filter(type == "crop")  # Adjust this column based on how crop/non-crop is labeled in your data
 
-# Step 2: Fetch the phylogenetic tree for the matched species
-if(length(ott_ids) > 1) {  # At least two valid IDs are needed to build the tree
-  fabaceae_tree <- tol_induced_subtree(ott_ids = ott_ids)
-  
-  # Step 3: Visualize the Phylogenetic Tree
-  plot(fabaceae_tree, cex = 0.8, main = "Phylogenetic Tree for Fabaceae Species")
-} else {
-  print("Not enough valid OTT IDs to create a tree.")
-}
-###########
-# Fetch the OTT ID for the Fabaceae family
-fabaceae_family_ott_ids <- tnrs_match_names(names = "Fabaceae")
-print(fabaceae_family_ott_ids)
+# Create the boxplot for crop genera
+ggplot(crop_data, aes(x = reorder(Genus, sugar_concentration, FUN = median), y = sugar_concentration, fill = Genus)) +
+  geom_boxplot(outlier.color = "black", alpha = 0.8) +
+  geom_hline(yintercept = c(65, 35, 20), linetype = "dashed", color = c("red", "orange", "yellow"), size = 0.8) +
+  annotate("text", x = 1, y = 66, label = "Optimal (>65%)", hjust = 0, color = "red", size = 3) +
+  annotate("text", x = 1, y = 36, label = "Adequate (35–65%)", hjust = 0, color = "orange", size = 3) +
+  annotate("text", x = 1, y = 21, label = "Low (<35%)", hjust = 0, color = "yellow", size = 3) +
+  labs(
+    title = "Nectar Sugar Concentration for Crop Genera",
+    subtitle = "Showing only genera classified as crops",
+    x = "Genus",
+    y = "Sugar Concentration (%)"
+  ) +
+  scale_fill_brewer(palette = "Set3") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    plot.title = element_text(size = 14, face = "bold"),
+    plot.subtitle = element_text(size = 12, face = "italic")
+  )
 
 

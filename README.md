@@ -27,13 +27,11 @@ For the phylogenetic relationships you can follow the "Tree of life" database an
 ### Objectives
 
 **Primary Objective**:\
-To investigate the relationships between plant taxonomy (e.g., family, genus) and nectar sugar concentration across geographical regions.
+To investigate the relationships between plant taxonomy (e.g., family, genus), geography and nectar sugar concentration.
 
 **Secondary Objectives**:
 
 -   To assess how sugar concentrations vary geographically
-
--   To determine whether globally distributed genera exhibit higher sugar concentrations compared to genera present in limited regions.
 
 -   To analyze sugar concentration variability within high-performing families and identify key genera.
 
