@@ -1,0 +1,420 @@
+---
+title: "Preliminary-result"
+author: "Jorge Alberto Espejel Padilla"
+format: html
+editor: visual
+---
+
+# 1. Title
+
+Analysis of the data set from the project "The nectar report: quantitative review of nectar sugar concentrations offered by bee visited flowers in agricultural and non-agricultural landscapes"
+
+# 2. Team Members Names
+
+-   Jorge Alberto Espejel Padilla
+-   Mehedi Shariff
+-   Amala Thomas
+-   Ei Mon Than
+
+# 3. Introduction
+
+## Why your project is interesting?
+
+(Add your text here to explain the importance of your project.)
+
+## What is known already about it?
+
+(Add your background research and cite relevant studies here using proper citation format.)
+
+# 4. Objectives and Hypotheses
+
+## Objectives
+
+**Primary Objective**:
+
+To investigate the relationships between plant taxonomy (e.g., family, genus), geography and nectar sugar concentration.
+
+**Secondary Objective**
+
+To analyze sugar concentration variability within high-performing families and identify key genera.
+
+## Hypotheses
+
+**Primary Hypothesis**:
+
+**H₀ (Null Hypothesis)**: There is no significant relationship between plant taxonomy (family, genus) and nectar sugar concentration.
+
+**H₁ (Alternative Hypothesis)**: Plant taxonomy significantly affects nectar sugar concentration.
+
+**Secondary Hypotheses**:
+
+**Geographical Variation**:
+
+**H₀**: Nectar sugar concentration does not vary significantly across geographical regions (continents or hemispheres).
+
+**H₁**: Nectar sugar concentration varies significantly across geographical regions.
+
+**Taxonomic Contribution**:
+
+**H₀**: Within high-performing families, genera do not significantly differ in their contributions to higher average sugar concentrations.
+
+**H₁**: Certain genera within high-performing families significantly drive higher average sugar concentrations.
+
+# 5. Methods
+
+**1. Descriptive Analysis**
+
+**Objective:**
+
+• Summarize the overall dataset to understand variability and patterns.
+
+**Analyses:**
+
+1\. **Summary Statistics**:
+
+-   The data was grouped by **Family**, **Genus**, and **Geographical Region** to calculate key descriptive statistics:
+
+    -   **Mean**: To determine the average sugar concentration for each group.
+
+    -   **Median**: To assess the central tendency of sugar concentration values, reducing the influence of extreme values.
+
+    -   **Range**: To highlight the variability of sugar concentration within each group.
+
+    -   **Standard Deviation (SD)**: To measure the spread or dispersion of sugar concentration values around the mean.
+
+    -   **Interquartile Range (IQR)**: To capture the middle 50% of the data and assess variability while ignoring outliers.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Install required packages if not already installed
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(tidyr)) install.packages("tidyr")
+
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+# Set working directory (adjust as needed)
+setwd("~/Desktop/NECTAR-PROJECT")
+
+# Load the dataset
+bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
+
+# Convert sugar_concentration to numeric (in case of issues)
+bee_data$sugar_concentration <- as.numeric(bee_data$sugar_concentration)
+
+# Calculate summary statistics grouped by Family, Genus, and Continent
+summary_stats <- bee_data %>%
+  gather(key = "Region", value = "Presence", europe:australia) %>%
+  filter(Presence == "yes") %>%
+  group_by(Family, Genus, Region) %>%
+  summarise(
+    mean_sugar = mean(sugar_concentration, na.rm = TRUE),
+    median_sugar = median(sugar_concentration, na.rm = TRUE),
+    range_sugar = max(sugar_concentration, na.rm = TRUE) - min(sugar_concentration, na.rm = TRUE),
+    sd_sugar = sd(sugar_concentration, na.rm = TRUE),
+    iqr_sugar = IQR(sugar_concentration, na.rm = TRUE)
+  ) %>%
+  ungroup()
+
+# View the summary statistics table (optional)
+print(summary_stats)
+
+# Create a visualization (barplot of sugar concentration by Family and Region)
+ggplot(summary_stats, aes(x = Region, y = mean_sugar, fill = Family)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(
+    title = "Mean Nectar Sugar Concentration by Family and Region",
+    x = "Region",
+    y = "Mean Sugar Concentration (%)",
+    fill = "Family"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 14, face = "bold")
+  )
+
+
+```
+
+1**2. Taxonomic Effects on Nectar Sugar Concentration**
+
+**Objective:**
+
+• Test the relationship between taxonomy and nectar sugar concentration.
+
+**Analyses:**
+
+```{r, message=FALSE, warning=FALSE}
+# Install required packages if not already installed
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(tidyr)) install.packages("tidyr")
+if (!require(ggplot2)) install.packages("ggplot2")
+
+# Load necessary libraries
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Ensure sugar concentration is numeric and missing data is handled
+bee_data <- bee_data %>%
+  filter(!is.na(Family), !is.na(Genus), !is.na(sugar_concentration)) %>%
+  mutate(sugar_concentration = as.numeric(sugar_concentration))
+
+# Perform Kruskal-Wallis test for nectar sugar concentration by Family
+kw_family_taxonomy <- bee_data %>%
+  group_by(Family) %>%
+  summarise(
+    p_value = tryCatch(
+      kruskal.test(sugar_concentration ~ Family, data = bee_data)$p.value,
+      error = function(e) NA  # Handle errors by assigning NA
+    )
+  ) %>%
+  filter(!is.na(p_value))  # Remove rows with NA p-values
+
+# Perform Kruskal-Wallis test for nectar sugar concentration by Genus
+kw_genus_taxonomy <- bee_data %>%
+  group_by(Genus) %>%
+  summarise(
+    p_value = tryCatch(
+      kruskal.test(sugar_concentration ~ Genus, data = bee_data)$p.value,
+      error = function(e) NA  # Handle errors by assigning NA
+    )
+  ) %>%
+  filter(!is.na(p_value))  # Remove rows with NA p-values
+
+# Combine Family and Genus results
+kw_taxonomy_results <- bind_rows(
+  kw_family_taxonomy %>% mutate(Level = "Family"),
+  kw_genus_taxonomy %>% mutate(Level = "Genus")
+)
+
+# Ensure unique identifiers for visualization
+kw_taxonomy_results <- kw_taxonomy_results %>%
+  mutate(
+    Identifier = ifelse(Level == "Family", paste(Family, "Family"), paste(Genus, "Genus"))
+  )
+
+# Filter top 5 smallest and largest p-values dynamically
+kw_taxonomy_filtered <- kw_taxonomy_results %>%
+  arrange(p_value) %>%
+  slice(c(1:5, (n() - 4):n()))  # Select top 5 smallest and largest p-values
+
+# Ensure there are results to plot
+if (nrow(kw_taxonomy_filtered) > 0) {
+  # Create the heatmap for taxonomic effects
+  ggplot(kw_taxonomy_filtered, aes(x = Level, y = Identifier, fill = p_value)) +
+    geom_tile(color = "white") +
+    scale_fill_gradient(low = "blue", high = "red", name = "p-value", na.value = "gray") +
+    labs(
+      title = "Top 5 Smallest and Largest P-Values: Taxonomic Effects on Nectar Sugar Concentration",
+      x = "Taxonomic Level",
+      y = "Family or Genus"
+    ) +
+    theme_minimal() +
+    theme(
+      axis.text.x = element_text(angle = 45, hjust = 1),
+      plot.title = element_text(size = 14, face = "bold")
+    )
+} else {
+  message("No significant results to display.")
+}
+
+
+
+```
+
+1\. **Kruskal-Wallis**:
+
+◦ Compare sugar concentrations across families and genera.
+
+◦ **Hypothesis**: Taxonomy significantly affects sugar concentration.
+
+2\. **Tukey’s Post-Hoc Test**:
+
+◦ Identify specific taxonomic groups driving differences.
+
+3\. **Linear Mixed-Effects Model**:
+
+◦ Incorporate genus nested within family as random effects to understand
+
+hierarchical effects.
+
+2**3. Geographical Impact**
+
+**Objective:**
+
+• Test whether nectar sugar concentrations vary significantly across geographical regions.
+
+**Analyses:**
+
+```{r, message=FALSE, warning=FALSE}
+
+
+
+
+
+
+```
+
+1\. **Kruskal-Wallis or ANOVA**:
+
+◦ Compare sugar concentrations across continents or hemispheres.
+
+◦ **Hypothesis**: Nectar sugar concentration varies geographically.
+
+2\. **Geospatial Mapping**:
+
+◦ Use heatmaps or scatter plots on a world map to visualize geographic patterns in
+
+sugar concentration.
+
+```{r, message=FALSE, warning=FALSE}
+
+
+
+
+
+
+```
+
+3**4. Ecological Effects (Crops vs. Weeds)**
+
+**Objective:**
+
+• Evaluate whether plant type (crop vs. weed) affects nectar sugar concentration.
+
+**Analyses:**
+
+```{r, message=FALSE, warning=FALSE}
+
+
+
+
+
+
+```
+
+1\. **Boxplots by Type**:
+
+◦ Compare sugar concentration between crops and weeds visually.
+
+2\. **T-Test or Wilcoxon Test**:
+
+◦ Test for significant differences between crops and weeds.
+
+4**5. Variability in High-Performing Families**
+
+**Objective:**
+
+• Analyze sugar concentration variability within high-performing families and identify key
+
+genera. It can be genus to, the one where you find more differences
+
+**Analyses:**
+
+```{r, message=FALSE, warning=FALSE}
+
+
+
+
+
+
+```
+
+1\. **Subset High-Performing Families**:
+
+◦ Filter families with high average sugar concentration.
+
+◦ Compare variability among genera within these families.
+
+2\. **ANOVA or Mixed-Effects Model**:
+
+◦ Evaluate whether genera within high-performing families differ significantly.
+
+5**6. Phylogenetic Signal Testing**
+
+**Objective:**
+
+• Assess if closely related species have similar nectar sugar concentrations.
+
+**Analyses:**
+
+```{r, message=FALSE, warning=FALSE}
+
+
+
+
+
+
+```
+
+1\. **Phylogenetic Tree Construction**:
+
+◦ Use data from Open Tree of Life to construct a phylogenetic tree for the species in
+
+the dataset.
+
+◦ Tools: **ape**, **phytools** in R.
+
+2\. **Phylogenetic Signal**:
+
+◦ Use **Blomberg's K** or **Pagel's λ** to test if sugar concentration is phylogenetically
+
+conserved.
+
+3\. **Visualize Sugar Concentration on Phylogenetic Tree**:
+
+◦ Map sugar concentration as a heatmap on the tree.
+
+```{r, message=FALSE, warning=FALSE}
+
+
+
+
+
+
+```
+
+6**7. Combined Geographic and Taxonomic Effects**
+
+**Objective:**
+
+• Investigate how geography interacts with taxonomy to affect nectar sugar concentration.
+
+**Analyses:**
+
+```{r, message=FALSE, warning=FALSE}
+
+
+
+
+
+
+```
+
+**1. Two-Way ANOVA**:
+
+**◦** Include both family and continent as factors.
+
+**2. Geographically Weighted Regression (GWR)**:
+
+**◦** Model regional variations in taxonomy's influence on sugar concentration.
+
+**◦ Tools**: **spgwr** or **sf** packages in R.
+
+Step-by-Step Explanation
+
+1.  Step 1: (What was done?)\
+2.  Step 2: (What tools/software were used?)\
+3.  Step 3: (Detailed explanation of the process.)
+
+# 6. Results
+
+Here we are to print the analysis results and just show it here
+
+(Add your figures and tables here. Each figure/table should have a caption and a brief description.)
+
+### 
