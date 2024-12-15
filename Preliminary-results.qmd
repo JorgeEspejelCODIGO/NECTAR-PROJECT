@@ -147,6 +147,12 @@ ggplot(summary_stats, aes(x = Region, y = mean_sugar, fill = Family)) +
 
 **Analyses:**
 
+1\. **Kruskal-Wallis**:
+
+◦ Compare sugar concentrations across families and genera.
+
+◦ **Hypothesis**: Taxonomy significantly affects sugar concentration.
+
 ```{r, message=FALSE, warning=FALSE}
 # Install required packages if not already installed
 if (!require(dplyr)) install.packages("dplyr")
@@ -226,21 +232,187 @@ if (nrow(kw_taxonomy_filtered) > 0) {
 
 ```
 
-1\. **Kruskal-Wallis**:
+2\. **Perform Dunn's Post-Hoc Test using the `dunnTest` function from** the **FSA** package.
 
-◦ Compare sugar concentrations across families and genera.
+-   Apply the test to both **families** and **genera** to identify pairwise differences.
 
-◦ **Hypothesis**: Taxonomy significantly affects sugar concentration.
+-   Adjust the p-values for multiple comparisons using the **Bonferroni correction**.
 
-2\. **Tukey’s Post-Hoc Test**:
+-   Visualize the results in a clear way (e.g., a barplot or table) to highlight significant pairwise differences.
 
-◦ Identify specific taxonomic groups driving differences.
+    ```{r, message=FALSE, warning=FALSE}
+    # Install required packages if not already installed
+    if (!require(dplyr)) install.packages("dplyr")
+    if (!require(tidyr)) install.packages("tidyr")
+    if (!require(ggplot2)) install.packages("ggplot2")
+    if (!require(FSA)) install.packages("FSA")
+    if (!require(ggpubr)) install.packages("ggpubr")
 
-3\. **Linear Mixed-Effects Model**:
+    # Load necessary libraries
+    library(dplyr)
+    library(tidyr)
+    library(ggplot2)
+    library(FSA)
+    library(ggpubr)
 
-◦ Incorporate genus nested within family as random effects to understand
+    # Set working directory (adjust as needed)
+    setwd("~/Desktop/NECTAR-PROJECT")
 
-hierarchical effects.
+    # Load the dataset
+    bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
+
+    # Perform Dunn's Test for Pairwise Comparisons at the Family Level
+    dunn_family <- dunnTest(sugar_concentration ~ Family, data = bee_data, method = "bonferroni")
+    dunn_family_results <- dunn_family$res
+
+    # Check column names of the Dunn test results
+    print(names(dunn_family_results))  # Debugging step to confirm column names
+
+    # Extract significant comparisons for Family level
+    significant_family <- dunn_family_results %>%
+      mutate(
+        comparison = Comparison  # Use 'Comparison' column directly
+      ) %>%
+      filter(P.adj < 0.05) %>%
+      arrange(P.adj)
+
+    print("Significant Pairwise Comparisons Between Families:")
+    print(significant_family)
+
+    # Perform Dunn's Test for Pairwise Comparisons at the Genus Level
+    dunn_genus <- dunnTest(sugar_concentration ~ Genus, data = bee_data, method = "bonferroni")
+    dunn_genus_results <- dunn_genus$res
+
+    # Extract significant comparisons for Genus level
+    significant_genus <- dunn_genus_results %>%
+      mutate(
+        comparison = Comparison  # Use 'Comparison' column directly
+      ) %>%
+      filter(P.adj < 0.05) %>%
+      arrange(P.adj)
+
+    print("Significant Pairwise Comparisons Between Genera:")
+    print(significant_genus)
+
+    # Visualize Results: Top Significant Comparisons at Family Level
+    ggplot(significant_family, aes(x = reorder(comparison, P.adj), y = P.adj)) +
+      geom_bar(stat = "identity", fill = "steelblue") +
+      coord_flip() +
+      labs(
+        title = "Significant Pairwise Comparisons: Family Level",
+        x = "Family Pair",
+        y = "Adjusted P-Value"
+      ) +
+      theme_minimal()
+
+    # Visualize Results: Top Significant Comparisons at Genus Level
+    ggplot(significant_genus, aes(x = reorder(comparison, P.adj), y = P.adj)) +
+      geom_bar(stat = "identity", fill = "steelblue") +
+      coord_flip() +
+      labs(
+        title = "Significant Pairwise Comparisons: Genus Level",
+        x = "Genus Pair",
+        y = "Adjusted P-Value"
+      ) +
+      theme_minimal()
+
+
+
+    ```
+
+3\. **Linear Mixed-Effects Model**
+
+1.  Use the `lme4` package to fit the mixed-effects model.
+
+2.  Incorporate the nested structure **(genus within family)** as random effects.
+
+3.  Examine the **fixed effects** (overall patterns) and **random effects** (family and genus-specific variability).
+
+4.  Visualize the model results for clarity.
+
+```{r, message=FALSE, warning=FALSE}
+# Install required packages if not already installed
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(lme4)) install.packages("lme4")
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(sjPlot)) install.packages("sjPlot")  # For visualization of mixed-effects models
+if (!require(forcats)) install.packages("forcats")  # For data reordering
+
+# Load necessary libraries
+library(dplyr)
+library(lme4)
+library(ggplot2)
+library(sjPlot)
+library(forcats)
+
+# Load the data (assuming cleaned_bee_nectar_data.csv)
+setwd("~/Desktop/NECTAR-PROJECT")  # Set your working directory
+bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
+
+# Convert necessary columns to factors
+bee_data$Family <- as.factor(bee_data$Family)
+bee_data$Genus <- as.factor(bee_data$Genus)
+
+# Remove rows with missing sugar concentration
+bee_data <- bee_data %>% filter(!is.na(sugar_concentration))
+
+# -------------------------------
+# Fit the Linear Mixed-Effects Model
+# -------------------------------
+# Model: Sugar concentration ~ (1 | Family/Genus) for random effects
+lmm_model <- lmer(sugar_concentration ~ 1 + (1 | Family/Genus), data = bee_data)
+
+# View the summary of the model
+summary(lmm_model)
+
+# -------------------------------
+# Extract and Filter Random Effects
+# -------------------------------
+# Extract random effects (Genus within Family)
+random_effects <- ranef(lmm_model)$`Genus:Family`
+random_effects_df <- as.data.frame(random_effects)
+colnames(random_effects_df) <- c("Random_Effect")  # Rename the random effects column
+
+# Add Genus:Family identifiers for clarity
+random_effects_df$Genus_Family <- rownames(random_effects)
+
+# Split Family and Genus into separate columns
+random_effects_df <- random_effects_df %>%
+  separate(Genus_Family, into = c("Family", "Genus"), sep = ":")
+
+# Arrange and select the top 10 and bottom 10 random effects
+random_effects_filtered <- random_effects_df %>%
+  arrange(desc(abs(Random_Effect))) %>%  # Sort by absolute value
+  slice(c(1:10, (n() - 9):n()))  # Select top 10 and bottom 10
+
+# -------------------------------
+# Visualize Random Effects
+# -------------------------------
+# 1. Histogram of Random Effects
+ggplot(random_effects_df, aes(x = Random_Effect)) +
+  geom_histogram(binwidth = 1, fill = "steelblue", color = "black") +
+  labs(
+    title = "Distribution of Random Effects: Genera within Families",
+    x = "Random Effect Estimate",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+# 2. Barplot for Top/Bottom 10 Random Effects
+ggplot(random_effects_filtered, aes(x = fct_reorder(Genus, Random_Effect), y = Random_Effect, fill = Family)) +
+  geom_bar(stat = "identity", color = "black") +
+  coord_flip() +
+  labs(
+    title = "Top and Bottom 10 Random Effects Estimates",
+    x = "Genus (Family)",
+    y = "Random Effect Estimate",
+    fill = "Family"
+  ) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(size = 8))
+
+
+```
 
 2**3. Geographical Impact**
 
@@ -250,7 +422,99 @@ hierarchical effects.
 
 **Analyses:**
 
+1\. **Kruskal-Wallis or ANOVA**:
+
+◦ Compare sugar concentrations across continents or hemispheres.
+
+◦ **Hypothesis**: Nectar sugar concentration varies geographically.
+
 ```{r, message=FALSE, warning=FALSE}
+# Install required packages if not already installed
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(tidyr)) install.packages("tidyr")
+if (!require(ggpubr)) install.packages("ggpubr")  # For normality tests
+if (!require(car)) install.packages("car")  # For ANOVA assumptions
+if (!require(FSA)) install.packages("FSA")  # For Kruskal-Wallis post-hoc tests
+
+# Load necessary libraries
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(ggpubr)
+library(car)
+library(FSA)
+
+# -------------------------------
+# Data Preparation
+# -------------------------------
+# Load data
+setwd("~/Desktop/NECTAR-PROJECT")  # Set your working directory
+bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
+
+# Convert geographical regions into factors
+bee_data_long <- bee_data %>%
+  gather(key = "Region", value = "Presence", europe:australia) %>%
+  filter(Presence == "yes") %>%  # Keep only relevant rows
+  mutate(Region = factor(Region))  # Convert Region to factor
+
+# Check the structure of the data
+str(bee_data_long)
+
+# -------------------------------
+# Normality Check (Shapiro-Wilk)
+# -------------------------------
+# Test for normality of sugar concentration
+shapiro_test <- shapiro.test(bee_data_long$sugar_concentration)
+print(shapiro_test)
+
+# -------------------------------
+# Select Appropriate Test: ANOVA or Kruskal-Wallis
+# -------------------------------
+if (shapiro_test$p.value > 0.05) {
+  cat("Data is approximately normal. Proceeding with ANOVA...\n")
+  
+  # ANOVA: Compare sugar concentration across Regions
+  anova_result <- aov(sugar_concentration ~ Region, data = bee_data_long)
+  print(summary(anova_result))
+  
+  # Tukey's Post-Hoc Test
+  tukey_result <- TukeyHSD(anova_result)
+  print(tukey_result)
+  
+  # Visualization: Boxplot for ANOVA
+  ggplot(bee_data_long, aes(x = Region, y = sugar_concentration, fill = Region)) +
+    geom_boxplot() +
+    labs(
+      title = "Nectar Sugar Concentration Across Geographical Regions",
+      x = "Region",
+      y = "Sugar Concentration (%)"
+    ) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  
+} else {
+  cat("Data is not normal. Proceeding with Kruskal-Wallis test...\n")
+  
+  # Kruskal-Wallis Test
+  kruskal_result <- kruskal.test(sugar_concentration ~ Region, data = bee_data_long)
+  print(kruskal_result)
+  
+  # Pairwise Dunn's Test for Post-Hoc Comparisons
+  dunn_result <- dunnTest(sugar_concentration ~ Region, data = bee_data_long, method = "bonferroni")
+  print(dunn_result)
+  
+  # Visualization: Boxplot for Kruskal-Wallis
+  ggplot(bee_data_long, aes(x = Region, y = sugar_concentration, fill = Region)) +
+    geom_boxplot() +
+    labs(
+      title = "Nectar Sugar Concentration Across Geographical Regions",
+      x = "Region",
+      y = "Sugar Concentration (%)"
+    ) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))
+}
 
 
 
@@ -259,24 +523,117 @@ hierarchical effects.
 
 ```
 
-1\. **Kruskal-Wallis or ANOVA**:
-
-◦ Compare sugar concentrations across continents or hemispheres.
-
-◦ **Hypothesis**: Nectar sugar concentration varies geographically.
-
 2\. **Geospatial Mapping**:
 
-◦ Use heatmaps or scatter plots on a world map to visualize geographic patterns in
+◦ Use heatmaps on a world map to visualize geographic patterns in
 
 sugar concentration.
 
 ```{r, message=FALSE, warning=FALSE}
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(tidyr)) install.packages("tidyr")
+if (!require(sf)) install.packages("sf")
+if (!require(rnaturalearth)) install.packages("rnaturalearth")
+if (!require(rnaturalearthdata)) install.packages("rnaturalearthdata")
+if (!require(viridis)) install.packages("viridis")
+
+# Load libraries
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(viridis)
+
+# -------------------------------
+# Data Preparation
+# Check unique values in region columns (assuming presence columns)
+bee_data %>%
+  select(africa, asia, australia, europe, north_america, south_america) %>%
+  summarise_all(~ unique(.))
+# Reshape the dataset to long format
+bee_data_long <- bee_data %>%
+  gather(key = "Region", value = "Presence", africa, asia, australia, europe, north_america, south_america) %>%
+  filter(Presence == "yes" & !is.na(sugar_concentration))  # Only "yes" and non-NA sugar concentrations
+
+# Calculate Mean, SD, and N for each region
+continent_summary <- bee_data_long %>%
+  group_by(Region) %>%
+  summarise(
+    Mean = round(mean(sugar_concentration, na.rm = TRUE), 2),
+    SD = round(sd(sugar_concentration, na.rm = TRUE), 2),
+    N = n()
+  ) %>%
+  filter(N > 0)  # Filter regions with at least one valid sample
+
+# Print the results
+print(continent_summary)
+# World map data
+world <- ne_countries(scale = "medium", returnclass = "sf")
 
 
 
+# Assume `continent_summary` has Mean, SD, and N for each region
+# The coordinates for each continent should be pre-defined (example coordinates below)
+continent_summary <- data.frame(
+  Region = c("africa", "asia", "australia", "europe", "north_america", "south_america"),
+  Mean = c(38.93, 38.70, 38.63, 38.41, 38.90, 39.11),
+  SD = c(11.02, 10.94, 11.07, 11.69, 11.67, 11.35),
+  N = c(282, 325, 317, 351, 354, 348),
+  lon = c(20, 90, 135, 10, -100, -60),  # Longitude for continent centers
+  lat = c(0, 30, -25, 55, 50, -15)     # Latitude for continent centers
+)
 
 
+
+# Load world map
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Data frame with coordinates, means, SD, and sample sizes
+continent_summary <- data.frame(
+  Region = c("africa", "asia", "australia", "europe", "north_america", "south_america"),
+  Mean = c(38.93, 38.70, 38.63, 38.41, 38.90, 39.11),
+  SD = c(11.02, 10.94, 11.07, 11.69, 11.67, 11.35),
+  N = c(282, 325, 317, 351, 354, 348),
+  lon = c(20, 90, 135, 10, -100, -60),  # Longitude for continent centers
+  lat = c(0, 30, -25, 55, 50, -15)     # Latitude for continent centers
+)
+
+# Adjust position slightly upwards for text
+continent_summary <- continent_summary %>%
+  mutate(text_lat = lat + 8)  # Move text up by 8 latitude units
+
+# Plot the map with aligned text above each continent
+ggplot() +
+  # Base world map
+  geom_sf(data = world, fill = "grey90", color = "white") +
+  
+  # Points on the map for each continent
+  geom_point(data = continent_summary, aes(x = lon, y = lat, size = N, color = Mean), alpha = 0.8) +
+  scale_color_gradient(low = "yellow", high = "purple", name = "Mean Sugar (%)") +
+  scale_size(range = c(5, 12), name = "Sample Size") +
+  
+  # Add text with N, Mean, and SD above the points
+  geom_text(data = continent_summary, aes(x = lon, y = text_lat, 
+                                          label = paste0("N = ", N, "\nMean = ", Mean, "\nSD = ", SD)),
+            size = 2, hjust = 0.5, vjust = 0, fontface = "bold") +
+  
+  # Titles and theme
+  labs(
+    title = "Sugar Concentration by Continent",
+    subtitle = "Mean and SD of nectar sugar concentration (%)"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    plot.title = element_text(face = "bold", size = 14),
+    plot.subtitle = element_text(size = 12),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_blank()
+  )
 
 ```
 
@@ -286,17 +643,6 @@ sugar concentration.
 
 • Evaluate whether plant type (crop vs. weed) affects nectar sugar concentration.
 
-**Analyses:**
-
-```{r, message=FALSE, warning=FALSE}
-
-
-
-
-
-
-```
-
 1\. **Boxplots by Type**:
 
 ◦ Compare sugar concentration between crops and weeds visually.
@@ -304,6 +650,60 @@ sugar concentration.
 2\. **T-Test or Wilcoxon Test**:
 
 ◦ Test for significant differences between crops and weeds.
+
+**Analyses:**
+
+```{r, message=FALSE, warning=FALSE}
+# -----------------------------
+# 1. Boxplot: Compare sugar concentration across types
+# -----------------------------
+# Filter out rows where 'type' is blank or NA
+bee_data <- bee_data %>%
+  filter(!is.na(type) & type != "")
+
+ggplot(bee_data, aes(x = type, y = sugar_concentration, fill = type)) +
+  geom_boxplot() +
+  labs(
+    title = "Nectar Sugar Concentration by Plant Type",
+    x = "Plant Type (Crop, Weed, Wild)",
+    y = "Sugar Concentration (%)"
+  ) +
+  scale_fill_manual(values = c("crop" = "lightgreen", "weed" = "tomato", "wild" = "skyblue")) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    legend.position = "none"
+  )
+
+# -----------------------------
+# 2. Kruskal-Wallis Test: Test for differences among the three groups
+# -----------------------------
+kruskal_result <- kruskal.test(sugar_concentration ~ type, data = bee_data)
+
+# Print Kruskal-Wallis results
+cat("\nKruskal-Wallis Test Results:\n")
+print(kruskal_result)
+
+# -----------------------------
+# 3. Dunn's Post-Hoc Test: Pairwise comparisons if Kruskal-Wallis is significant
+# -----------------------------
+if (kruskal_result$p.value < 0.05) {
+  dunn_result <- dunnTest(sugar_concentration ~ type, data = bee_data, method = "bonferroni")
+  
+  # Format the results for better display
+  dunn_result_df <- dunn_result$res
+  dunn_result_df <- dunn_result_df %>%
+    mutate(Significance = ifelse(P.adj < 0.05, "Significant", "Not Significant"))
+  
+  # Print pairwise results
+  cat("\nDunn's Post-Hoc Test Results (Bonferroni Adjustment):\n")
+  print(dunn_result_df)
+} else {
+  cat("\nNo significant differences found among the plant types.\n")
+}
+
+
+```
 
 4**5. Variability in High-Performing Families**
 
@@ -313,32 +713,77 @@ sugar concentration.
 
 genera. It can be genus to, the one where you find more differences
 
-**Analyses:**
-
-```{r, message=FALSE, warning=FALSE}
-
-
-
-
-
-
-```
-
 1\. **Subset High-Performing Families**:
 
 ◦ Filter families with high average sugar concentration.
 
 ◦ Compare variability among genera within these families.
 
-2\. **ANOVA or Mixed-Effects Model**:
+2\. **ANOVA**:
 
 ◦ Evaluate whether genera within high-performing families differ significantly.
+
+**Analyses:**
+
+```{r, message=FALSE, warning=FALSE}
+# Step 1: Identify High-Performing Families -----------------------------------
+
+# Calculate mean sugar concentration for each family
+family_summary <- bee_data %>%
+  group_by(Family) %>%
+  summarize(
+    Mean_Sugar = mean(sugar_concentration, na.rm = TRUE),
+    SD_Sugar = sd(sugar_concentration, na.rm = TRUE),
+    N = n()
+  ) %>%
+  arrange(desc(Mean_Sugar))
+
+# Filter families with mean sugar concentration > 45 (threshold can be adjusted)
+high_perf_families <- family_summary %>%
+  filter(Mean_Sugar > 55)
+
+# Print the high-performing families
+print(high_perf_families)
+
+# Subset the data to include only high-performing families
+high_perf_data <- bee_data %>%
+  filter(Family %in% high_perf_families$Family)
+
+# Step 2: Compare Variability Among Genera ------------------------------------
+
+# Boxplot: Sugar concentration by genus within high-performing families
+ggplot(high_perf_data, aes(x = Genus, y = sugar_concentration, fill = Family)) +
+  geom_boxplot() +
+  labs(
+    title = "Variability in Sugar Concentration Across Genera",
+    subtitle = "Within High-Performing Families",
+    x = "Genus",
+    y = "Sugar Concentration (%)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  theme_minimal()
+
+# Step 3: ANOVA to Evaluate Differences Among Genera --------------------------
+
+# Fit a linear model to test for differences among genera
+anova_model <- aov(sugar_concentration ~ Genus + Family, data = high_perf_data)
+
+# Display ANOVA summary
+anova_summary <- summary(anova_model)
+print(anova_summary)
+
+#########
+
+
+
+
+```
 
 5**6. Phylogenetic Signal Testing**
 
 **Objective:**
 
-• Assess if closely related species have similar nectar sugar concentrations.
+• Assess if closely related families have similar nectar sugar concentrations.
 
 **Analyses:**
 
@@ -375,41 +820,7 @@ conserved.
 
 
 
-
 ```
-
-6**7. Combined Geographic and Taxonomic Effects**
-
-**Objective:**
-
-• Investigate how geography interacts with taxonomy to affect nectar sugar concentration.
-
-**Analyses:**
-
-```{r, message=FALSE, warning=FALSE}
-
-
-
-
-
-
-```
-
-**1. Two-Way ANOVA**:
-
-**◦** Include both family and continent as factors.
-
-**2. Geographically Weighted Regression (GWR)**:
-
-**◦** Model regional variations in taxonomy's influence on sugar concentration.
-
-**◦ Tools**: **spgwr** or **sf** packages in R.
-
-Step-by-Step Explanation
-
-1.  Step 1: (What was done?)\
-2.  Step 2: (What tools/software were used?)\
-3.  Step 3: (Detailed explanation of the process.)
 
 # 6. Results
 
