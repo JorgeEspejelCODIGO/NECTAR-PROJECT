@@ -815,8 +815,53 @@ conserved.
 ◦ Map sugar concentration as a heatmap on the tree.
 
 ```{r, message=FALSE, warning=FALSE}
+# Install and load necessary libraries
+if (!require(rotl)) install.packages("rotl")
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(phytools)) install.packages("phytools")
+if (!require(ggtree)) BiocManager::install("ggtree")  # Use Bioconductor for ggtree
+if (!require(ape)) install.packages("ape")
 
+library(rotl)       # Open Tree of Life API
+library(dplyr)      # For data manipulation
+library(phytools)   # For tree visualization
+library(ape)        # For phylogenetic analysis
+library(ggtree)     # For aesthetic tree visualization
 
+# Step 1: Extract unique family names
+unique_families <- unique(bee_data$Family)
+
+# Step 2: Clean family names
+clean_families <- unique_families %>%
+  trimws() %>%      # Remove leading/trailing spaces
+  .[. != ""]        # Remove empty strings
+
+# Step 3: Manually fix known unresolved or synonymous names
+clean_families[clean_families == "losacae"] <- "Rosaceae"      # Fix unresolved "losacae"
+clean_families[clean_families == "asclepiadaceae"] <- "Apocynaceae"  # Synonym
+clean_families[clean_families == "tiliaceae"] <- "Malvaceae"         # Synonym
+
+# Step 4: Query Open Tree of Life for matched names
+resolved_names <- tnrs_match_names(names = clean_families, context_name = "All life")
+
+# Step 5: Filter to remove unresolved names (NA ott_id)
+resolved_names <- resolved_names %>% filter(!is.na(ott_id))
+
+# Step 6: Reduce the number of families (Optional)
+# Uncomment the next line to work with a smaller subset of families for testing
+# resolved_names <- resolved_names %>% slice(1:20)  # Use only the first 20 families
+
+# Step 7: Build the phylogenetic tree
+tree <- tol_induced_subtree(ott_ids = resolved_names$ott_id)
+tree$tip.label <- resolved_names$unique_name  # Rename tree tips
+
+# Step 8: Plot the tree using phytools
+plotTree(tree, ftype = "i", fsize = 0.7, main = "Phylogenetic Tree of Families")
+
+# Alternatively: Use ggtree for an aesthetic plot
+ggtree(tree) +
+  theme_tree2() +
+  labs(title = "Phylogenetic Tree of Families from Open Tree of Life")
 
 
 
