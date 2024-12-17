@@ -18,13 +18,9 @@ Analysis of the data set from the project "The nectar report: quantitative revie
 
 # 3. Introduction
 
-## Why your project is interesting?
+**Introduction**
 
-(Add your text here to explain the importance of your project.)
-
-## What is known already about it?
-
-(Add your background research and cite relevant studies here using proper citation format.)
+Nectar is a critical resource in plant-pollinator interactions, influencing pollinator behavior, visitation rates, and plant reproductive success. Its sugar composition—primarily sucrose, glucose, and fructose—serves as a key determinant of nectar quality and pollinator preference (Nicolson & Thornburg, 2007). Variations in nectar sugar concentration have been linked to ecological, evolutionary, and environmental factors, including plant taxonomy, geographical region, and climate conditions (Pacini & Nepi, 2007; Ornelas et al., 2019). Understanding these variations is crucial for elucidating the role of nectar traits in shaping plant-pollinator dynamics.Taxonomy plays a significant role in determining nectar composition. Differences in sugar ratios have been observed at both the family and genus levels, with phylogenetic constraints often influencing nectar traits (Perret et al., 2001; Chalcoff et al., 2006). For example, hummingbird-pollinated flowers tend to produce sucrose-dominant nectars, while bee-pollinated flowers show balanced sugar proportions (Rodríguez-Gironés & Santamaría, 2004; Nicolson & Thornburg, 2007). These variations highlight evolutionary adaptations to pollinator syndromes. In addition to taxonomy, geographic factors contribute to variability in nectar traits. Nectar sugar concentration has been shown to vary across regions, likely as a response to climatic factors such as temperature, rainfall, and latitude (Pacini & Nepi, 2007; Stiles & Freeman, 1993). For instance, studies in temperate and tropical regions have reported regional differences in nectar sugar concentration, influenced by both plant phylogeny and environmental conditions (Petanidou, 2005; Chalcoff et al., 2006). These findings underscore the interplay between evolutionary processes and environmental pressures in shaping nectar characteristics globally. Recent work, such as Ornelas et al. (2019), has revealed significant variation in nectar sugar concentration across families, genera, and continents, reflecting both fixed effects (taxonomic constraints) and random effects (environmental variability). Identifying these patterns is essential for understanding how nectar traits evolve and adapt in different ecological and climatic contexts. This study aims to analyze the variability in nectar sugar concentration across taxonomic levels and geographical regions. Specifically, we investigate: (1) differences in mean nectar sugar concentration between continents, (2) significant pairwise comparisons at family and genus levels, and (3) the distribution of random effects within taxonomic families. By addressing these objectives, the study contributes to a broader understanding of how nectar traits influence pollination ecology in a changing global environment.
 
 # 4. Objectives and Hypotheses
 
@@ -815,62 +811,40 @@ conserved.
 ◦ Map sugar concentration as a heatmap on the tree.
 
 ```{r, message=FALSE, warning=FALSE}
-# Install and load necessary libraries
-if (!require(rotl)) install.packages("rotl")
-if (!require(dplyr)) install.packages("dplyr")
-if (!require(phytools)) install.packages("phytools")
-if (!require(ggtree)) BiocManager::install("ggtree")  # Use Bioconductor for ggtree
-if (!require(ape)) install.packages("ape")
-
-library(rotl)       # Open Tree of Life API
-library(dplyr)      # For data manipulation
-library(phytools)   # For tree visualization
-library(ape)        # For phylogenetic analysis
-library(ggtree)     # For aesthetic tree visualization
-
-# Step 1: Extract unique family names
-unique_families <- unique(bee_data$Family)
-
-# Step 2: Clean family names
-clean_families <- unique_families %>%
-  trimws() %>%      # Remove leading/trailing spaces
-  .[. != ""]        # Remove empty strings
-
-# Step 3: Manually fix known unresolved or synonymous names
-clean_families[clean_families == "losacae"] <- "Rosaceae"      # Fix unresolved "losacae"
-clean_families[clean_families == "asclepiadaceae"] <- "Apocynaceae"  # Synonym
-clean_families[clean_families == "tiliaceae"] <- "Malvaceae"         # Synonym
-
-# Step 4: Query Open Tree of Life for matched names
-resolved_names <- tnrs_match_names(names = clean_families, context_name = "All life")
-
-# Step 5: Filter to remove unresolved names (NA ott_id)
-resolved_names <- resolved_names %>% filter(!is.na(ott_id))
-
-# Step 6: Reduce the number of families (Optional)
-# Uncomment the next line to work with a smaller subset of families for testing
-# resolved_names <- resolved_names %>% slice(1:20)  # Use only the first 20 families
-
-# Step 7: Build the phylogenetic tree
-tree <- tol_induced_subtree(ott_ids = resolved_names$ott_id)
-tree$tip.label <- resolved_names$unique_name  # Rename tree tips
-
-# Step 8: Plot the tree using phytools
-plotTree(tree, ftype = "i", fsize = 0.7, main = "Phylogenetic Tree of Families")
-
-# Alternatively: Use ggtree for an aesthetic plot
-ggtree(tree) +
-  theme_tree2() +
-  labs(title = "Phylogenetic Tree of Families from Open Tree of Life")
-
 
 
 ```
 
 # 6. Results
 
-Here we are to print the analysis results and just show it here
+**Results**
 
-(Add your figures and tables here. Each figure/table should have a caption and a brief description.)
+**Nectar Sugar Concentration Across Geographical Regions**
+
+The mean nectar sugar concentration varied slightly across geographical regions (Figure 8). South America had the highest mean concentration (39.11%, SD = 11.35) followed by Europe (38.93%, SD = 11.02) and Africa (38.9%, SD = 11.67). Australia exhibited the lowest mean sugar concentration at 38.63% (SD = 11.07). Despite minor fluctuations, the mean concentrations remained consistent globally.
+
+**Taxonomic Differences in Sugar Concentration**
+
+Significant taxonomic variation was observed at both the **family** and **genus** levels. At the **family level**, Zygophyllaceae, Vitaceae, and Violaceae families exhibited the most significant differences in nectar sugar concentration (p-values \< 1e-9) (Figure 2). Conversely, genera such as *Aesculus*, *Adesmia*, and *Aconitum* demonstrated high variability at the genus level (Figure 2).
+
+**Pairwise Comparisons**
+
+Significant pairwise comparisons revealed differences in sugar concentrations between specific families and genera (Figures 3 and 4). For instance:
+
+```         
+•   At the family level, the largest significant differences were observed between **Brassicaceae-Solanaceae** and **Asteraceae-Brassicaceae** pairs, with adjusted p-values close to 0.02.
+
+•   At the genus level, comparisons such as *Adesmia-Ribes* and *Aconitum-Pyrus* showed significant differences, highlighting specific genera driving variability within families.
+```
+
+**Distribution of Random Effects**
+
+The distribution of random effects (Figure 5) showed that most genera clustered around zero, indicating minimal deviation in nectar sugar concentration across genera. However, outliers with extreme positive and negative estimates were observed, emphasizing the presence of notable variations among specific genera within families.
+
+The **top 10 and bottom 10 random effect estimates** (Figure 6) identified families and genera with the highest variability. Families such as **Lamiaceae** and **Salicaceae** exhibited large positive deviations, while Solanaceae and Amaryllidaceae displayed negative deviations. These families and their respective genera significantly influenced nectar sugar concentration trends.
+
+**Family-Level and Regional Patterns**
+
+A comparison of mean nectar sugar concentration across families and regions (Figure 1) showed that most families maintained consistent sugar concentrations across continents. However, families like Zygophyllaceae and Vitaceae presented slight variability, which could contribute to the observed global patterns.
 
 ### 
