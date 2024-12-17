@@ -828,7 +828,6 @@ print(mean_family_sugar)
 # Optional: Display a clean table for the Quarto output
 knitr::kable(mean_family_sugar, caption = "Mean Sugar Concentration per Family")
 ############
-
 # Install and load required libraries
 if (!require(rotl)) install.packages("rotl")
 library(rotl)
@@ -859,66 +858,68 @@ ggtree(tree, size = 0.7) +  # Reduce branch thickness
   geom_tiplab(size = 3, align = TRUE, hjust = -0.1, linesize = 0.5) +  # Add tip labels
   labs(title = "Phylogenetic Tree of Families (Real Relationships)") +
   theme_tree2() +
-  scale_x_continuous(expand = c(0, 0.5))  # Adjust X-axis space to fit labels
-
+  scale_x_continuous(expand = c(0, 4.5))  # Adjust X-axis space to fit labels
+}
 ```
 
 ```{r, message=FALSE, warning=FALSE}
-# Install and load required libraries
-if (!require(ggtree)) BiocManager::install("ggtree")
-if (!require(tibble)) install.packages("tibble")
-if (!require(dplyr)) install.packages("dplyr")
+# Load necessary libraries
 if (!require(ggplot2)) install.packages("ggplot2")
-library(ggtree)
-library(tibble)
-library(dplyr)
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(stringdist)) install.packages("stringdist")
 library(ggplot2)
+library(dplyr)
+library(stringdist)
 
-# Step 1: Prepare the sugar concentration data
-# Filter and compute mean sugar concentration per family
-sugar_data <- bee_data %>%
-  filter(!is.na(Family) & Family != "", !is.na(sugar_concentration)) %>%
-  mutate(sugar_concentration = as.numeric(sugar_concentration)) %>%
-  group_by(Family) %>%
-  summarise(mean_sugar_concentration = mean(sugar_concentration, na.rm = TRUE))
+# Step 1: Extract the ordered family names manually from the tree
+ordered_families <- c(
+  "Verbenaceae_ott1081077", "Lamiaceae_ott544714", "Bignoniaceae_ott900321",
+  "Oleaceae_ott23723", "mrcaott2108ott12524", "Apocynaceae_ott524059",
+  "Solanaceae_ott473827", "Caprifoliaceae_ott69534", "Araliaceae_ott524079",
+  "Asteraceae_ott46248", "Polygonaceae_ott904376", "Nyctaginaceae_ott740464",
+  "Violaceae_ott224730", "Passifloraceae_ott530187", "Linaceae_ott1000257",
+  "Fabaceae_ott560323", "Rosales_ott208031", "Zygophyllaceae_ott461732",
+  "Malvaceae_ott279960", "Brassicaceae_ott309271", "mrcaott960tt1860",
+  "Onagraceae_ott1015483", "Vitaceae_ott1069308", "Grossulariaceae_ott488526",
+  "Berberidaceae_ott297866", "Ranunculaceae_ott387826", "Amaryllidaceae_ott17701",
+  "Costaceae_ott679527", "Alstroemeriaceae_ott940129", "Magnoliaceae_ott288464"
+)
 
-# Match only valid families
-valid_families <- sugar_data$Family
+# Step 2: Match family names in ordered_families with closest names in mean_family_sugar
+matched_names <- sapply(ordered_families, function(tree_name) {
+  closest_match <- mean_family_sugar$Family[which.min(
+    stringdist::stringdist(tree_name, mean_family_sugar$Family)
+  )]
+  return(closest_match)
+})
 
-# Step 2: Match family names to Open Tree of Life (OTL) identifiers
-matched_names <- tnrs_match_names(names = valid_families)
+# Step 3: Create a new table with matched names and sugar concentrations
+heatmap_data <- data.frame(
+  Tree_Family = ordered_families,       # Tree order
+  Matched_Family = matched_names        # Closest names from mean_family_sugar
+)
 
-# Filter out unmatched names
-valid_matches <- matched_names %>%
-  filter(!is.na(ott_id)) %>%
-  select(unique_name, ott_id)
+# Merge with sugar concentrations
+heatmap_data <- heatmap_data %>%
+  left_join(mean_family_sugar, by = c("Matched_Family" = "Family")) %>%
+  mutate(Tree_Family = factor(Tree_Family, levels = ordered_families)) %>%
+  select(Tree_Family, mean_sugar_concentration)
 
-# Step 3: Generate the phylogenetic tree using valid IDs
-tree <- tol_induced_subtree(ott_ids = valid_matches$ott_id)
-tree$tip.label <- valid_matches$unique_name  # Update tip labels with family names
+# Step 4: Plot the heatmap and reverse the Y-axis order
+ggplot(heatmap_data, aes(x = "", y = Tree_Family, fill = mean_sugar_concentration)) +
+  geom_tile() +
+  scale_fill_gradient(low = "yellow", high = "red", name = "Sugar Conc.") +
+  scale_y_discrete(limits = rev(levels(heatmap_data$Tree_Family))) +  # Reverse the Y-axis order
+  labs(title = "Heatmap of Sugar Concentration by Family (Tree Order)", 
+       x = "", y = "Family") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank(), 
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_text(size = 8))  # Adjust text size for readability
 
-# Step 4: Prepare heatmap data
-# Merge sugar data with the tree tip labels
-heatmap_data <- sugar_data %>%
-  filter(Family %in% tree$tip.label) %>%
-  rename(label = Family) %>%
-  select(label, mean_sugar_concentration)
+```
 
-# Ensure order matches the tree
-heatmap_data <- tibble(label = tree$tip.label) %>%
-  left_join(heatmap_data, by = "label")
-
-# Step 5: Plot the phylogenetic tree with heatmap
-p <- ggtree(tree, size = 0.7) +
-  geom_tiplab(size = 3, align = TRUE, hjust = -0.1, linesize = 0.5) +
-  labs(title = "Phylogenetic Tree with Sugar Concentration Heatmap") +
-  theme_tree2()
-
-# Add heatmap of sugar concentrations
-gheatmap(p, heatmap_data %>% select(mean_sugar_concentration),
-         offset = 1, width = 0.5, colnames = FALSE) +
-  scale_fill_gradient(low = "yellow", high = "red", name = "Sugar Conc.")
-
+```         
 ```
 
 # 6. Results
