@@ -26,65 +26,159 @@ For the phylogenetic relationships you can follow the "Tree of life" database an
 
 ### Objectives
 
-**Primary Objective**:\
+Objectives
+
+Primary Objective:
+
 To investigate the relationships between plant taxonomy (e.g., family, genus), geography and nectar sugar concentration.
 
-**Secondary Objectives**:
+Secondary Objective
 
--   To assess how sugar concentrations vary geographically
+To analyze sugar concentration variability within high-performing families and identify key genera.
 
--   To analyze sugar concentration variability within high-performing families and identify key genera.
+Hypotheses
 
-### Hypothesis
+Primary Hypothesis:
 
-**Primary Hypothesis**:
+H₀ (Null Hypothesis): There is no significant relationship between plant taxonomy (family, genus) and nectar sugar concentration.
 
--   **H₀ (Null Hypothesis)**: There is no significant relationship between plant taxonomy (family, genus) and nectar sugar concentration.
+H₁ (Alternative Hypothesis): Plant taxonomy significantly affects nectar sugar concentration.
 
--   **H₁ (Alternative Hypothesis)**: Plant taxonomy significantly affects nectar sugar concentration.
+Secondary Hypotheses:
 
-**Secondary Hypotheses**:
+Geographical Variation:
 
--   **Geographical Variation**:
+H₀: Nectar sugar concentration does not vary significantly across geographical regions (continents or hemispheres).
 
--   **H₀**: Nectar sugar concentration does not vary significantly across geographical regions (continents or hemispheres).
+H₁: Nectar sugar concentration varies significantly across geographical regions.
 
--   **H₁**: Nectar sugar concentration varies significantly across geographical regions.
+Taxonomic Contribution:
 
-**Taxonomic Contribution**:
+H₀: Within high-performing families, genera do not significantly differ in their contributions to higher average sugar concentrations.
 
--   **H₀**: Within high-performing families, genera do not significantly differ in their contributions to higher average sugar concentrations.
-
--   **H₁**: Certain genera within high-performing families significantly drive higher average sugar concentrations.
+H₁: Certain genera within high-performing families significantly drive higher average sugar concentrations.
 
 ### Analysis
 
-**Descriptive Analysis**:
+1. Summary Statistics:
 
--   Calculate summary statistics (mean, median, standard deviation) for sugar concentrations across families, genera, and geographical regions.
+Objective: Summarize nectar sugar concentration by Family, Genus, and Region.
 
--   Visualize data distribution across regions and taxonomic levels using box plots and histograms.
+Analyses:
 
-**Geographical Impact**:
+Grouped data by Family, Genus, and Region to compute:
 
--   Analyze geographical distribution by calculating mean sugar concentrations
+Mean: To determine average sugar concentration.
 
--   Perform hypothesis testing (e.g., ANOVA) to evaluate geographical differences in nectar sugar concentration.
+Median: To measure central tendency, reducing outlier effects.
 
-**Ecological Analysis**:
+Range: To understand variability in sugar concentration.
 
--   Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration.
+Standard Deviation (SD): To quantify data spread.
 
--   Investigate relationships between plant types (e.g., crops vs. weeds) and nectar sugar concentration
+Interquartile Range (IQR): To capture variability while ignoring extreme values.
 
-**Phylogenetic Signal Testing**:
+Visualized the mean sugar concentration by Family and Region using barplots.
 
--   Use Open Tree of Life to construct a phylogenetic tree for the species in the dataset.
+2. Kruskal-Wallis Test for Taxonomic Effects:
 
--   Mapping Nectar Data:visualize the phylogenetic tree with sugar concentration mapped as a heatmap or colored tip
+Objective: Evaluate the relationship between taxonomy and nectar sugar concentration.
 
--   Identify whether closely related species share similar nectar sugar concentrations
+Analyses:
 
+Conducted Kruskal-Wallis tests for sugar concentration across:
+
+Families and Genera to detect significant differences.
+
+Visualized results with a heatmap highlighting significant p-values for Family and Genus comparisons.
+
+3. Pairwise Comparisons with Dunn’s Test:
+
+Objective: Identify pairwise differences in nectar sugar concentration.
+
+Analyses:
+
+Performed Dunn’s test for pairwise comparisons at both:
+
+Family and Genus levels.
+
+Adjusted p-values using the Bonferroni correction.
+
+Highlighted significant pairwise comparisons in barplots.
+
+4. Linear Mixed-Effects Model:
+
+Objective: Assess variability in nectar sugar concentration within and across Families and Genera.
+
+Analyses:
+
+Fitted a linear mixed-effects model:
+
+Included Genus nested within Family as random effects.
+
+Examined fixed and random effects.
+
+Visualized random effects using histograms and barplots for top/bottom genera.
+
+5. Geographical Effects on Sugar Concentration:
+
+Objective: Explore geographical variability in nectar sugar concentration.
+
+Analyses:
+
+Tested sugar concentration across continents using:
+
+ANOVA (if data were normal) or Kruskal-Wallis (if non-normal).
+
+Visualized results with boxplots and geospatial maps highlighting mean sugar concentration per region.
+
+6. Ecological Effects (Crops vs. Weeds):
+
+Objective: Compare sugar concentration between crops and weeds.
+
+Analyses:
+
+Created boxplots to visualize differences between plant types.
+
+Used Kruskal-Wallis tests to test for significant differences.
+
+Performed Dunn’s test for pairwise comparisons between plant types.
+
+7. High-Performing Families:
+
+Objective: Analyze sugar concentration variability within families with high average values.
+
+Analyses:
+
+Identified families with mean sugar concentration > 55%.
+
+Conducted ANOVA to evaluate differences among genera within these families.
+
+Visualized variability using boxplots.
+
+8. Phylogenetic Analysis:
+
+Objective: Assess evolutionary patterns in nectar sugar concentration.
+
+Analyses:
+
+Matched Family names with Open Tree of Life identifiers.
+
+Constructed a phylogenetic tree and tested for phylogenetic signal.
+
+Mapped sugar concentration as a heatmap on the tree.
+
+9. Heatmap of Sugar Concentration by Family:
+
+Objective: Visualize sugar concentration aligned with phylogenetic tree order.
+
+Analyses:
+
+Aligned Family order from the phylogenetic tree.
+
+Mapped mean sugar concentration using a heatmap.
+
+Adjusted visualization for improved readability.
 
 
 ## Files description

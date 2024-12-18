@@ -146,21 +146,152 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="methods" class="level1">
 <h1>5. Methods</h1>
-<p><strong>1. Descriptive Analysis</strong></p>
-<p><strong>Objective:</strong></p>
-<p>• Summarize the overall dataset to understand variability and patterns.</p>
-<p><strong>Analyses:</strong></p>
-<p>1. <strong>Summary Statistics</strong>:</p>
+<hr>
+<section id="summary-statistics" class="level3">
+<h3 class="anchored" data-anchor-id="summary-statistics">1. <strong>Summary Statistics</strong>:</h3>
 <ul>
-<li><p>The data was grouped by&nbsp;<strong>Family</strong>,&nbsp;<strong>Genus</strong>, and&nbsp;<strong>Geographical Region</strong>&nbsp;to calculate key descriptive statistics:</p>
+<li><p><strong>Objective</strong>: Summarize nectar sugar concentration by Family, Genus, and Region.</p></li>
+<li><p><strong>Analyses</strong>:</p>
 <ul>
-<li><p><strong>Mean</strong>: To determine the average sugar concentration for each group.</p></li>
-<li><p><strong>Median</strong>: To assess the central tendency of sugar concentration values, reducing the influence of extreme values.</p></li>
-<li><p><strong>Range</strong>: To highlight the variability of sugar concentration within each group.</p></li>
-<li><p><strong>Standard Deviation (SD)</strong>: To measure the spread or dispersion of sugar concentration values around the mean.</p></li>
-<li><p><strong>Interquartile Range (IQR)</strong>: To capture the middle 50% of the data and assess variability while ignoring outliers.</p></li>
+<li>Grouped data by <strong>Family</strong>, <strong>Genus</strong>, and <strong>Region</strong> to compute:
+<ul>
+<li><strong>Mean</strong>: To determine average sugar concentration.</li>
+<li><strong>Median</strong>: To measure central tendency, reducing outlier effects.</li>
+<li><strong>Range</strong>: To understand variability in sugar concentration.</li>
+<li><strong>Standard Deviation (SD)</strong>: To quantify data spread.</li>
+<li><strong>Interquartile Range (IQR)</strong>: To capture variability while ignoring extreme values.</li>
+</ul></li>
+<li>Visualized the mean sugar concentration by Family and Region using barplots.</li>
 </ul></li>
 </ul>
+<hr>
+</section>
+<section id="kruskal-wallis-test-for-taxonomic-effects" class="level3">
+<h3 class="anchored" data-anchor-id="kruskal-wallis-test-for-taxonomic-effects">2. <strong>Kruskal-Wallis Test for Taxonomic Effects</strong>:</h3>
+<ul>
+<li><p><strong>Objective</strong>: Evaluate the relationship between taxonomy and nectar sugar concentration.</p></li>
+<li><p><strong>Analyses</strong>:</p>
+<ul>
+<li>Conducted <strong>Kruskal-Wallis tests</strong> for sugar concentration across:
+<ul>
+<li><strong>Families</strong> and <strong>Genera</strong> to detect significant differences.</li>
+</ul></li>
+<li>Visualized results with a heatmap highlighting significant p-values for Family and Genus comparisons.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="pairwise-comparisons-with-dunns-test" class="level3">
+<h3 class="anchored" data-anchor-id="pairwise-comparisons-with-dunns-test">3. <strong>Pairwise Comparisons with Dunn’s Test</strong>:</h3>
+<ul>
+<li><p><strong>Objective</strong>: Identify pairwise differences in nectar sugar concentration.</p></li>
+<li><p><strong>Analyses</strong>:</p>
+<ul>
+<li>Performed <strong>Dunn’s test</strong> for pairwise comparisons at both:
+<ul>
+<li><strong>Family</strong> and <strong>Genus</strong> levels.</li>
+</ul></li>
+<li>Adjusted p-values using the <strong>Bonferroni correction</strong>.</li>
+<li>Highlighted significant pairwise comparisons in barplots.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="linear-mixed-effects-model" class="level3">
+<h3 class="anchored" data-anchor-id="linear-mixed-effects-model">4. <strong>Linear Mixed-Effects Model</strong>:</h3>
+<ul>
+<li><p><strong>Objective</strong>: Assess variability in nectar sugar concentration within and across Families and Genera.</p></li>
+<li><p><strong>Analyses</strong>:</p>
+<ul>
+<li>Fitted a <strong>linear mixed-effects model</strong>:
+<ul>
+<li>Included <strong>Genus nested within Family</strong> as random effects.</li>
+</ul></li>
+<li>Examined fixed and random effects.</li>
+<li>Visualized random effects using histograms and barplots for top/bottom genera.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="geographical-effects-on-sugar-concentration" class="level3">
+<h3 class="anchored" data-anchor-id="geographical-effects-on-sugar-concentration">5. <strong>Geographical Effects on Sugar Concentration</strong>:</h3>
+<ul>
+<li><p><strong>Objective</strong>: Explore geographical variability in nectar sugar concentration.</p></li>
+<li><p><strong>Analyses</strong>:</p>
+<ul>
+<li>Tested sugar concentration across continents using:
+<ul>
+<li><strong>ANOVA</strong> (if data were normal) or <strong>Kruskal-Wallis</strong> (if non-normal).</li>
+</ul></li>
+<li>Visualized results with boxplots and geospatial maps highlighting mean sugar concentration per region.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="ecological-effects-crops-vs.-weeds" class="level3">
+<h3 class="anchored" data-anchor-id="ecological-effects-crops-vs.-weeds">6. <strong>Ecological Effects (Crops vs.&nbsp;Weeds)</strong>:</h3>
+<ul>
+<li><p><strong>Objective</strong>: Compare sugar concentration between crops and weeds.</p></li>
+<li><p><strong>Analyses</strong>:</p>
+<ul>
+<li>Created <strong>boxplots</strong> to visualize differences between plant types.</li>
+<li>Used <strong>Kruskal-Wallis tests</strong> to test for significant differences.</li>
+<li>Performed <strong>Dunn’s test</strong> for pairwise comparisons between plant types.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="high-performing-families" class="level3">
+<h3 class="anchored" data-anchor-id="high-performing-families">7. <strong>High-Performing Families</strong>:</h3>
+<ul>
+<li><p><strong>Objective</strong>: Analyze sugar concentration variability within families with high average values.</p></li>
+<li><p><strong>Analyses</strong>:</p>
+<ul>
+<li>Identified families with <strong>mean sugar concentration &gt; 55%</strong>.</li>
+<li>Conducted <strong>ANOVA</strong> to evaluate differences among genera within these families.</li>
+<li>Visualized variability using boxplots.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="phylogenetic-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="phylogenetic-analysis">8. <strong>Phylogenetic Analysis</strong>:</h3>
+<ul>
+<li><p><strong>Objective</strong>: Assess evolutionary patterns in nectar sugar concentration.</p></li>
+<li><p><strong>Analyses</strong>:</p>
+<ul>
+<li>Matched Family names with Open Tree of Life identifiers.</li>
+<li>Constructed a <strong>phylogenetic tree</strong> and tested for <strong>phylogenetic signal</strong>.</li>
+<li>Mapped sugar concentration as a heatmap on the tree.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="heatmap-of-sugar-concentration-by-family" class="level3">
+<h3 class="anchored" data-anchor-id="heatmap-of-sugar-concentration-by-family">9. <strong>Heatmap of Sugar Concentration by Family</strong>:</h3>
+<ul>
+<li><p><strong>Objective</strong>: Visualize sugar concentration aligned with phylogenetic tree order.</p></li>
+<li><p><strong>Analyses</strong>:</p>
+<ul>
+<li>Aligned Family order from the phylogenetic tree.</li>
+<li>Mapped mean sugar concentration using a heatmap.</li>
+<li>Adjusted visualization for improved readability.</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="results" class="level1">
+<h1>6. Results</h1>
+<section id="summary-statistics-1" class="level4">
+<h4 class="anchored" data-anchor-id="summary-statistics-1">1.&nbsp;<strong>Summary Statistics</strong></h4>
+<p>The descriptive analysis summarized nectar sugar concentration across families, genera, and geographical regions. Results indicate significant variability in sugar concentrations:</p>
+<ul>
+<li><p>Mean nectar sugar concentrations ranged between&nbsp;<strong>40% and 65%</strong>, depending on family and region.</p></li>
+<li><p>Families like&nbsp;<strong>Asteraceae</strong>,&nbsp;<strong>Fabaceae</strong>, and&nbsp;<strong>Zygophyllaceae</strong>&nbsp;showed higher average concentrations across most regions.</p></li>
+<li><p>Geographical regions, demonstrated similar trends with some variability across families.</p></li>
+</ul>
+<p><strong>Figure 1</strong>: Mean nectar sugar concentration (%) by Family and Region.</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 418 × 8
@@ -181,132 +312,109 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>1<strong>2. Taxonomic Effects on Nectar Sugar Concentration</strong></p>
-<p><strong>Objective:</strong></p>
-<p>• Test the relationship between taxonomy and nectar sugar concentration.</p>
-<p><strong>Analyses:</strong></p>
-<p>1. <strong>Kruskal-Wallis</strong>:</p>
-<p>◦ Compare sugar concentrations across families and genera.</p>
-<p>◦ <strong>Hypothesis</strong>: Taxonomy significantly affects sugar concentration.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install required packages if not already installed</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(dplyr)) <span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(tidyr)) <span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(ggplot2)) <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure sugar concentration is numeric and missing data is handled</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>bee_data <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Family), <span class="sc">!</span><span class="fu">is.na</span>(Genus), <span class="sc">!</span><span class="fu">is.na</span>(sugar_concentration)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sugar_concentration =</span> <span class="fu">as.numeric</span>(sugar_concentration))</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test for nectar sugar concentration by Family</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>kw_family_taxonomy <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Family) <span class="sc">%&gt;%</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_value =</span> <span class="fu">tryCatch</span>(</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">kruskal.test</span>(sugar_concentration <span class="sc">~</span> Family, <span class="at">data =</span> bee_data)<span class="sc">$</span>p.value,</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">error =</span> <span class="cf">function</span>(e) <span class="cn">NA</span>  <span class="co"># Handle errors by assigning NA</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(p_value))  <span class="co"># Remove rows with NA p-values</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test for nectar sugar concentration by Genus</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>kw_genus_taxonomy <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Genus) <span class="sc">%&gt;%</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_value =</span> <span class="fu">tryCatch</span>(</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>      <span class="fu">kruskal.test</span>(sugar_concentration <span class="sc">~</span> Genus, <span class="at">data =</span> bee_data)<span class="sc">$</span>p.value,</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>      <span class="at">error =</span> <span class="cf">function</span>(e) <span class="cn">NA</span>  <span class="co"># Handle errors by assigning NA</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(p_value))  <span class="co"># Remove rows with NA p-values</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine Family and Genus results</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>kw_taxonomy_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  kw_family_taxonomy <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Level =</span> <span class="st">"Family"</span>),</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  kw_genus_taxonomy <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Level =</span> <span class="st">"Genus"</span>)</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure unique identifiers for visualization</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>kw_taxonomy_results <span class="ot">&lt;-</span> kw_taxonomy_results <span class="sc">%&gt;%</span></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">Identifier =</span> <span class="fu">ifelse</span>(Level <span class="sc">==</span> <span class="st">"Family"</span>, <span class="fu">paste</span>(Family, <span class="st">"Family"</span>), <span class="fu">paste</span>(Genus, <span class="st">"Genus"</span>))</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter top 5 smallest and largest p-values dynamically</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>kw_taxonomy_filtered <span class="ot">&lt;-</span> kw_taxonomy_results <span class="sc">%&gt;%</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(p_value) <span class="sc">%&gt;%</span></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, (<span class="fu">n</span>() <span class="sc">-</span> <span class="dv">4</span>)<span class="sc">:</span><span class="fu">n</span>()))  <span class="co"># Select top 5 smallest and largest p-values</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure there are results to plot</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(kw_taxonomy_filtered) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create the heatmap for taxonomic effects</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(kw_taxonomy_filtered, <span class="fu">aes</span>(<span class="at">x =</span> Level, <span class="at">y =</span> Identifier, <span class="at">fill =</span> p_value)) <span class="sc">+</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>, <span class="at">name =</span> <span class="st">"p-value"</span>, <span class="at">na.value =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Top 5 Smallest and Largest P-Values: Taxonomic Effects on Nectar Sugar Concentration"</span>,</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Taxonomic Level"</span>,</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Family or Genus"</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>)</span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"No significant results to display."</span>)</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
 <p><img src="Preliminary-results_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>2. <strong>Perform Dunn’s Post-Hoc Test using the&nbsp;<code>dunnTest</code>&nbsp;function from</strong> the&nbsp;<strong>FSA</strong>&nbsp;package.</p>
+</section>
+<section id="taxonomic-effects-on-nectar-sugar-concentration" class="level4">
+<h4 class="anchored" data-anchor-id="taxonomic-effects-on-nectar-sugar-concentration"><strong>2. Taxonomic Effects on Nectar Sugar Concentration</strong></h4>
+<p>The Kruskal-Wallis test revealed that significant differences in nectar sugar concentration are primarily observed at the&nbsp;<strong>Genus level</strong>.</p>
 <ul>
-<li><p>Apply the test to both&nbsp;<strong>families</strong>&nbsp;and&nbsp;<strong>genera</strong>&nbsp;to identify pairwise differences.</p></li>
-<li><p>Adjust the p-values for multiple comparisons using the&nbsp;<strong>Bonferroni correction</strong>.</p></li>
-<li><p>Visualize the results in a clear way (e.g., a barplot or table) to highlight significant pairwise differences.</p>
+<li><p><strong>Genus level</strong>: Genera such as&nbsp;<strong>Aesculus</strong>&nbsp;and&nbsp;<strong>Adesmia</strong>&nbsp;exhibited the most notable differences, as reflected in their&nbsp;<strong>low adjusted p-values</strong>&nbsp;(Figure 2), confirming statistically significant differences.</p></li>
+<li><p><strong>Family level</strong>: The top 5 largest p-values indicate&nbsp;<strong>non-significant differences</strong>, suggesting less distinct variation in sugar concentrations between families (Figure 2).</p></li>
+</ul>
+<p>This highlights that variability in nectar sugar concentration is more pronounced within genera rather than across broader family classifications.</p>
+</section>
+<section id="pairwise-comparisons-analysis" class="level4">
+<h4 class="anchored" data-anchor-id="pairwise-comparisons-analysis">3. Pairwise Comparisons Analysis:</h4>
+<ul>
+<li><p><strong>Family level</strong>: Significant pairwise differences were observed in specific family pairs such as&nbsp;<strong>Brassicaceae - Solanaceae</strong>&nbsp;and&nbsp;<strong>Asteraceae - Brassicaceae</strong>&nbsp;(Figure 3). These families showed distinct differences in sugar concentration values.</p></li>
+<li><p><strong>Genus level</strong>: At the genus level,&nbsp;<strong>Adesmia - Ribes</strong>&nbsp;and&nbsp;<strong>Aconitum - Pyrus</strong>&nbsp;showed the most significant pairwise differences (Figure 4). This emphasizes greater variation in nectar sugar concentration between genera compared to families.</p></li>
+</ul>
+<p><strong>Figure 2</strong>: Top 5 smallest and largest p-values for taxonomic effects.<br>
+<strong>Figure 3 and 4</strong>: Significant pairwise comparisons at the Family and Genus level.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install required packages if not already installed</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(dplyr)) <span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(tidyr)) <span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(ggplot2)) <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(FSA)) <span class="fu">install.packages</span>(<span class="st">"FSA"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(ggpubr)) <span class="fu">install.packages</span>(<span class="st">"ggpubr"</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FSA)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Set working directory (adjust as needed)</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"~/Desktop/NECTAR-PROJECT"</span>)</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>bee_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"cleaned_bee_nectar_data.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Dunn's Test for Pairwise Comparisons at the Family Level</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>dunn_family <span class="ot">&lt;-</span> <span class="fu">dunnTest</span>(sugar_concentration <span class="sc">~</span> Family, <span class="at">data =</span> bee_data, <span class="at">method =</span> <span class="st">"bonferroni"</span>)</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>dunn_family_results <span class="ot">&lt;-</span> dunn_family<span class="sc">$</span>res</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Check column names of the Dunn test results</span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(dunn_family_results))  <span class="co"># Debugging step to confirm column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure sugar concentration is numeric and missing data is handled</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>bee_data <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Family), <span class="sc">!</span><span class="fu">is.na</span>(Genus), <span class="sc">!</span><span class="fu">is.na</span>(sugar_concentration)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sugar_concentration =</span> <span class="fu">as.numeric</span>(sugar_concentration))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test for nectar sugar concentration by Family</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>kw_family_taxonomy <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Family) <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_value =</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">kruskal.test</span>(sugar_concentration <span class="sc">~</span> Family, <span class="at">data =</span> bee_data)<span class="sc">$</span>p.value,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">error =</span> <span class="cf">function</span>(e) <span class="cn">NA</span>  <span class="co"># Handle errors by assigning NA</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(p_value))  <span class="co"># Remove rows with NA p-values</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test for nectar sugar concentration by Genus</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>kw_genus_taxonomy <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Genus) <span class="sc">%&gt;%</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">p_value =</span> <span class="fu">tryCatch</span>(</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">kruskal.test</span>(sugar_concentration <span class="sc">~</span> Genus, <span class="at">data =</span> bee_data)<span class="sc">$</span>p.value,</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">error =</span> <span class="cf">function</span>(e) <span class="cn">NA</span>  <span class="co"># Handle errors by assigning NA</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(p_value))  <span class="co"># Remove rows with NA p-values</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine Family and Genus results</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>kw_taxonomy_results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>  kw_family_taxonomy <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Level =</span> <span class="st">"Family"</span>),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>  kw_genus_taxonomy <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Level =</span> <span class="st">"Genus"</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure unique identifiers for visualization</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>kw_taxonomy_results <span class="ot">&lt;-</span> kw_taxonomy_results <span class="sc">%&gt;%</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">Identifier =</span> <span class="fu">ifelse</span>(Level <span class="sc">==</span> <span class="st">"Family"</span>, <span class="fu">paste</span>(Family, <span class="st">"Family"</span>), <span class="fu">paste</span>(Genus, <span class="st">"Genus"</span>))</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter top 5 smallest and largest p-values dynamically</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>kw_taxonomy_filtered <span class="ot">&lt;-</span> kw_taxonomy_results <span class="sc">%&gt;%</span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(p_value) <span class="sc">%&gt;%</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, (<span class="fu">n</span>() <span class="sc">-</span> <span class="dv">4</span>)<span class="sc">:</span><span class="fu">n</span>()))  <span class="co"># Select top 5 smallest and largest p-values</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure there are results to plot</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(kw_taxonomy_filtered) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create the heatmap for taxonomic effects</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(kw_taxonomy_filtered, <span class="fu">aes</span>(<span class="at">x =</span> Level, <span class="at">y =</span> Identifier, <span class="at">fill =</span> p_value)) <span class="sc">+</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"blue"</span>, <span class="at">high =</span> <span class="st">"red"</span>, <span class="at">name =</span> <span class="st">"p-value"</span>, <span class="at">na.value =</span> <span class="st">"gray"</span>) <span class="sc">+</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>      <span class="at">title =</span> <span class="st">"Top 5 Smallest and Largest P-Values: Taxonomic Effects on Nectar Sugar Concentration"</span>,</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="st">"Taxonomic Level"</span>,</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="st">"Family or Genus"</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>      <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>)</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"No significant results to display."</span>)</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Perform Dunn's Test for Pairwise Comparisons at the Family Level</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>dunn_family <span class="ot">&lt;-</span> <span class="fu">dunnTest</span>(sugar_concentration <span class="sc">~</span> Family, <span class="at">data =</span> bee_data, <span class="at">method =</span> <span class="st">"bonferroni"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dunn_family_results <span class="ot">&lt;-</span> dunn_family<span class="sc">$</span>res</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Check column names of the Dunn test results</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">names</span>(dunn_family_results))  <span class="co"># Debugging step to confirm column names</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Comparison" "Z"          "P.unadj"    "P.adj"     </code></pre>
 </div>
@@ -399,7 +507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -416,53 +524,48 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div></li>
 </ul>
-<p>3. <strong>Linear Mixed-Effects Model</strong></p>
+</section>
+<section id="random-effects" class="level4">
+<h4 class="anchored" data-anchor-id="random-effects"><strong>4. Random Effects</strong></h4>
+<p>The random effects analysis using a&nbsp;<strong>linear mixed-effects model</strong>&nbsp;assessed the variability in nectar sugar concentration among&nbsp;<strong>genera nested within families</strong>.</p>
 <ol type="1">
-<li><p>Use the&nbsp;<code>lme4</code>&nbsp;package to fit the mixed-effects model.</p></li>
-<li><p>Incorporate the nested structure&nbsp;<strong>(genus within family)</strong>&nbsp;as random effects.</p></li>
-<li><p>Examine the&nbsp;<strong>fixed effects</strong>&nbsp;(overall patterns) and&nbsp;<strong>random effects</strong>&nbsp;(family and genus-specific variability).</p></li>
-<li><p>Visualize the model results for clarity.</p></li>
+<li><p><strong>Distribution of Random Effects</strong>&nbsp;(Figure 5):</p>
+<ul>
+<li><p>A&nbsp;<strong>broad distribution</strong>&nbsp;of random effect estimates was observed, ranging from strongly negative to strongly positive values.</p></li>
+<li><p>The shape of the distribution highlights&nbsp;<strong>substantial variability</strong>&nbsp;among genera within families, with most estimates concentrated around zero, indicating moderate deviations from the overall mean.</p></li>
+<li><p>Genera with highly negative or positive random effects reflect strong deviations, suggesting that sugar concentration varies significantly across specific taxa.</p></li>
+</ul></li>
+<li><p><strong>Top and Bottom Random Effects</strong>&nbsp;(Figure 6):</p>
+<ul>
+<li><p>The&nbsp;<strong>top 10 genera</strong>&nbsp;with positive random effects included taxa such as&nbsp;<strong>Salicaceae</strong>&nbsp;and&nbsp;<strong>Lamiaceae</strong>, indicating that these genera contribute significantly higher nectar sugar concentrations compared to the family-level average.</p></li>
+<li><p>Conversely, genera like&nbsp;<strong>Rosaceae</strong>&nbsp;and&nbsp;<strong>Solanaceae</strong>&nbsp;were among the&nbsp;<strong>bottom 10</strong>, exhibiting highly negative random effect estimates, reflecting lower nectar sugar concentrations than their respective family means.</p></li>
+<li><p>This variability underscores that specific genera within families drive significant differences in nectar sugar concentration, rather than the family as a whole.</p></li>
+</ul></li>
 </ol>
+<p><strong>Figure 5</strong>: Distribution of Random Effects: genera Within families<br>
+<strong>Figure 6</strong>: Top and Bottom 10 random effects estimates</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install required packages if not already installed</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(dplyr)) <span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(lme4)) <span class="fu">install.packages</span>(<span class="st">"lme4"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(ggplot2)) <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(sjPlot)) <span class="fu">install.packages</span>(<span class="st">"sjPlot"</span>)  <span class="co"># For visualization of mixed-effects models</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(forcats)) <span class="fu">install.packages</span>(<span class="st">"forcats"</span>)  <span class="co"># For data reordering</span></span>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert necessary columns to factors</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>bee_data<span class="sc">$</span>Family <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(bee_data<span class="sc">$</span>Family)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>bee_data<span class="sc">$</span>Genus <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(bee_data<span class="sc">$</span>Genus)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows with missing sugar concentration</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>bee_data <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sugar_concentration))</span>
 <span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(forcats)</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the data (assuming cleaned_bee_nectar_data.csv)</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"~/Desktop/NECTAR-PROJECT"</span>)  <span class="co"># Set your working directory</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>bee_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"cleaned_bee_nectar_data.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert necessary columns to factors</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>bee_data<span class="sc">$</span>Family <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(bee_data<span class="sc">$</span>Family)</span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>bee_data<span class="sc">$</span>Genus <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(bee_data<span class="sc">$</span>Genus)</span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove rows with missing sugar concentration</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>bee_data <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(sugar_concentration))</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the Linear Mixed-Effects Model</span></span>
-<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
-<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Model: Sugar concentration ~ (1 | Family/Genus) for random effects</span></span>
-<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>lmm_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(sugar_concentration <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Family<span class="sc">/</span>Genus), <span class="at">data =</span> bee_data)</span>
-<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a><span class="co"># View the summary of the model</span></span>
-<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmm_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit the Linear Mixed-Effects Model</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Model: Sugar concentration ~ (1 | Family/Genus) for random effects</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>lmm_model <span class="ot">&lt;-</span> <span class="fu">lmer</span>(sugar_concentration <span class="sc">~</span> <span class="dv">1</span> <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Family<span class="sc">/</span>Genus), <span class="at">data =</span> bee_data)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a><span class="co"># View the summary of the model</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmm_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Linear mixed model fit by REML ['lmerMod']
 Formula: sugar_concentration ~ 1 + (1 | Family/Genus)
@@ -520,7 +623,7 @@ Fixed effects:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -539,55 +642,41 @@ Fixed effects:
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>2<strong>3. Geographical Impact</strong></p>
-<p><strong>Objective:</strong></p>
-<p>• Test whether nectar sugar concentrations vary significantly across geographical regions.</p>
-<p><strong>Analyses:</strong></p>
-<p>1. <strong>Kruskal-Wallis or ANOVA</strong>:</p>
-<p>◦ Compare sugar concentrations across continents or hemispheres.</p>
-<p>◦ <strong>Hypothesis</strong>: Nectar sugar concentration varies geographically.</p>
+</section>
+<section id="geographical-effects-on-nectar-sugar-concentration-and-geospatial-mappnig" class="level4">
+<h4 class="anchored" data-anchor-id="geographical-effects-on-nectar-sugar-concentration-and-geospatial-mappnig">5. <strong>Geographical Effects on Nectar Sugar Concentration and Geospatial Mappnig</strong></h4>
+<p>Regional comparisons of nectar sugar concentration were conducted using&nbsp;<strong>ANOVA</strong>. The results demonstrated&nbsp;<strong>no significant differences</strong>&nbsp;in nectar sugar concentrations across geographical regions.</p>
+<ul>
+<li><p>The&nbsp;<strong>median sugar concentration</strong>&nbsp;remained consistent across all regions, ranging between&nbsp;<strong>35% and 45%</strong>.</p></li>
+<li><p><strong>Variability</strong>&nbsp;within regions, as shown by the spread of the boxplots, was similar, with a few outliers observed across all continents (Figure 8).</p></li>
+<li><p>Regions such as&nbsp;<strong>North America</strong>&nbsp;and&nbsp;<strong>South America</strong>&nbsp;displayed slightly wider interquartile ranges (IQRs), suggesting a modestly higher spread of sugar concentration values compared to other regions (Figure 8).</p></li>
+</ul>
+<p>Overall, these findings suggest that geographical location does not play a substantial role in driving differences in nectar sugar concentration.</p>
+<p><strong>Figure 7</strong>: Boxplots of nectar sugar concentration across geographical regions</p>
+<p><strong>Figure 8</strong>: Geospatial mappnig</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Install required packages if not already installed</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(dplyr)) <span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(ggplot2)) <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(tidyr)) <span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(ggpubr)) <span class="fu">install.packages</span>(<span class="st">"ggpubr"</span>)  <span class="co"># For normality tests</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(car)) <span class="fu">install.packages</span>(<span class="st">"car"</span>)  <span class="co"># For ANOVA assumptions</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(FSA)) <span class="fu">install.packages</span>(<span class="st">"FSA"</span>)  <span class="co"># For Kruskal-Wallis post-hoc tests</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FSA)</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Preparation</span></span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Load data</span></span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"~/Desktop/NECTAR-PROJECT"</span>)  <span class="co"># Set your working directory</span></span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>bee_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"cleaned_bee_nectar_data.csv"</span>, <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert geographical regions into factors</span></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>bee_data_long <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">"Region"</span>, <span class="at">value =</span> <span class="st">"Presence"</span>, europe<span class="sc">:</span>australia) <span class="sc">%&gt;%</span></span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Presence <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">%&gt;%</span>  <span class="co"># Keep only relevant rows</span></span>
-<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Region =</span> <span class="fu">factor</span>(Region))  <span class="co"># Convert Region to factor</span></span>
-<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the structure of the data</span></span>
-<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bee_data_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Preparation</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert geographical regions into factors</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>bee_data_long <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">"Region"</span>, <span class="at">value =</span> <span class="st">"Presence"</span>, europe<span class="sc">:</span>australia) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Presence <span class="sc">==</span> <span class="st">"yes"</span>) <span class="sc">%&gt;%</span>  <span class="co"># Keep only relevant rows</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Region =</span> <span class="fu">factor</span>(Region))  <span class="co"># Convert Region to factor</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Check the structure of the data</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(bee_data_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   1977 obs. of  12 variables:
  $ number             : int  1 2 3 4 5 6 7 8 9 10 ...
- $ Family             : chr  "Rosaceae" "Brassicacae" "Brassicacae" "Rosaceae" ...
- $ Genus              : chr  "Malus" "Raphanus" "Brassica" "Rubus" ...
+ $ Family             : Factor w/ 45 levels "","Alstroemeriaceae",..: 34 12 12 34 8 17 34 26 17 34 ...
+ $ Genus              : Factor w/ 112 levels "","Acer","Aconitum",..: 64 85 19 91 104 73 82 106 107 91 ...
  $ species            : chr  "domestica" "raphanistrum" "sp" "idaeus" ...
  $ sci_name           : chr  "Malus sp." "Raphanus raphanistrum" "Brassica sp" "Rubus idaeus" ...
  $ variant            : chr  "" "" "" "" ...
@@ -687,38 +776,18 @@ Kruskal-Wallis chi-squared = 1.0451, df = 5, p-value = 0.9588</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>2. <strong>Geospatial Mapping</strong>:</p>
-<p>◦ Use heatmaps on a world map to visualize geographic patterns in</p>
-<p>sugar concentration.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(dplyr)) <span class="fu">install.packages</span>(<span class="st">"dplyr"</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(ggplot2)) <span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(tidyr)) <span class="fu">install.packages</span>(<span class="st">"tidyr"</span>)</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(sf)) <span class="fu">install.packages</span>(<span class="st">"sf"</span>)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(rnaturalearth)) <span class="fu">install.packages</span>(<span class="st">"rnaturalearth"</span>)</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(rnaturalearthdata)) <span class="fu">install.packages</span>(<span class="st">"rnaturalearthdata"</span>)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(viridis)) <span class="fu">install.packages</span>(<span class="st">"viridis"</span>)</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearth)</span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rnaturalearthdata)</span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Preparation</span></span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Check unique values in region columns (assuming presence columns)</span></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>bee_data <span class="sc">%&gt;%</span></span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(africa, asia, australia, europe, north_america, south_america) <span class="sc">%&gt;%</span></span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">unique</span>(.))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -------------------------------</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Preparation</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Check unique values in region columns (assuming presence columns)</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>bee_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(africa, asia, australia, europe, north_america, south_america) <span class="sc">%&gt;%</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(<span class="sc">~</span> <span class="fu">unique</span>(.))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  africa asia australia europe north_america south_america
 1    yes  yes       yes    yes           yes           yes
@@ -819,19 +888,23 @@ Kruskal-Wallis chi-squared = 1.0451, df = 5, p-value = 0.9588</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>3<strong>4. Ecological Effects (Crops vs.&nbsp;Weeds)</strong></p>
-<p><strong>Objective:</strong></p>
-<p>• Evaluate whether plant type (crop vs.&nbsp;weed) affects nectar sugar concentration.</p>
-<p>1. <strong>Boxplots by Type</strong>:</p>
-<p>◦ Compare sugar concentration between crops and weeds visually.</p>
-<p>2. <strong>T-Test or Wilcoxon Test</strong>:</p>
-<p>◦ Test for significant differences between crops and weeds.</p>
-<p><strong>Analyses:</strong></p>
+</section>
+<section id="ecological-effects-crops-vs-weeds-vs-wilds" class="level4">
+<h4 class="anchored" data-anchor-id="ecological-effects-crops-vs-weeds-vs-wilds">6. Ecological Effects (Crops vs Weeds vs Wilds)</h4>
+<p>The comparison of nectar sugar concentrations among&nbsp;<strong>crops</strong>,&nbsp;<strong>weeds</strong>, and&nbsp;<strong>wild plants</strong>&nbsp;revealed distinct patterns:</p>
+<ul>
+<li><p><strong>Wild plants</strong>&nbsp;exhibited the&nbsp;<strong>highest median sugar concentrations</strong>, exceeding&nbsp;<strong>45%</strong>, with a wider interquartile range and more variability compared to the other plant types.</p></li>
+<li><p><strong>Crops</strong>&nbsp;displayed the lowest sugar concentrations, with a median around&nbsp;<strong>35%</strong>&nbsp;and a narrower spread.</p></li>
+<li><p><strong>Weeds</strong>&nbsp;showed intermediate sugar concentrations, with a median close to&nbsp;<strong>40%</strong>, overlapping slightly with crops but lower than wild plants.</p></li>
+</ul>
+<p>Pairwise comparisons using&nbsp;<strong>Dunn’s test</strong>&nbsp;identified a&nbsp;<strong>significant difference</strong>&nbsp;between&nbsp;<strong>wild plants and crops</strong>, while no significant differences were observed between crops and weeds or weeds and wild plants (Figure 9).</p>
+<p>These results suggest that wild plants may provide nectar with higher sugar concentrations compared to cultivated crops, possibly reflecting ecological adaptations.</p>
+<p><strong>Figure 9: Ecological Effects ( Crops vs Weeds vs Wilds)</strong></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># -----------------------------</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Boxplot: Compare sugar concentration across types</span></span>
@@ -856,7 +929,7 @@ Kruskal-Wallis chi-squared = 1.0451, df = 5, p-value = 0.9588</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -905,116 +978,180 @@ Dunn's Post-Hoc Test Results (Bonferroni Adjustment):
 3 weed - wild  0.02924117 0.9766722477 1.0000000000 Not Significant</code></pre>
 </div>
 </div>
-<p>4<strong>5. Variability in High-Performing Families</strong></p>
-<p><strong>Objective:</strong></p>
-<p>• Analyze sugar concentration variability within high-performing families and identify key</p>
-<p>genera. It can be genus to, the one where you find more differences</p>
-<p>1. <strong>Subset High-Performing Families</strong>:</p>
-<p>◦ Filter families with high average sugar concentration.</p>
-<p>◦ Compare variability among genera within these families.</p>
-<p>2. <strong>ANOVA</strong>:</p>
-<p>◦ Evaluate whether genera within high-performing families differ significantly.</p>
-<p><strong>Analyses:</strong></p>
+</section>
+<section id="phylogenetic-analysis-1" class="level4">
+<h4 class="anchored" data-anchor-id="phylogenetic-analysis-1">7. Phylogenetic Analysis</h4>
+<p>The phylogenetic analysis revealed critical patterns regarding the evolutionary relationships of nectar sugar concentration across plant families. A heatmap aligned with the phylogenetic tree highlights specific trends and deviations in sugar production strategies.</p>
+<hr>
+</section>
+<section id="families-with-similar-nectar-sugar-concentrations" class="level4">
+<h4 class="anchored" data-anchor-id="families-with-similar-nectar-sugar-concentrations"><strong>1. Families with Similar Nectar Sugar Concentrations</strong></h4>
+<ul>
+<li><p>Three families,&nbsp;<strong>Ranunculaceae, Costaceae, and Alstroemeriaceae</strong>, exhibit notable similarities in nectar sugar concentrations despite their phylogenetic distance.</p>
+<ul>
+<li><p>These families display moderate sugar concentrations (~40-50%), suggesting possible adaptations to generalist pollinators or similar environmental pressures.</p></li>
+<li><p>The consistency across these families hints at&nbsp;<strong>convergent evolution</strong>&nbsp;for shared ecological strategies.</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="phylogenetic-signal-and-proximity" class="level4">
+<h4 class="anchored" data-anchor-id="phylogenetic-signal-and-proximity"><strong>2. Phylogenetic Signal and Proximity</strong></h4>
+<ul>
+<li><p>Families that are phylogenetically&nbsp;<strong>closer</strong>&nbsp;often display clustering in nectar sugar concentrations.</p>
+<ul>
+<li><p>For example,&nbsp;<strong>Fabaceae</strong>&nbsp;and&nbsp;<strong>Rosaceae</strong>&nbsp;show moderate sugar values, reflecting potential shared evolutionary traits.</p></li>
+<li><p>However, families like&nbsp;<strong>Ranunculaceae</strong>&nbsp;and&nbsp;<strong>Zygophyllaceae</strong>&nbsp;deviate from this trend, demonstrating significantly higher sugar concentrations despite their phylogenetic distance.</p></li>
+<li><p>This decoupling indicates the presence of&nbsp;<strong>convergent evolution</strong>, where unrelated families adapt to similar ecological pressures (e.g., pollinator specialization).</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="variability-within-families" class="level4">
+<h4 class="anchored" data-anchor-id="variability-within-families"><strong>3. Variability Within Families</strong></h4>
+<ul>
+<li><p>Certain families exhibit&nbsp;<strong>high variability</strong>&nbsp;in sugar concentrations across genera, suggesting diverse pollination strategies within the same family:</p>
+<ul>
+<li><p><strong>Solanaceae</strong>&nbsp;and&nbsp;<strong>Fabaceae</strong>&nbsp;show a wide range of sugar values, indicating adaptation to multiple pollinator types or environmental niches.</p></li>
+<li><p>This variability reflects&nbsp;<strong>adaptive radiation</strong>, where genera exploit different ecological conditions to maximize reproductive success.</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="low-sugar-concentration-in-basal-angiosperms" class="level4">
+<h4 class="anchored" data-anchor-id="low-sugar-concentration-in-basal-angiosperms"><strong>4. Low Sugar Concentration in Basal Angiosperms</strong></h4>
+<ul>
+<li><p>Basal families such as&nbsp;<strong>Magnoliaceae</strong>&nbsp;and&nbsp;<strong>Costaceae</strong>&nbsp;are positioned lower in the phylogenetic tree and exhibit lower to moderate sugar concentrations.</p>
+<ul>
+<li>This suggests that&nbsp;<strong>higher sugar concentrations</strong>&nbsp;may have evolved later in angiosperms, possibly alongside the evolution of more specialized pollination systems (e.g., hummingbirds and bats).</li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="high-sugar-concentration-outliers" class="level4">
+<h4 class="anchored" data-anchor-id="high-sugar-concentration-outliers"><strong>5. High Sugar Concentration Outliers</strong></h4>
+<ul>
+<li><p>Families such as&nbsp;<strong>Passifloraceae</strong>&nbsp;and&nbsp;<strong>Zygophyllaceae</strong>&nbsp;exhibit&nbsp;<strong>exceptionally high sugar concentrations</strong>&nbsp;(~60-65%) relative to other families:</p>
+<ul>
+<li><p>Despite being phylogenetically distant, these families appear to converge toward similar strategies, likely driven by selective pressures to attract high-energy-demand pollinators (e.g., hummingbirds, large insects).</p></li>
+<li><p>This outlier behavior reinforces the role of&nbsp;<strong>ecological specialization</strong>&nbsp;over phylogenetic constraints in shaping nectar traits.</p></li>
+</ul></li>
+</ul>
+<hr>
+</section>
+<section id="figure-legends" class="level3">
+<h3 class="anchored" data-anchor-id="figure-legends"><strong>Figure Legends</strong>:</h3>
+<ul>
+<li><p><strong>Figure 10</strong>: Phylogenetic tree of families showing evolutionary relationships.</p></li>
+<li><p><strong>Figure 11</strong>: Heatmap of nectar sugar concentrations aligned to the phylogenetic tree.</p></li>
+</ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Identify High-Performing Families -----------------------------------</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean sugar concentration for each family</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>family_summary <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Family) <span class="sc">%&gt;%</span></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mean_Sugar =</span> <span class="fu">mean</span>(sugar_concentration, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD_Sugar =</span> <span class="fu">sd</span>(sugar_concentration, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">n</span>()</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Mean_Sugar))</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Filter families with mean sugar concentration &gt; 45 (threshold can be adjusted)</span></span>
-<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>high_perf_families <span class="ot">&lt;-</span> family_summary <span class="sc">%&gt;%</span></span>
-<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Mean_Sugar <span class="sc">&gt;</span> <span class="dv">55</span>)</span>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Ensure sugar concentration is numeric and filter out blank Family names</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>bee_data <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Family) <span class="sc">&amp;</span> Family <span class="sc">!=</span> <span class="st">""</span>, <span class="sc">!</span><span class="fu">is.na</span>(sugar_concentration)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">sugar_concentration =</span> <span class="fu">as.numeric</span>(sugar_concentration))</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate mean sugar concentration for each unique family</span></span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>mean_family_sugar <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Family) <span class="sc">%&gt;%</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_sugar_concentration =</span> <span class="fu">mean</span>(sugar_concentration, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(mean_sugar_concentration))</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: List of family names</span></span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>family_names <span class="ot">&lt;-</span> <span class="fu">as.character</span>(mean_family_sugar<span class="sc">$</span>Family)  <span class="co"># Ensure 'Family' is character</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Match family names to Open Tree of Life identifiers</span></span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>matched_names <span class="ot">&lt;-</span> <span class="fu">tnrs_match_names</span>(<span class="at">names =</span> family_names)</span>
 <span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Print the high-performing families</span></span>
-<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(high_perf_families)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Filter out unmatched names (NA IDs)</span></span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>valid_matches <span class="ot">&lt;-</span> matched_names <span class="sc">%&gt;%</span></span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(ott_id))  <span class="co"># Keep only valid IDs</span></span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Generate the phylogenetic tree using valid IDs</span></span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">nrow</span>(valid_matches) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>  tree <span class="ot">&lt;-</span> <span class="fu">tol_induced_subtree</span>(<span class="at">ott_ids =</span> valid_matches<span class="sc">$</span>ott_id)</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Step 5: Check and assign default branch lengths if missing</span></span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(tree<span class="sc">$</span>edge.length)) {</span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>    tree<span class="sc">$</span>edge.length <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(tree<span class="sc">$</span>edge))  <span class="co"># Assign equal branch lengths</span></span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Shorten the branch lengths for better visualization</span></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtree</span>(tree, <span class="at">size =</span> <span class="fl">0.7</span>) <span class="sc">+</span>  <span class="co"># Reduce branch thickness</span></span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_tiplab</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">align =</span> <span class="cn">TRUE</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">linesize =</span> <span class="fl">0.5</span>) <span class="sc">+</span>  <span class="co"># Add tip labels</span></span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Phylogenetic Tree of Families (Real Relationships)"</span>) <span class="sc">+</span></span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_tree2</span>() <span class="sc">+</span></span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>))  <span class="co"># Adjust X-axis space to fit labels</span></span>
+<span id="cb38-36"><a href="#cb38-36" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 4
-  Family         Mean_Sugar SD_Sugar     N
-  &lt;chr&gt;               &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;
-1 Losacae              70      NA        1
-2 Salicaceae           65.2     7.26     4
-3 Passifloraceae       62.9    NA        1
-4 Tiliaceae            60.6    NA        1
-5 Rutaceae             60      NA        1
-6 Zygophyllaceae       56.5     2.12     2</code></pre>
+<pre><code>
+Progress [---------------------------------] 0/150 (  0%) ?s
+Progress [==============================] 150/150 (100%)  0s
+                                                            </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset the data to include only high-performing families</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>high_perf_data <span class="ot">&lt;-</span> bee_data <span class="sc">%&gt;%</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Family <span class="sc">%in%</span> high_perf_families<span class="sc">$</span>Family)</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Compare Variability Among Genera ------------------------------------</span></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot: Sugar concentration by genus within high-performing families</span></span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(high_perf_data, <span class="fu">aes</span>(<span class="at">x =</span> Genus, <span class="at">y =</span> sugar_concentration, <span class="at">fill =</span> Family)) <span class="sc">+</span></span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Variability in Sugar Concentration Across Genera"</span>,</span>
-<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Within High-Performing Families"</span>,</span>
-<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Genus"</span>,</span>
-<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Sugar Concentration (%)"</span></span>
-<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: ANOVA to Evaluate Differences Among Genera --------------------------</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a linear model to test for differences among genera</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>anova_model <span class="ot">&lt;-</span> <span class="fu">aov</span>(sugar_concentration <span class="sc">~</span> Genus <span class="sc">+</span> Family, <span class="at">data =</span> high_perf_data)</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Display ANOVA summary</span></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>anova_summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(anova_model)</span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(anova_summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            Df Sum Sq Mean Sq F value Pr(&gt;F)
-Genus        5  167.9   33.58   0.825   0.59
-Residuals    4  162.8   40.69               </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="do">#########</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 1: Extract the ordered family names manually from the tree</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>ordered_families <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Verbenaceae_ott1081077"</span>, <span class="st">"Lamiaceae_ott544714"</span>, <span class="st">"Bignoniaceae_ott900321"</span>,</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Oleaceae_ott23723"</span>, <span class="st">"mrcaott2108ott12524"</span>, <span class="st">"Apocynaceae_ott524059"</span>,</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Solanaceae_ott473827"</span>, <span class="st">"Caprifoliaceae_ott69534"</span>, <span class="st">"Araliaceae_ott524079"</span>,</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Asteraceae_ott46248"</span>, <span class="st">"Polygonaceae_ott904376"</span>, <span class="st">"Nyctaginaceae_ott740464"</span>,</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Violaceae_ott224730"</span>, <span class="st">"Passifloraceae_ott530187"</span>, <span class="st">"Linaceae_ott1000257"</span>,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Fabaceae_ott560323"</span>, <span class="st">"Rosales_ott208031"</span>, <span class="st">"Zygophyllaceae_ott461732"</span>,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Malvaceae_ott279960"</span>, <span class="st">"Brassicaceae_ott309271"</span>, <span class="st">"mrcaott960tt1860"</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Onagraceae_ott1015483"</span>, <span class="st">"Vitaceae_ott1069308"</span>, <span class="st">"Grossulariaceae_ott488526"</span>,</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Berberidaceae_ott297866"</span>, <span class="st">"Ranunculaceae_ott387826"</span>, <span class="st">"Amaryllidaceae_ott17701"</span>,</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Costaceae_ott679527"</span>, <span class="st">"Alstroemeriaceae_ott940129"</span>, <span class="st">"Magnoliaceae_ott288464"</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 2: Match family names in ordered_families with closest names in mean_family_sugar</span></span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>matched_names <span class="ot">&lt;-</span> <span class="fu">sapply</span>(ordered_families, <span class="cf">function</span>(tree_name) {</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>  closest_match <span class="ot">&lt;-</span> mean_family_sugar<span class="sc">$</span>Family[<span class="fu">which.min</span>(</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>    stringdist<span class="sc">::</span><span class="fu">stringdist</span>(tree_name, mean_family_sugar<span class="sc">$</span>Family)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>  )]</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(closest_match)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 3: Create a new table with matched names and sugar concentrations</span></span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>heatmap_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tree_Family =</span> ordered_families,       <span class="co"># Tree order</span></span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>  <span class="at">Matched_Family =</span> matched_names        <span class="co"># Closest names from mean_family_sugar</span></span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Merge with sugar concentrations</span></span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>heatmap_data <span class="ot">&lt;-</span> heatmap_data <span class="sc">%&gt;%</span></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(mean_family_sugar, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"Matched_Family"</span> <span class="ot">=</span> <span class="st">"Family"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Tree_Family =</span> <span class="fu">factor</span>(Tree_Family, <span class="at">levels =</span> ordered_families)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Tree_Family, mean_sugar_concentration)</span>
+<span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Step 4: Plot the heatmap and reverse the Y-axis order</span></span>
+<span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(heatmap_data, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> Tree_Family, <span class="at">fill =</span> mean_sugar_concentration)) <span class="sc">+</span></span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_tile</span>() <span class="sc">+</span></span>
+<span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">"yellow"</span>, <span class="at">high =</span> <span class="st">"red"</span>, <span class="at">name =</span> <span class="st">"Sugar Conc."</span>) <span class="sc">+</span></span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_discrete</span>(<span class="at">limits =</span> <span class="fu">rev</span>(<span class="fu">levels</span>(heatmap_data<span class="sc">$</span>Tree_Family))) <span class="sc">+</span>  <span class="co"># Reverse the Y-axis order</span></span>
+<span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Heatmap of Sugar Concentration by Family (Tree Order)"</span>, </span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Family"</span>) <span class="sc">+</span></span>
+<span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>))  <span class="co"># Adjust text size for readability</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="Preliminary-results_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p>5<strong>6. Phylogenetic Signal Testing</strong></p>
-<p><strong>Objective:</strong></p>
-<p>• Assess if closely related families have similar nectar sugar concentrations.</p>
-<p><strong>Analyses:</strong></p>
-<p>1. <strong>Phylogenetic Tree Construction</strong>:</p>
-<p>◦ Use data from Open Tree of Life to construct a phylogenetic tree for the species in</p>
-<p>the dataset.</p>
-<p>◦ Tools: <strong>ape</strong>, <strong>phytools</strong> in R.</p>
-<p>2. <strong>Phylogenetic Signal</strong>:</p>
-<p>◦ Use <strong>Blomberg’s K</strong> or <strong>Pagel’s λ</strong> to test if sugar concentration is phylogenetically</p>
-<p>conserved.</p>
-<p>3. <strong>Visualize Sugar Concentration on Phylogenetic Tree</strong>:</p>
-<p>◦ Map sugar concentration as a heatmap on the tree.</p>
+</div>
+</div>
+<pre><code></code></pre>
 </section>
-<section id="results" class="level1">
-<h1>6. Results</h1>
-<p><strong>Results</strong></p>
-<p><strong>Nectar Sugar Concentration Across Geographical Regions</strong></p>
-<p>The mean nectar sugar concentration varied slightly across geographical regions (Figure 8). South America had the highest mean concentration (39.11%, SD = 11.35) followed by Europe (38.93%, SD = 11.02) and Africa (38.9%, SD = 11.67). Australia exhibited the lowest mean sugar concentration at 38.63% (SD = 11.07). Despite minor fluctuations, the mean concentrations remained consistent globally.</p>
-<p><strong>Taxonomic Differences in Sugar Concentration</strong></p>
-<p>Significant taxonomic variation was observed at both the <strong>family</strong> and <strong>genus</strong> levels. At the <strong>family level</strong>, Zygophyllaceae, Vitaceae, and Violaceae families exhibited the most significant differences in nectar sugar concentration (p-values &lt; 1e-9) (Figure 2). Conversely, genera such as <em>Aesculus</em>, <em>Adesmia</em>, and <em>Aconitum</em> demonstrated high variability at the genus level (Figure 2).</p>
-<p><strong>Pairwise Comparisons</strong></p>
-<p>Significant pairwise comparisons revealed differences in sugar concentrations between specific families and genera (Figures 3 and 4). For instance:</p>
-<pre><code>•   At the family level, the largest significant differences were observed between **Brassicaceae-Solanaceae** and **Asteraceae-Brassicaceae** pairs, with adjusted p-values close to 0.02.
-
-•   At the genus level, comparisons such as *Adesmia-Ribes* and *Aconitum-Pyrus* showed significant differences, highlighting specific genera driving variability within families.</code></pre>
-<p><strong>Distribution of Random Effects</strong></p>
-<p>The distribution of random effects (Figure 5) showed that most genera clustered around zero, indicating minimal deviation in nectar sugar concentration across genera. However, outliers with extreme positive and negative estimates were observed, emphasizing the presence of notable variations among specific genera within families.</p>
-<p>The <strong>top 10 and bottom 10 random effect estimates</strong> (Figure 6) identified families and genera with the highest variability. Families such as <strong>Lamiaceae</strong> and <strong>Salicaceae</strong> exhibited large positive deviations, while Solanaceae and Amaryllidaceae displayed negative deviations. These families and their respective genera significantly influenced nectar sugar concentration trends.</p>
-<p><strong>Family-Level and Regional Patterns</strong></p>
-<p>A comparison of mean nectar sugar concentration across families and regions (Figure 1) showed that most families maintained consistent sugar concentrations across continents. However, families like Zygophyllaceae and Vitaceae presented slight variability, which could contribute to the observed global patterns.</p>
 <section id="section" class="level3">
 <h3 class="anchored" data-anchor-id="section"></h3>
 </section>

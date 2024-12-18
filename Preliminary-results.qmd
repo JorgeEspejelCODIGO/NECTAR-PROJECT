@@ -58,40 +58,164 @@ To analyze sugar concentration variability within high-performing families and i
 
 # 5. Methods
 
-**1. Descriptive Analysis**
+------------------------------------------------------------------------
 
-**Objective:**
+### 1. **Summary Statistics**:
 
-• Summarize the overall dataset to understand variability and patterns.
+-   **Objective**: Summarize nectar sugar concentration by Family, Genus, and Region.
 
-**Analyses:**
+-   **Analyses**:
 
-1\. **Summary Statistics**:
+    -   Grouped data by **Family**, **Genus**, and **Region** to compute:
+        -   **Mean**: To determine average sugar concentration.
+        -   **Median**: To measure central tendency, reducing outlier effects.
+        -   **Range**: To understand variability in sugar concentration.
+        -   **Standard Deviation (SD)**: To quantify data spread.
+        -   **Interquartile Range (IQR)**: To capture variability while ignoring extreme values.
+    -   Visualized the mean sugar concentration by Family and Region using barplots.
 
--   The data was grouped by **Family**, **Genus**, and **Geographical Region** to calculate key descriptive statistics:
+------------------------------------------------------------------------
 
-    -   **Mean**: To determine the average sugar concentration for each group.
+### 2. **Kruskal-Wallis Test for Taxonomic Effects**:
 
-    -   **Median**: To assess the central tendency of sugar concentration values, reducing the influence of extreme values.
+-   **Objective**: Evaluate the relationship between taxonomy and nectar sugar concentration.
 
-    -   **Range**: To highlight the variability of sugar concentration within each group.
+-   **Analyses**:
 
-    -   **Standard Deviation (SD)**: To measure the spread or dispersion of sugar concentration values around the mean.
+    -   Conducted **Kruskal-Wallis tests** for sugar concentration across:
+        -   **Families** and **Genera** to detect significant differences.
+    -   Visualized results with a heatmap highlighting significant p-values for Family and Genus comparisons.
 
-    -   **Interquartile Range (IQR)**: To capture the middle 50% of the data and assess variability while ignoring outliers.
+------------------------------------------------------------------------
+
+### 3. **Pairwise Comparisons with Dunn’s Test**:
+
+-   **Objective**: Identify pairwise differences in nectar sugar concentration.
+
+-   **Analyses**:
+
+    -   Performed **Dunn’s test** for pairwise comparisons at both:
+        -   **Family** and **Genus** levels.
+    -   Adjusted p-values using the **Bonferroni correction**.
+    -   Highlighted significant pairwise comparisons in barplots.
+
+------------------------------------------------------------------------
+
+### 4. **Linear Mixed-Effects Model**:
+
+-   **Objective**: Assess variability in nectar sugar concentration within and across Families and Genera.
+
+-   **Analyses**:
+
+    -   Fitted a **linear mixed-effects model**:
+        -   Included **Genus nested within Family** as random effects.
+    -   Examined fixed and random effects.
+    -   Visualized random effects using histograms and barplots for top/bottom genera.
+
+------------------------------------------------------------------------
+
+### 5. **Geographical Effects on Sugar Concentration**:
+
+-   **Objective**: Explore geographical variability in nectar sugar concentration.
+
+-   **Analyses**:
+
+    -   Tested sugar concentration across continents using:
+        -   **ANOVA** (if data were normal) or **Kruskal-Wallis** (if non-normal).
+    -   Visualized results with boxplots and geospatial maps highlighting mean sugar concentration per region.
+
+------------------------------------------------------------------------
+
+### 6. **Ecological Effects (Crops vs. Weeds)**:
+
+-   **Objective**: Compare sugar concentration between crops and weeds.
+
+-   **Analyses**:
+
+    -   Created **boxplots** to visualize differences between plant types.
+    -   Used **Kruskal-Wallis tests** to test for significant differences.
+    -   Performed **Dunn’s test** for pairwise comparisons between plant types.
+
+------------------------------------------------------------------------
+
+### 7. **High-Performing Families**:
+
+-   **Objective**: Analyze sugar concentration variability within families with high average values.
+
+-   **Analyses**:
+
+    -   Identified families with **mean sugar concentration \> 55%**.
+    -   Conducted **ANOVA** to evaluate differences among genera within these families.
+    -   Visualized variability using boxplots.
+
+------------------------------------------------------------------------
+
+### 8. **Phylogenetic Analysis**:
+
+-   **Objective**: Assess evolutionary patterns in nectar sugar concentration.
+
+-   **Analyses**:
+
+    -   Matched Family names with Open Tree of Life identifiers.
+    -   Constructed a **phylogenetic tree** and tested for **phylogenetic signal**.
+    -   Mapped sugar concentration as a heatmap on the tree.
+
+------------------------------------------------------------------------
+
+### 9. **Heatmap of Sugar Concentration by Family**:
+
+-   **Objective**: Visualize sugar concentration aligned with phylogenetic tree order.
+
+-   **Analyses**:
+
+    -   Aligned Family order from the phylogenetic tree.
+    -   Mapped mean sugar concentration using a heatmap.
+    -   Adjusted visualization for improved readability.
+
+------------------------------------------------------------------------
+
+# 6. Results
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', collapse=TRUE}
+
+# In this first chunk we are going to charge to our enviroment all the necessary packages for the following analysys and Set our directory.
+
+# Define the list of required packages
+required_packages <- c(
+  "dplyr", "ggplot2", "tidyr", "FSA", "ggpubr", 
+  "lme4", "sjPlot", "forcats", "car", 
+  "sf", "rnaturalearth", "rnaturalearthdata", 
+  "viridis", "rotl", "ggtree", "stringdist"
+)
+
+# Install any packages that are not already installed
+installed_packages <- rownames(installed.packages())
+packages_to_install <- setdiff(required_packages, installed_packages)
+
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install)
+}
+
+# Load all required libraries
+lapply(required_packages, library, character.only = TRUE)
+
+```
+
+#### 1. **Summary Statistics**
+
+The descriptive analysis summarized nectar sugar concentration across families, genera, and geographical regions. Results indicate significant variability in sugar concentrations:
+
+-   Mean nectar sugar concentrations ranged between **40% and 65%**, depending on family and region.
+
+-   Families like **Asteraceae**, **Fabaceae**, and **Zygophyllaceae** showed higher average concentrations across most regions.
+
+-   Geographical regions, demonstrated similar trends with some variability across families.
+
+**Figure 1**: Mean nectar sugar concentration (%) by Family and Region.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
-# Install required packages if not already installed
-if (!require(dplyr)) install.packages("dplyr")
-if (!require(ggplot2)) install.packages("ggplot2")
-if (!require(tidyr)) install.packages("tidyr")
 
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-
-# Set working directory (adjust as needed)
+# Set working directory (adjust as needed) PLEASE ADJUST JUST CURRENT DIRECTORY 
 setwd("~/Desktop/NECTAR-PROJECT")
 
 # Load the dataset
@@ -135,31 +259,26 @@ ggplot(summary_stats, aes(x = Region, y = mean_sugar, fill = Family)) +
 
 ```
 
-1**2. Taxonomic Effects on Nectar Sugar Concentration**
+#### **2. Taxonomic Effects on Nectar Sugar Concentration**
 
-**Objective:**
+The Kruskal-Wallis test revealed that significant differences in nectar sugar concentration are primarily observed at the **Genus level**.
 
-• Test the relationship between taxonomy and nectar sugar concentration.
+-   **Genus level**: Genera such as **Aesculus** and **Adesmia** exhibited the most notable differences, as reflected in their **low adjusted p-values** (Figure 2), confirming statistically significant differences.
 
-**Analyses:**
+-   **Family level**: The top 5 largest p-values indicate **non-significant differences**, suggesting less distinct variation in sugar concentrations between families (Figure 2).
 
-1\. **Kruskal-Wallis**:
+This highlights that variability in nectar sugar concentration is more pronounced within genera rather than across broader family classifications.
 
-◦ Compare sugar concentrations across families and genera.
+#### 3. Pairwise Comparisons Analysis:
 
-◦ **Hypothesis**: Taxonomy significantly affects sugar concentration.
+-   **Family level**: Significant pairwise differences were observed in specific family pairs such as **Brassicaceae - Solanaceae** and **Asteraceae - Brassicaceae** (Figure 3). These families showed distinct differences in sugar concentration values.
+
+-   **Genus level**: At the genus level, **Adesmia - Ribes** and **Aconitum - Pyrus** showed the most significant pairwise differences (Figure 4). This emphasizes greater variation in nectar sugar concentration between genera compared to families.
+
+**Figure 2**: Top 5 smallest and largest p-values for taxonomic effects.\
+**Figure 3 and 4**: Significant pairwise comparisons at the Family and Genus level.
 
 ```{r, message=FALSE, warning=FALSE}
-# Install required packages if not already installed
-if (!require(dplyr)) install.packages("dplyr")
-if (!require(tidyr)) install.packages("tidyr")
-if (!require(ggplot2)) install.packages("ggplot2")
-
-# Load necessary libraries
-library(dplyr)
-library(tidyr)
-library(ggplot2)
-
 # Ensure sugar concentration is numeric and missing data is handled
 bee_data <- bee_data %>%
   filter(!is.na(Family), !is.na(Genus), !is.na(sugar_concentration)) %>%
@@ -228,34 +347,9 @@ if (nrow(kw_taxonomy_filtered) > 0) {
 
 ```
 
-2\. **Perform Dunn's Post-Hoc Test using the `dunnTest` function from** the **FSA** package.
-
--   Apply the test to both **families** and **genera** to identify pairwise differences.
-
--   Adjust the p-values for multiple comparisons using the **Bonferroni correction**.
-
--   Visualize the results in a clear way (e.g., a barplot or table) to highlight significant pairwise differences.
+-   
 
     ```{r, message=FALSE, warning=FALSE}
-    # Install required packages if not already installed
-    if (!require(dplyr)) install.packages("dplyr")
-    if (!require(tidyr)) install.packages("tidyr")
-    if (!require(ggplot2)) install.packages("ggplot2")
-    if (!require(FSA)) install.packages("FSA")
-    if (!require(ggpubr)) install.packages("ggpubr")
-
-    # Load necessary libraries
-    library(dplyr)
-    library(tidyr)
-    library(ggplot2)
-    library(FSA)
-    library(ggpubr)
-
-    # Set working directory (adjust as needed)
-    setwd("~/Desktop/NECTAR-PROJECT")
-
-    # Load the dataset
-    bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
 
     # Perform Dunn's Test for Pairwise Comparisons at the Family Level
     dunn_family <- dunnTest(sugar_concentration ~ Family, data = bee_data, method = "bonferroni")
@@ -316,34 +410,30 @@ if (nrow(kw_taxonomy_filtered) > 0) {
 
     ```
 
-3\. **Linear Mixed-Effects Model**
+#### **4. Random Effects**
 
-1.  Use the `lme4` package to fit the mixed-effects model.
+The random effects analysis using a **linear mixed-effects model** assessed the variability in nectar sugar concentration among **genera nested within families**.
 
-2.  Incorporate the nested structure **(genus within family)** as random effects.
+1.  **Distribution of Random Effects** (Figure 5):
 
-3.  Examine the **fixed effects** (overall patterns) and **random effects** (family and genus-specific variability).
+    -   A **broad distribution** of random effect estimates was observed, ranging from strongly negative to strongly positive values.
 
-4.  Visualize the model results for clarity.
+    -   The shape of the distribution highlights **substantial variability** among genera within families, with most estimates concentrated around zero, indicating moderate deviations from the overall mean.
+
+    -   Genera with highly negative or positive random effects reflect strong deviations, suggesting that sugar concentration varies significantly across specific taxa.
+
+2.  **Top and Bottom Random Effects** (Figure 6):
+
+    -   The **top 10 genera** with positive random effects included taxa such as **Salicaceae** and **Lamiaceae**, indicating that these genera contribute significantly higher nectar sugar concentrations compared to the family-level average.
+
+    -   Conversely, genera like **Rosaceae** and **Solanaceae** were among the **bottom 10**, exhibiting highly negative random effect estimates, reflecting lower nectar sugar concentrations than their respective family means.
+
+    -   This variability underscores that specific genera within families drive significant differences in nectar sugar concentration, rather than the family as a whole.
+
+**Figure 5**: Distribution of Random Effects: genera Within families\
+**Figure 6**: Top and Bottom 10 random effects estimates
 
 ```{r, message=FALSE, warning=FALSE}
-# Install required packages if not already installed
-if (!require(dplyr)) install.packages("dplyr")
-if (!require(lme4)) install.packages("lme4")
-if (!require(ggplot2)) install.packages("ggplot2")
-if (!require(sjPlot)) install.packages("sjPlot")  # For visualization of mixed-effects models
-if (!require(forcats)) install.packages("forcats")  # For data reordering
-
-# Load necessary libraries
-library(dplyr)
-library(lme4)
-library(ggplot2)
-library(sjPlot)
-library(forcats)
-
-# Load the data (assuming cleaned_bee_nectar_data.csv)
-setwd("~/Desktop/NECTAR-PROJECT")  # Set your working directory
-bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
 
 # Convert necessary columns to factors
 bee_data$Family <- as.factor(bee_data$Family)
@@ -410,43 +500,27 @@ ggplot(random_effects_filtered, aes(x = fct_reorder(Genus, Random_Effect), y = R
 
 ```
 
-2**3. Geographical Impact**
+#### 5. **Geographical Effects on Nectar Sugar Concentration and Geospatial Mappnig**
 
-**Objective:**
+Regional comparisons of nectar sugar concentration were conducted using **ANOVA**. The results demonstrated **no significant differences** in nectar sugar concentrations across geographical regions.
 
-• Test whether nectar sugar concentrations vary significantly across geographical regions.
+-   The **median sugar concentration** remained consistent across all regions, ranging between **35% and 45%**.
 
-**Analyses:**
+-   **Variability** within regions, as shown by the spread of the boxplots, was similar, with a few outliers observed across all continents (Figure 8).
 
-1\. **Kruskal-Wallis or ANOVA**:
+-   Regions such as **North America** and **South America** displayed slightly wider interquartile ranges (IQRs), suggesting a modestly higher spread of sugar concentration values compared to other regions (Figure 8).
 
-◦ Compare sugar concentrations across continents or hemispheres.
+Overall, these findings suggest that geographical location does not play a substantial role in driving differences in nectar sugar concentration.
 
-◦ **Hypothesis**: Nectar sugar concentration varies geographically.
+**Figure 7**: Boxplots of nectar sugar concentration across geographical regions
+
+**Figure 8**: Geospatial mappnig
 
 ```{r, message=FALSE, warning=FALSE}
-# Install required packages if not already installed
-if (!require(dplyr)) install.packages("dplyr")
-if (!require(ggplot2)) install.packages("ggplot2")
-if (!require(tidyr)) install.packages("tidyr")
-if (!require(ggpubr)) install.packages("ggpubr")  # For normality tests
-if (!require(car)) install.packages("car")  # For ANOVA assumptions
-if (!require(FSA)) install.packages("FSA")  # For Kruskal-Wallis post-hoc tests
-
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(ggpubr)
-library(car)
-library(FSA)
 
 # -------------------------------
 # Data Preparation
 # -------------------------------
-# Load data
-setwd("~/Desktop/NECTAR-PROJECT")  # Set your working directory
-bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
 
 # Convert geographical regions into factors
 bee_data_long <- bee_data %>%
@@ -519,29 +593,7 @@ if (shapiro_test$p.value > 0.05) {
 
 ```
 
-2\. **Geospatial Mapping**:
-
-◦ Use heatmaps on a world map to visualize geographic patterns in
-
-sugar concentration.
-
 ```{r, message=FALSE, warning=FALSE}
-if (!require(dplyr)) install.packages("dplyr")
-if (!require(ggplot2)) install.packages("ggplot2")
-if (!require(tidyr)) install.packages("tidyr")
-if (!require(sf)) install.packages("sf")
-if (!require(rnaturalearth)) install.packages("rnaturalearth")
-if (!require(rnaturalearthdata)) install.packages("rnaturalearthdata")
-if (!require(viridis)) install.packages("viridis")
-
-# Load libraries
-library(dplyr)
-library(ggplot2)
-library(tidyr)
-library(sf)
-library(rnaturalearth)
-library(rnaturalearthdata)
-library(viridis)
 
 # -------------------------------
 # Data Preparation
@@ -633,21 +685,21 @@ ggplot() +
 
 ```
 
-3**4. Ecological Effects (Crops vs. Weeds)**
+#### 6. Ecological Effects (Crops vs Weeds vs Wilds)
 
-**Objective:**
+The comparison of nectar sugar concentrations among **crops**, **weeds**, and **wild plants** revealed distinct patterns:
 
-• Evaluate whether plant type (crop vs. weed) affects nectar sugar concentration.
+-   **Wild plants** exhibited the **highest median sugar concentrations**, exceeding **45%**, with a wider interquartile range and more variability compared to the other plant types.
 
-1\. **Boxplots by Type**:
+-   **Crops** displayed the lowest sugar concentrations, with a median around **35%** and a narrower spread.
 
-◦ Compare sugar concentration between crops and weeds visually.
+-   **Weeds** showed intermediate sugar concentrations, with a median close to **40%**, overlapping slightly with crops but lower than wild plants.
 
-2\. **T-Test or Wilcoxon Test**:
+Pairwise comparisons using **Dunn's test** identified a **significant difference** between **wild plants and crops**, while no significant differences were observed between crops and weeds or weeds and wild plants (Figure 9).
 
-◦ Test for significant differences between crops and weeds.
+These results suggest that wild plants may provide nectar with higher sugar concentrations compared to cultivated crops, possibly reflecting ecological adaptations.
 
-**Analyses:**
+**Figure 9: Ecological Effects ( Crops vs Weeds vs Wilds)**
 
 ```{r, message=FALSE, warning=FALSE}
 # -----------------------------
@@ -701,150 +753,162 @@ if (kruskal_result$p.value < 0.05) {
 
 ```
 
-4**5. Variability in High-Performing Families**
+#### 7. Phylogenetic Analysis
 
-**Objective:**
+The phylogenetic analysis revealed critical patterns regarding the evolutionary relationships of nectar sugar concentration across plant families. A heatmap aligned with the phylogenetic tree highlights specific trends and deviations in sugar production strategies.
 
-• Analyze sugar concentration variability within high-performing families and identify key
+------------------------------------------------------------------------
 
-genera. It can be genus to, the one where you find more differences
+#### **1. Families with Similar Nectar Sugar Concentrations**
 
-1\. **Subset High-Performing Families**:
+-   Three families, **Ranunculaceae, Costaceae, and Alstroemeriaceae**, exhibit notable similarities in nectar sugar concentrations despite their phylogenetic distance.
 
-◦ Filter families with high average sugar concentration.
+    -   These families display moderate sugar concentrations (\~40-50%), suggesting possible adaptations to generalist pollinators or similar environmental pressures.
 
-◦ Compare variability among genera within these families.
+    -   The consistency across these families hints at **convergent evolution** for shared ecological strategies.
 
-2\. **ANOVA**:
+------------------------------------------------------------------------
 
-◦ Evaluate whether genera within high-performing families differ significantly.
+#### **2. Phylogenetic Signal and Proximity**
 
-**Analyses:**
+-   Families that are phylogenetically **closer** often display clustering in nectar sugar concentrations.
+
+    -   For example, **Fabaceae** and **Rosaceae** show moderate sugar values, reflecting potential shared evolutionary traits.
+
+    -   However, families like **Ranunculaceae** and **Zygophyllaceae** deviate from this trend, demonstrating significantly higher sugar concentrations despite their phylogenetic distance.
+
+    -   This decoupling indicates the presence of **convergent evolution**, where unrelated families adapt to similar ecological pressures (e.g., pollinator specialization).
+
+------------------------------------------------------------------------
+
+#### **3. Variability Within Families**
+
+-   Certain families exhibit **high variability** in sugar concentrations across genera, suggesting diverse pollination strategies within the same family:
+
+    -   **Solanaceae** and **Fabaceae** show a wide range of sugar values, indicating adaptation to multiple pollinator types or environmental niches.
+
+    -   This variability reflects **adaptive radiation**, where genera exploit different ecological conditions to maximize reproductive success.
+
+------------------------------------------------------------------------
+
+#### **4. Low Sugar Concentration in Basal Angiosperms**
+
+-   Basal families such as **Magnoliaceae** and **Costaceae** are positioned lower in the phylogenetic tree and exhibit lower to moderate sugar concentrations.
+
+    -   This suggests that **higher sugar concentrations** may have evolved later in angiosperms, possibly alongside the evolution of more specialized pollination systems (e.g., hummingbirds and bats).
+
+------------------------------------------------------------------------
+
+#### **5. High Sugar Concentration Outliers**
+
+-   Families such as **Passifloraceae** and **Zygophyllaceae** exhibit **exceptionally high sugar concentrations** (\~60-65%) relative to other families:
+
+    -   Despite being phylogenetically distant, these families appear to converge toward similar strategies, likely driven by selective pressures to attract high-energy-demand pollinators (e.g., hummingbirds, large insects).
+
+    -   This outlier behavior reinforces the role of **ecological specialization** over phylogenetic constraints in shaping nectar traits.
+
+------------------------------------------------------------------------
+
+### **Figure Legends**:
+
+-   **Figure 10**: Phylogenetic tree of families showing evolutionary relationships.
+
+-   **Figure 11**: Heatmap of nectar sugar concentrations aligned to the phylogenetic tree.
 
 ```{r, message=FALSE, warning=FALSE}
-# Step 1: Identify High-Performing Families -----------------------------------
+# Ensure sugar concentration is numeric and filter out blank Family names
+bee_data <- bee_data %>%
+  filter(!is.na(Family) & Family != "", !is.na(sugar_concentration)) %>%
+  mutate(sugar_concentration = as.numeric(sugar_concentration))
 
-# Calculate mean sugar concentration for each family
-family_summary <- bee_data %>%
+# Calculate mean sugar concentration for each unique family
+mean_family_sugar <- bee_data %>%
   group_by(Family) %>%
-  summarize(
-    Mean_Sugar = mean(sugar_concentration, na.rm = TRUE),
-    SD_Sugar = sd(sugar_concentration, na.rm = TRUE),
-    N = n()
-  ) %>%
-  arrange(desc(Mean_Sugar))
+  summarise(mean_sugar_concentration = mean(sugar_concentration, na.rm = TRUE)) %>%
+  arrange(desc(mean_sugar_concentration))
+# Step 1: List of family names
+family_names <- as.character(mean_family_sugar$Family)  # Ensure 'Family' is character
 
-# Filter families with mean sugar concentration > 45 (threshold can be adjusted)
-high_perf_families <- family_summary %>%
-  filter(Mean_Sugar > 55)
+# Step 2: Match family names to Open Tree of Life identifiers
+matched_names <- tnrs_match_names(names = family_names)
 
-# Print the high-performing families
-print(high_perf_families)
+# Step 3: Filter out unmatched names (NA IDs)
+valid_matches <- matched_names %>%
+  filter(!is.na(ott_id))  # Keep only valid IDs
 
-# Subset the data to include only high-performing families
-high_perf_data <- bee_data %>%
-  filter(Family %in% high_perf_families$Family)
-
-# Step 2: Compare Variability Among Genera ------------------------------------
-
-# Boxplot: Sugar concentration by genus within high-performing families
-ggplot(high_perf_data, aes(x = Genus, y = sugar_concentration, fill = Family)) +
-  geom_boxplot() +
-  labs(
-    title = "Variability in Sugar Concentration Across Genera",
-    subtitle = "Within High-Performing Families",
-    x = "Genus",
-    y = "Sugar Concentration (%)"
-  ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  theme_minimal()
-
-# Step 3: ANOVA to Evaluate Differences Among Genera --------------------------
-
-# Fit a linear model to test for differences among genera
-anova_model <- aov(sugar_concentration ~ Genus + Family, data = high_perf_data)
-
-# Display ANOVA summary
-anova_summary <- summary(anova_model)
-print(anova_summary)
-
-#########
-
-
-
+# Step 4: Generate the phylogenetic tree using valid IDs
+if (nrow(valid_matches) > 0) {
+  tree <- tol_induced_subtree(ott_ids = valid_matches$ott_id)
+  
+  # Step 5: Check and assign default branch lengths if missing
+  if (is.null(tree$edge.length)) {
+    tree$edge.length <- rep(1, nrow(tree$edge))  # Assign equal branch lengths
+  }
+  
+  # Shorten the branch lengths for better visualization
+  ggtree(tree, size = 0.7) +  # Reduce branch thickness
+    geom_tiplab(size = 3, align = TRUE, hjust = -0.1, linesize = 0.5) +  # Add tip labels
+    labs(title = "Phylogenetic Tree of Families (Real Relationships)") +
+    theme_tree2() +
+    scale_x_continuous(expand = c(0, 4.5))  # Adjust X-axis space to fit labels
+}
 
 ```
-
-5**6. Phylogenetic Signal Testing**
-
-**Objective:**
-
-• Assess if closely related families have similar nectar sugar concentrations.
-
-**Analyses:**
 
 ```{r, message=FALSE, warning=FALSE}
+# Step 1: Extract the ordered family names manually from the tree
+ordered_families <- c(
+  "Verbenaceae_ott1081077", "Lamiaceae_ott544714", "Bignoniaceae_ott900321",
+  "Oleaceae_ott23723", "mrcaott2108ott12524", "Apocynaceae_ott524059",
+  "Solanaceae_ott473827", "Caprifoliaceae_ott69534", "Araliaceae_ott524079",
+  "Asteraceae_ott46248", "Polygonaceae_ott904376", "Nyctaginaceae_ott740464",
+  "Violaceae_ott224730", "Passifloraceae_ott530187", "Linaceae_ott1000257",
+  "Fabaceae_ott560323", "Rosales_ott208031", "Zygophyllaceae_ott461732",
+  "Malvaceae_ott279960", "Brassicaceae_ott309271", "mrcaott960tt1860",
+  "Onagraceae_ott1015483", "Vitaceae_ott1069308", "Grossulariaceae_ott488526",
+  "Berberidaceae_ott297866", "Ranunculaceae_ott387826", "Amaryllidaceae_ott17701",
+  "Costaceae_ott679527", "Alstroemeriaceae_ott940129", "Magnoliaceae_ott288464"
+)
 
+# Step 2: Match family names in ordered_families with closest names in mean_family_sugar
+matched_names <- sapply(ordered_families, function(tree_name) {
+  closest_match <- mean_family_sugar$Family[which.min(
+    stringdist::stringdist(tree_name, mean_family_sugar$Family)
+  )]
+  return(closest_match)
+})
 
+# Step 3: Create a new table with matched names and sugar concentrations
+heatmap_data <- data.frame(
+  Tree_Family = ordered_families,       # Tree order
+  Matched_Family = matched_names        # Closest names from mean_family_sugar
+)
 
+# Merge with sugar concentrations
+heatmap_data <- heatmap_data %>%
+  left_join(mean_family_sugar, by = c("Matched_Family" = "Family")) %>%
+  mutate(Tree_Family = factor(Tree_Family, levels = ordered_families)) %>%
+  select(Tree_Family, mean_sugar_concentration)
 
-
+# Step 4: Plot the heatmap and reverse the Y-axis order
+ggplot(heatmap_data, aes(x = "", y = Tree_Family, fill = mean_sugar_concentration)) +
+  geom_tile() +
+  scale_fill_gradient(low = "yellow", high = "red", name = "Sugar Conc.") +
+  scale_y_discrete(limits = rev(levels(heatmap_data$Tree_Family))) +  # Reverse the Y-axis order
+  labs(title = "Heatmap of Sugar Concentration by Family (Tree Order)", 
+       x = "", y = "Family") +
+  theme_minimal() +
+  theme(axis.text.x = element_blank(), 
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_text(size = 8))  # Adjust text size for readability
 
 ```
-
-1\. **Phylogenetic Tree Construction**:
-
-◦ Use data from Open Tree of Life to construct a phylogenetic tree for the species in
-
-the dataset.
-
-◦ Tools: **ape**, **phytools** in R.
-
-2\. **Phylogenetic Signal**:
-
-◦ Use **Blomberg's K** or **Pagel's λ** to test if sugar concentration is phylogenetically
-
-conserved.
-
-3\. **Visualize Sugar Concentration on Phylogenetic Tree**:
-
-◦ Map sugar concentration as a heatmap on the tree.
-
-```{r, message=FALSE, warning=FALSE}
-
-
-```
-
-# 6. Results
-
-**Results**
-
-**Nectar Sugar Concentration Across Geographical Regions**
-
-The mean nectar sugar concentration varied slightly across geographical regions (Figure 8). South America had the highest mean concentration (39.11%, SD = 11.35) followed by Europe (38.93%, SD = 11.02) and Africa (38.9%, SD = 11.67). Australia exhibited the lowest mean sugar concentration at 38.63% (SD = 11.07). Despite minor fluctuations, the mean concentrations remained consistent globally.
-
-**Taxonomic Differences in Sugar Concentration**
-
-Significant taxonomic variation was observed at both the **family** and **genus** levels. At the **family level**, Zygophyllaceae, Vitaceae, and Violaceae families exhibited the most significant differences in nectar sugar concentration (p-values \< 1e-9) (Figure 2). Conversely, genera such as *Aesculus*, *Adesmia*, and *Aconitum* demonstrated high variability at the genus level (Figure 2).
-
-**Pairwise Comparisons**
-
-Significant pairwise comparisons revealed differences in sugar concentrations between specific families and genera (Figures 3 and 4). For instance:
 
 ```         
-•   At the family level, the largest significant differences were observed between **Brassicaceae-Solanaceae** and **Asteraceae-Brassicaceae** pairs, with adjusted p-values close to 0.02.
-
-•   At the genus level, comparisons such as *Adesmia-Ribes* and *Aconitum-Pyrus* showed significant differences, highlighting specific genera driving variability within families.
 ```
 
-**Distribution of Random Effects**
+### Discussion
 
-The distribution of random effects (Figure 5) showed that most genera clustered around zero, indicating minimal deviation in nectar sugar concentration across genera. However, outliers with extreme positive and negative estimates were observed, emphasizing the presence of notable variations among specific genera within families.
-
-The **top 10 and bottom 10 random effect estimates** (Figure 6) identified families and genera with the highest variability. Families such as **Lamiaceae** and **Salicaceae** exhibited large positive deviations, while Solanaceae and Amaryllidaceae displayed negative deviations. These families and their respective genera significantly influenced nectar sugar concentration trends.
-
-**Family-Level and Regional Patterns**
-
-A comparison of mean nectar sugar concentration across families and regions (Figure 1) showed that most families maintained consistent sugar concentrations across continents. However, families like Zygophyllaceae and Vitaceae presented slight variability, which could contribute to the observed global patterns.
+### Conclusion
 
 ### 
