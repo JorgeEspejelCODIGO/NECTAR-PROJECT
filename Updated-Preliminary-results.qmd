@@ -2,33 +2,38 @@
 title: "Preliminary-result"
 author:
   - Jorge Alberto Espejel Padilla
-  - Md Mehedi Hassan Sharif
+  - Mehedi Shariff
   - Amala Thomas
-  - Ei Mon Thant
-date: "`r Sys.Date()`"
-format: 
-    html:
-      self-contained: true
-      code-fold: true
+  - Ei Mon Than
+format: html
 editor: visual
 ---
 
 # 1. Title
-<div style="text-align: justify;">
 
 Analysis of the data set from the project "The nectar report: quantitative review of nectar sugar concentrations offered by bee visited flowers in agricultural and non-agricultural landscapes"
-</div>
 
-# 2. Introduction
+# 2. Team Members Names
+
+-   Jorge Alberto Espejel Padilla
+-   Mehedi Shariff
+-   Amala Thomas
+-   Ei Mon Than
+
+# 3. Introduction
 
 **Introduction**
-<div style="text-align: justify;">
 
-Nectar is a critical resource in plant-pollinator interactions, influencing pollinator behavior, visitation rates, and plant reproductive success. Its sugar composition—primarily sucrose, glucose, and fructose—serves as a key determinant of nectar quality and pollinator preference (Nicolson & Thornburg, 2007). Variations in nectar sugar concentration have been linked to ecological, evolutionary, and environmental factors, including plant taxonomy, geographical region, and climate conditions (Pacini & Nepi, 2007; Ornelas et al., 2019). Understanding these variations is crucial for elucidating the role of nectar traits in shaping plant-pollinator dynamics.Taxonomy plays a significant role in determining nectar composition. Differences in sugar ratios have been observed at both the family and genus levels, with phylogenetic constraints often influencing nectar traits (Perret et al., 2001; Chalcoff et al., 2006). For example, hummingbird-pollinated flowers tend to produce sucrose-dominant nectars, while bee-pollinated flowers show balanced sugar proportions (Rodríguez-Gironés & Santamaría, 2004; Nicolson & Thornburg, 2007). These variations highlight evolutionary adaptations to pollinator syndromes. In addition to taxonomy, geographic factors contribute to variability in nectar traits. Nectar sugar concentration has been shown to vary across regions, likely as a response to climatic factors such as temperature, rainfall, and latitude (Pacini & Nepi, 2007; Stiles & Freeman, 1993). For instance, studies in temperate and tropical regions have reported regional differences in nectar sugar concentration, influenced by both plant phylogeny and environmental conditions (Petanidou, 2005; Chalcoff et al., 2006). These findings underscore the interplay between evolutionary processes and environmental pressures in shaping nectar characteristics globally. Recent work, such as Ornelas et al. (2019), has revealed significant variation in nectar sugar concentration across families, genera, and continents, reflecting both fixed effects (taxonomic constraints) and random effects (environmental variability). Identifying these patterns is essential for understanding how nectar traits evolve and adapt in different ecological and climatic contexts. This study aims to analyze the variability in nectar sugar concentration across taxonomic levels and geographical regions. Specifically, we investigate: (1) differences in mean nectar sugar concentration between continents, (2) significant pairwise comparisons at family and genus levels, and (3) the distribution of random effects within taxonomic families. By addressing these objectives, the study contributes to a broader understanding of how nectar traits influence pollination ecology in a changing global environment.
+Nectar is a critical resource in plant-pollinator interactions, influencing pollinator behavior, visitation rates, and plant reproductive success.
 
-</div>
-# 3. Objectives and Hypotheses
-<div style="text-align: justify;">
+Its sugar composition—primarily sucrose, glucose, and fructose—serves as a key determinant of nectar quality and pollinator preference (Nicolson & Thornburg, 2007). Variations in nectar sugar concentration have been linked to ecological, evolutionary, and environmental factors, including plant taxonomy, geographical region, and climate conditions (Pacini & Nepi, 2007; Ornelas et al., 2019). Understanding these variations is crucial for elucidating the role of nectar traits in shaping plant-pollinator dynamics. Taxonomy plays a significant role in determining nectar composition.
+
+Differences in sugar ratios have been observed at both the family and genus levels, with phylogenetic constraints often influencing nectar traits (Perret et al., 2001; Chalcoff et al., 2006). For example, hummingbird-pollinated flowers tend to produce sucrose-dominant nectars, while bee-pollinated flowers show balanced sugar proportions (Rodríguez-Gironés & Santamaría, 2004; Nicolson & Thornburg, 2007). These variations highlight evolutionary adaptations to pollinator syndromes. In addition to taxonomy, geographic factors contribute to variability in nectar traits.
+
+Nectar sugar concentration has been shown to vary across regions, likely as a response to climatic factors such as temperature, rainfall, and latitude (Pacini & Nepi, 2007; Stiles & Freeman, 1993). For instance, studies in temperate and tropical regions have reported regional differences in nectar sugar concentration, influenced by both plant phylogeny and environmental conditions (Petanidou, 2005; Chalcoff et al., 2006). These findings underscore the interplay between evolutionary processes and environmental pressures in shaping nectar characteristics globally. Recent work, such as Ornelas et al. (2019), has revealed significant variation in nectar sugar concentration across families, genera, and continents, reflecting both fixed effects (taxonomic constraints) and random effects (environmental variability). Identifying these patterns is essential for understanding how nectar traits evolve and adapt in different ecological and climatic contexts. This study aims to analyze the variability in nectar sugar concentration across taxonomic levels and geographical regions. Specifically, we investigate: (1) differences in mean nectar sugar concentration between continents, (2) significant pairwise comparisons at family and genus levels, and (3) the distribution of random effects within taxonomic families. By addressing these objectives, the study contributes to a broader understanding of how nectar traits influence pollination ecology in a changing global environment.
+
+# 4. Objectives and Hypotheses
+
 ## Objectives
 
 **Primary Objective**:
@@ -60,9 +65,8 @@ To analyze sugar concentration variability within high-performing families and i
 **H₀**: Within high-performing families, genera do not significantly differ in their contributions to higher average sugar concentrations.
 
 **H₁**: Certain genera within high-performing families significantly drive higher average sugar concentrations.
-</div>
 
-# 4. Methods
+# 5. Methods
 
 ------------------------------------------------------------------------
 
@@ -180,29 +184,30 @@ To analyze sugar concentration variability within high-performing families and i
 
 ------------------------------------------------------------------------
 
-# 5. Results
+# 6. Results
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
+```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', collapse=TRUE}
 
-# Install and load required packages
-if (!requireNamespace("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-if (!requireNamespace("ggtree", quietly = TRUE)) BiocManager::install("ggtree")
+# In this first chunk we are going to charge to our enviroment all the necessary packages for the following analysys and Set our directory.
 
-# Required packages
+# Define the list of required packages
 required_packages <- c(
   "dplyr", "ggplot2", "tidyr", "FSA", "ggpubr", 
   "lme4", "sjPlot", "forcats", "car", 
   "sf", "rnaturalearth", "rnaturalearthdata", 
-  "viridis", "rotl", "stringdist", "ggtree"
+  "viridis", "rotl", "ggtree", "stringdist"
 )
 
-# Install missing packages
-missing_packages <- setdiff(required_packages, rownames(installed.packages()))
-if (length(missing_packages) > 0) install.packages(missing_packages)
+# Install any packages that are not already installed
+installed_packages <- rownames(installed.packages())
+packages_to_install <- setdiff(required_packages, installed_packages)
 
-# Load packages
-invisible(lapply(required_packages, library, character.only = TRUE))
+if (length(packages_to_install) > 0) {
+  install.packages(packages_to_install)
+}
 
+# Load all required libraries
+lapply(required_packages, library, character.only = TRUE)
 
 ```
 
@@ -218,7 +223,10 @@ The descriptive analysis summarized nectar sugar concentration across families, 
 
 **Figure 1**: Mean nectar sugar concentration (%) by Family and Region.
 
-```{r, echo=TRUE, fold=TRUE, message=FALSE, warning=FALSE}
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+# Set working directory (adjust as needed) PLEASE ADJUST JUST CURRENT DIRECTORY 
+setwd ("C:/Users/mhsha/Documents/NECTAR-PROJECT")
 
 # Load the dataset
 bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
@@ -345,11 +353,13 @@ if (nrow(kw_taxonomy_filtered) > 0) {
   message("No significant results to display.")
 }
 
+
+
 ```
+
 -   
 
-    
-```{r, message=FALSE, warning=FALSE}
+    ```{r, message=FALSE, warning=FALSE}
 
     # Perform Dunn's Test for Pairwise Comparisons at the Family Level
     dunn_family <- dunnTest(sugar_concentration ~ Family, data = bee_data, method = "bonferroni")
@@ -407,7 +417,8 @@ if (nrow(kw_taxonomy_filtered) > 0) {
       theme_minimal()
 
 
-```
+
+    ```
 
 #### **4. Random Effects**
 
