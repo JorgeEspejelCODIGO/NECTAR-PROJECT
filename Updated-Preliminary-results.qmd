@@ -13,14 +13,7 @@ editor: visual
 
 Analysis of the data set from the project "The nectar report: quantitative review of nectar sugar concentrations offered by bee visited flowers in agricultural and non-agricultural landscapes"
 
-# 2. Team Members Names
-
--   Jorge Alberto Espejel Padilla
--   Mehedi Shariff
--   Amala Thomas
--   Ei Mon Than
-
-# 3. Introduction
+# 2. Introduction
 
 **Introduction**
 
@@ -32,7 +25,7 @@ Differences in sugar ratios have been observed at both the family and genus leve
 
 Nectar sugar concentration has been shown to vary across regions, likely as a response to climatic factors such as temperature, rainfall, and latitude (Pacini & Nepi, 2007; Stiles & Freeman, 1993). For instance, studies in temperate and tropical regions have reported regional differences in nectar sugar concentration, influenced by both plant phylogeny and environmental conditions (Petanidou, 2005; Chalcoff et al., 2006). These findings underscore the interplay between evolutionary processes and environmental pressures in shaping nectar characteristics globally. Recent work, such as Ornelas et al. (2019), has revealed significant variation in nectar sugar concentration across families, genera, and continents, reflecting both fixed effects (taxonomic constraints) and random effects (environmental variability). Identifying these patterns is essential for understanding how nectar traits evolve and adapt in different ecological and climatic contexts. This study aims to analyze the variability in nectar sugar concentration across taxonomic levels and geographical regions. Specifically, we investigate: (1) differences in mean nectar sugar concentration between continents, (2) significant pairwise comparisons at family and genus levels, and (3) the distribution of random effects within taxonomic families. By addressing these objectives, the study contributes to a broader understanding of how nectar traits influence pollination ecology in a changing global environment.
 
-# 4. Objectives and Hypotheses
+# 3. Objectives and Hypotheses
 
 ## Objectives
 
@@ -66,7 +59,7 @@ To analyze sugar concentration variability within high-performing families and i
 
 **H₁**: Certain genera within high-performing families significantly drive higher average sugar concentrations.
 
-# 5. Methods
+# 4. Methods
 
 ------------------------------------------------------------------------
 
@@ -184,7 +177,7 @@ To analyze sugar concentration variability within high-performing families and i
 
 ------------------------------------------------------------------------
 
-# 6. Results
+# 5. Results
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide', collapse=TRUE}
 
@@ -225,48 +218,35 @@ The descriptive analysis summarized nectar sugar concentration across families, 
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 
-# Set working directory (adjust as needed) PLEASE ADJUST JUST CURRENT DIRECTORY 
-setwd ("C:/Users/mhsha/Documents/NECTAR-PROJECT")
 
 # Load the dataset
 bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
 
-# Convert sugar_concentration to numeric (in case of issues)
+# Convert sugar_concentration to numeric (ensure data type is correct)
 bee_data$sugar_concentration <- as.numeric(bee_data$sugar_concentration)
 
-# Calculate summary statistics grouped by Family, Genus, and Continent
-summary_stats <- bee_data %>%
+# Transform data for heatmap
+heatmap_data <- bee_data %>%
   gather(key = "Region", value = "Presence", europe:australia) %>%
   filter(Presence == "yes") %>%
-  group_by(Family, Genus, Region) %>%
-  summarise(
-    mean_sugar = mean(sugar_concentration, na.rm = TRUE),
-    median_sugar = median(sugar_concentration, na.rm = TRUE),
-    range_sugar = max(sugar_concentration, na.rm = TRUE) - min(sugar_concentration, na.rm = TRUE),
-    sd_sugar = sd(sugar_concentration, na.rm = TRUE),
-    iqr_sugar = IQR(sugar_concentration, na.rm = TRUE)
-  ) %>%
+  group_by(Family, Region) %>%
+  summarise(mean_sugar = mean(sugar_concentration, na.rm = TRUE)) %>%
   ungroup()
 
-# View the summary statistics table (optional)
-print(summary_stats)
-
-# Create a visualization (barplot of sugar concentration by Family and Region)
-ggplot(summary_stats, aes(x = Region, y = mean_sugar, fill = Family)) +
-  geom_bar(stat = "identity", position = "dodge") +
+# Create heatmap visualization
+ggplot(heatmap_data, aes(x = Region, y = reorder(Family, -mean_sugar), fill = mean_sugar)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "blue", high = "red", na.value = "grey", name = "Mean Sugar") +
   labs(
-    title = "Mean Nectar Sugar Concentration by Family and Region",
+    title = "Nectar Sugar Concentration by Family and Region",
     x = "Region",
-    y = "Mean Sugar Concentration (%)",
-    fill = "Family"
+    y = "Family"
   ) +
   theme_minimal() +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
     plot.title = element_text(size = 14, face = "bold")
   )
-
-
 ```
 
 #### **2. Taxonomic Effects on Nectar Sugar Concentration**

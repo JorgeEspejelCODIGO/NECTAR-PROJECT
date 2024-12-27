@@ -14,21 +14,28 @@ editor: visual
 ---
 
 # 1. Title
-<div style="text-align: justify;">
 
+::: {style="text-align: justify;"}
 Analysis of the data set from the project "The nectar report: quantitative review of nectar sugar concentrations offered by bee visited flowers in agricultural and non-agricultural landscapes"
-</div>
+:::
 
 # 2. Introduction
 
 **Introduction**
-<div style="text-align: justify;">
 
-Nectar is a critical resource in plant-pollinator interactions, influencing pollinator behavior, visitation rates, and plant reproductive success. Its sugar composition—primarily sucrose, glucose, and fructose—serves as a key determinant of nectar quality and pollinator preference (Nicolson & Thornburg, 2007). Variations in nectar sugar concentration have been linked to ecological, evolutionary, and environmental factors, including plant taxonomy, geographical region, and climate conditions (Pacini & Nepi, 2007; Ornelas et al., 2019). Understanding these variations is crucial for elucidating the role of nectar traits in shaping plant-pollinator dynamics.Taxonomy plays a significant role in determining nectar composition. Differences in sugar ratios have been observed at both the family and genus levels, with phylogenetic constraints often influencing nectar traits (Perret et al., 2001; Chalcoff et al., 2006). For example, hummingbird-pollinated flowers tend to produce sucrose-dominant nectars, while bee-pollinated flowers show balanced sugar proportions (Rodríguez-Gironés & Santamaría, 2004; Nicolson & Thornburg, 2007). These variations highlight evolutionary adaptations to pollinator syndromes. In addition to taxonomy, geographic factors contribute to variability in nectar traits. Nectar sugar concentration has been shown to vary across regions, likely as a response to climatic factors such as temperature, rainfall, and latitude (Pacini & Nepi, 2007; Stiles & Freeman, 1993). For instance, studies in temperate and tropical regions have reported regional differences in nectar sugar concentration, influenced by both plant phylogeny and environmental conditions (Petanidou, 2005; Chalcoff et al., 2006). These findings underscore the interplay between evolutionary processes and environmental pressures in shaping nectar characteristics globally. Recent work, such as Ornelas et al. (2019), has revealed significant variation in nectar sugar concentration across families, genera, and continents, reflecting both fixed effects (taxonomic constraints) and random effects (environmental variability). Identifying these patterns is essential for understanding how nectar traits evolve and adapt in different ecological and climatic contexts. This study aims to analyze the variability in nectar sugar concentration across taxonomic levels and geographical regions. Specifically, we investigate: (1) differences in mean nectar sugar concentration between continents, (2) significant pairwise comparisons at family and genus levels, and (3) the distribution of random effects within taxonomic families. By addressing these objectives, the study contributes to a broader understanding of how nectar traits influence pollination ecology in a changing global environment.
+::: {style="text-align: justify;"}
+Nectar is a critical resource in plant-pollinator interactions, influencing pollinator behavior, visitation rates, and plant reproductive success.
 
-</div>
+Its sugar composition—primarily sucrose, glucose, and fructose—serves as a key determinant of nectar quality and pollinator preference (Nicolson & Thornburg, 2007). Variations in nectar sugar concentration have been linked to ecological, evolutionary, and environmental factors, including plant taxonomy, geographical region, and climate conditions (Pacini & Nepi, 2007; Ornelas et al., 2019). Understanding these variations is crucial for elucidating the role of nectar traits in shaping plant-pollinator dynamics. Taxonomy plays a significant role in determining nectar composition.
+
+Differences in sugar ratios have been observed at both the family and genus levels, with phylogenetic constraints often influencing nectar traits (Perret et al., 2001; Chalcoff et al., 2006). For example, hummingbird-pollinated flowers tend to produce sucrose-dominant nectars, while bee-pollinated flowers show balanced sugar proportions (Rodríguez-Gironés & Santamaría, 2004; Nicolson & Thornburg, 2007). These variations highlight evolutionary adaptations to pollinator syndromes. In addition to taxonomy, geographic factors contribute to variability in nectar traits.
+
+Nectar sugar concentration has been shown to vary across regions, likely as a response to climatic factors such as temperature, rainfall, and latitude (Pacini & Nepi, 2007; Stiles & Freeman, 1993). For instance, studies in temperate and tropical regions have reported regional differences in nectar sugar concentration, influenced by both plant phylogeny and environmental conditions (Petanidou, 2005; Chalcoff et al., 2006). These findings underscore the interplay between evolutionary processes and environmental pressures in shaping nectar characteristics globally. Recent work, such as Ornelas et al. (2019), has revealed significant variation in nectar sugar concentration across families, genera, and continents, reflecting both fixed effects (taxonomic constraints) and random effects (environmental variability). Identifying these patterns is essential for understanding how nectar traits evolve and adapt in different ecological and climatic contexts. This study aims to analyze the variability in nectar sugar concentration across taxonomic levels and geographical regions. Specifically, we investigate: (1) differences in mean nectar sugar concentration between continents, (2) significant pairwise comparisons at family and genus levels, and (3) the distribution of random effects within taxonomic families. By addressing these objectives, the study contributes to a broader understanding of how nectar traits influence pollination ecology in a changing global environment.
+:::
+
 # 3. Objectives and Hypotheses
-<div style="text-align: justify;">
+
+::: {style="text-align: justify;"}
 ## Objectives
 
 **Primary Objective**:
@@ -60,7 +67,7 @@ To analyze sugar concentration variability within high-performing families and i
 **H₀**: Within high-performing families, genera do not significantly differ in their contributions to higher average sugar concentrations.
 
 **H₁**: Certain genera within high-performing families significantly drive higher average sugar concentrations.
-</div>
+:::
 
 # 4. Methods
 
@@ -78,19 +85,23 @@ To analyze sugar concentration variability within high-performing families and i
         -   **Range**: To understand variability in sugar concentration.
         -   **Standard Deviation (SD)**: To quantify data spread.
         -   **Interquartile Range (IQR)**: To capture variability while ignoring extreme values.
-    -   Visualized the mean sugar concentration by Family and Region using barplots.
+    -   Visualized the mean sugar concentration by Family and Region using heatmap.
 
 ------------------------------------------------------------------------
 
-### 2. **Kruskal-Wallis Test for Taxonomic Effects**:
+### 2. Boxplot Analysis: Nectar Sugar Concentration by Family
 
--   **Objective**: Evaluate the relationship between taxonomy and nectar sugar concentration.
+**Objective**: Visualize the distribution of nectar sugar concentration across different plant families.
 
--   **Analyses**:
+**Analyses**:
 
-    -   Conducted **Kruskal-Wallis tests** for sugar concentration across:
-        -   **Families** and **Genera** to detect significant differences.
-    -   Visualized results with a heatmap highlighting significant p-values for Family and Genus comparisons.
+-   Ensured nectar sugar concentration values were properly formatted as numeric for analysis.
+
+-   Created boxplots to visualize nectar sugar concentration distribution across families.
+
+-   Ordered families by their median sugar concentration to enhance interpretability.
+
+-   Highlighted outliers in the data for better identification of deviations from typical value
 
 ------------------------------------------------------------------------
 
@@ -116,7 +127,7 @@ To analyze sugar concentration variability within high-performing families and i
     -   Fitted a **linear mixed-effects model**:
         -   Included **Genus nested within Family** as random effects.
     -   Examined fixed and random effects.
-    -   Visualized random effects using histograms and barplots for top/bottom genera.
+    -   Visualized random effects using barplots for top/bottom genera.
 
 ------------------------------------------------------------------------
 
@@ -141,18 +152,6 @@ To analyze sugar concentration variability within high-performing families and i
     -   Created **boxplots** to visualize differences between plant types.
     -   Used **Kruskal-Wallis tests** to test for significant differences.
     -   Performed **Dunn’s test** for pairwise comparisons between plant types.
-
-------------------------------------------------------------------------
-
-### 7. **High-Performing Families**:
-
--   **Objective**: Analyze sugar concentration variability within families with high average values.
-
--   **Analyses**:
-
-    -   Identified families with **mean sugar concentration \> 55%**.
-    -   Conducted **ANOVA** to evaluate differences among genera within these families.
-    -   Visualized variability using boxplots.
 
 ------------------------------------------------------------------------
 
@@ -196,6 +195,12 @@ required_packages <- c(
   "viridis", "rotl", "stringdist", "ggtree"
 )
 
+# Load required library
+library(lme4)
+library(tidyr)
+
+
+
 # Install missing packages
 missing_packages <- setdiff(required_packages, rownames(installed.packages()))
 if (length(missing_packages) > 0) install.packages(missing_packages)
@@ -226,31 +231,63 @@ bee_data <- read.csv("cleaned_bee_nectar_data.csv", stringsAsFactors = FALSE)
 # Convert sugar_concentration to numeric (in case of issues)
 bee_data$sugar_concentration <- as.numeric(bee_data$sugar_concentration)
 
-# Calculate summary statistics grouped by Family, Genus, and Continent
-summary_stats <- bee_data %>%
+# Transform data for heatmap
+heatmap_data <- bee_data %>%
   gather(key = "Region", value = "Presence", europe:australia) %>%
   filter(Presence == "yes") %>%
-  group_by(Family, Genus, Region) %>%
-  summarise(
-    mean_sugar = mean(sugar_concentration, na.rm = TRUE),
-    median_sugar = median(sugar_concentration, na.rm = TRUE),
-    range_sugar = max(sugar_concentration, na.rm = TRUE) - min(sugar_concentration, na.rm = TRUE),
-    sd_sugar = sd(sugar_concentration, na.rm = TRUE),
-    iqr_sugar = IQR(sugar_concentration, na.rm = TRUE)
-  ) %>%
+  group_by(Family, Region) %>%
+  summarise(mean_sugar = mean(sugar_concentration, na.rm = TRUE)) %>%
   ungroup()
 
-# View the summary statistics table (optional)
-print(summary_stats)
-
-# Create a visualization (barplot of sugar concentration by Family and Region)
-ggplot(summary_stats, aes(x = Region, y = mean_sugar, fill = Family)) +
-  geom_bar(stat = "identity", position = "dodge") +
+# Create heatmap visualization
+ggplot(heatmap_data, aes(x = Region, y = reorder(Family, -mean_sugar), fill = mean_sugar)) +
+  geom_tile(color = "white") +
+  scale_fill_gradient(low = "blue", high = "red", na.value = "grey", name = "Mean Sugar") +
   labs(
-    title = "Mean Nectar Sugar Concentration by Family and Region",
+    title = "Nectar Sugar Concentration by Family and Region",
     x = "Region",
-    y = "Mean Sugar Concentration (%)",
-    fill = "Family"
+    y = "Family"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 14, face = "bold")
+  )
+
+```
+
+#### **2. Taxonomic Effects on Nectar Sugar Concentration**
+
+The analysis of nectar sugar concentration revealed significant variability across taxonomic levels. Two approaches were used to assess this: boxplots and random effects modeling.
+
+#### **Boxplot Analysis**
+
+A boxplot of nectar sugar concentration grouped by family (Figure 2) revealed distinct patterns of variability across families. While some families exhibited a wide range of sugar concentrations, others showed narrower distributions. Outliers in some families suggest genera with sugar concentrations that deviate significantly from the family median.
+
+#### **Random Effects Analysis**
+
+A linear mixed-effects model was fitted to estimate random effects at the family and genus levels, accounting for hierarchical taxonomic relationships. The **random effects by family** (Figure 3) highlight the influence of specific families on nectar sugar concentration. Families with the largest random effects (positive or negative) tend to dominate or deviate substantially from the overall average. This variability can partly be attributed to the number of genera represented within these families.
+
+#### 3. Pairwise Comparisons Analysis:
+
+-   **Family level**: Significant pairwise differences were observed in specific family pairs such as **Brassicaceae - Solanaceae** and **Asteraceae - Brassicaceae** (Figure 3). These families showed distinct differences in sugar concentration values.
+
+-   **Genus level**: At the genus level, **Adesmia - Ribes** and **Aconitum - Pyrus** showed the most significant pairwise differences (Figure 4). This emphasizes greater variation in nectar sugar concentration between genera compared to families.
+
+**Figure 2**: Nectar sugar concentration by family.\
+**Figure 3 and 4**: Significant pairwise comparisons at the Family and Genus level.
+
+```{r, message=FALSE, warning=FALSE}
+# Ensure sugar_concentration is numeric
+bee_data$sugar_concentration <- as.numeric(bee_data$sugar_concentration)
+
+# Boxplot for Taxonomic Effects by Family
+ggplot(bee_data, aes(x = reorder(Family, sugar_concentration, FUN = median), y = sugar_concentration)) +
+  geom_boxplot(fill = "steelblue", alpha = 0.7, outlier.color = "red", outlier.shape = 16) +
+  labs(
+    title = "Nectar Sugar Concentration by Family",
+    x = "Family",
+    y = "Sugar Concentration (%)"
   ) +
   theme_minimal() +
   theme(
@@ -261,150 +298,62 @@ ggplot(summary_stats, aes(x = Region, y = mean_sugar, fill = Family)) +
 
 ```
 
-#### **2. Taxonomic Effects on Nectar Sugar Concentration**
-
-The Kruskal-Wallis test revealed that significant differences in nectar sugar concentration are primarily observed at the **Genus level**.
-
--   **Genus level**: Genera such as **Aesculus** and **Adesmia** exhibited the most notable differences, as reflected in their **low adjusted p-values** (Figure 2), confirming statistically significant differences.
-
--   **Family level**: The top 5 largest p-values indicate **non-significant differences**, suggesting less distinct variation in sugar concentrations between families (Figure 2).
-
-This highlights that variability in nectar sugar concentration is more pronounced within genera rather than across broader family classifications.
-
-#### 3. Pairwise Comparisons Analysis:
-
--   **Family level**: Significant pairwise differences were observed in specific family pairs such as **Brassicaceae - Solanaceae** and **Asteraceae - Brassicaceae** (Figure 3). These families showed distinct differences in sugar concentration values.
-
--   **Genus level**: At the genus level, **Adesmia - Ribes** and **Aconitum - Pyrus** showed the most significant pairwise differences (Figure 4). This emphasizes greater variation in nectar sugar concentration between genera compared to families.
-
-**Figure 2**: Top 5 smallest and largest p-values for taxonomic effects.\
-**Figure 3 and 4**: Significant pairwise comparisons at the Family and Genus level.
-
 ```{r, message=FALSE, warning=FALSE}
-# Ensure sugar concentration is numeric and missing data is handled
-bee_data <- bee_data %>%
-  filter(!is.na(Family), !is.na(Genus), !is.na(sugar_concentration)) %>%
-  mutate(sugar_concentration = as.numeric(sugar_concentration))
+# Perform Dunn's Test for Pairwise Comparisons at the Family Level
+dunn_family <- dunnTest(sugar_concentration ~ Family, data = bee_data, method = "bonferroni")
+dunn_family_results <- dunn_family$res
 
-# Perform Kruskal-Wallis test for nectar sugar concentration by Family
-kw_family_taxonomy <- bee_data %>%
-  group_by(Family) %>%
-  summarise(
-    p_value = tryCatch(
-      kruskal.test(sugar_concentration ~ Family, data = bee_data)$p.value,
-      error = function(e) NA  # Handle errors by assigning NA
-    )
-  ) %>%
-  filter(!is.na(p_value))  # Remove rows with NA p-values
+# Check column names of the Dunn test results
+print(names(dunn_family_results))  # Debugging step to confirm column names
 
-# Perform Kruskal-Wallis test for nectar sugar concentration by Genus
-kw_genus_taxonomy <- bee_data %>%
-  group_by(Genus) %>%
-  summarise(
-    p_value = tryCatch(
-      kruskal.test(sugar_concentration ~ Genus, data = bee_data)$p.value,
-      error = function(e) NA  # Handle errors by assigning NA
-    )
-  ) %>%
-  filter(!is.na(p_value))  # Remove rows with NA p-values
-
-# Combine Family and Genus results
-kw_taxonomy_results <- bind_rows(
-  kw_family_taxonomy %>% mutate(Level = "Family"),
-  kw_genus_taxonomy %>% mutate(Level = "Genus")
-)
-
-# Ensure unique identifiers for visualization
-kw_taxonomy_results <- kw_taxonomy_results %>%
+# Extract significant comparisons for Family level
+significant_family <- dunn_family_results %>%
   mutate(
-    Identifier = ifelse(Level == "Family", paste(Family, "Family"), paste(Genus, "Genus"))
-  )
+    comparison = Comparison  # Use 'Comparison' column directly
+  ) %>%
+  filter(P.adj < 0.05) %>%
+  arrange(P.adj)
 
-# Filter top 5 smallest and largest p-values dynamically
-kw_taxonomy_filtered <- kw_taxonomy_results %>%
-  arrange(p_value) %>%
-  slice(c(1:5, (n() - 4):n()))  # Select top 5 smallest and largest p-values
+print("Significant Pairwise Comparisons Between Families:")
+print(significant_family)
 
-# Ensure there are results to plot
-if (nrow(kw_taxonomy_filtered) > 0) {
-  # Create the heatmap for taxonomic effects
-  ggplot(kw_taxonomy_filtered, aes(x = Level, y = Identifier, fill = p_value)) +
-    geom_tile(color = "white") +
-    scale_fill_gradient(low = "blue", high = "red", name = "p-value", na.value = "gray") +
-    labs(
-      title = "Top 5 Smallest and Largest P-Values: Taxonomic Effects on Nectar Sugar Concentration",
-      x = "Taxonomic Level",
-      y = "Family or Genus"
-    ) +
-    theme_minimal() +
-    theme(
-      axis.text.x = element_text(angle = 45, hjust = 1),
-      plot.title = element_text(size = 14, face = "bold")
-    )
-} else {
-  message("No significant results to display.")
-}
+# Perform Dunn's Test for Pairwise Comparisons at the Genus Level
+dunn_genus <- dunnTest(sugar_concentration ~ Genus, data = bee_data, method = "bonferroni")
+dunn_genus_results <- dunn_genus$res
 
-```
--   
+# Extract significant comparisons for Genus level
+significant_genus <- dunn_genus_results %>%
+  mutate(
+    comparison = Comparison  # Use 'Comparison' column directly
+  ) %>%
+  filter(P.adj < 0.05) %>%
+  arrange(P.adj)
 
-    
-```{r, message=FALSE, warning=FALSE}
+print("Significant Pairwise Comparisons Between Genera:")
+print(significant_genus)
 
-    # Perform Dunn's Test for Pairwise Comparisons at the Family Level
-    dunn_family <- dunnTest(sugar_concentration ~ Family, data = bee_data, method = "bonferroni")
-    dunn_family_results <- dunn_family$res
+# Visualize Results: Top Significant Comparisons at Family Level
+ggplot(significant_family, aes(x = reorder(comparison, P.adj), y = P.adj)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Significant Pairwise Comparisons: Family Level",
+    x = "Family Pair",
+    y = "Adjusted P-Value"
+  ) +
+  theme_minimal()
 
-    # Check column names of the Dunn test results
-    print(names(dunn_family_results))  # Debugging step to confirm column names
+# Visualize Results: Top Significant Comparisons at Genus Level
+ggplot(significant_genus, aes(x = reorder(comparison, P.adj), y = P.adj)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  coord_flip() +
+  labs(
+    title = "Significant Pairwise Comparisons: Genus Level",
+    x = "Genus Pair",
+    y = "Adjusted P-Value"
+  ) +
+  theme_minimal()
 
-    # Extract significant comparisons for Family level
-    significant_family <- dunn_family_results %>%
-      mutate(
-        comparison = Comparison  # Use 'Comparison' column directly
-      ) %>%
-      filter(P.adj < 0.05) %>%
-      arrange(P.adj)
-
-    print("Significant Pairwise Comparisons Between Families:")
-    print(significant_family)
-
-    # Perform Dunn's Test for Pairwise Comparisons at the Genus Level
-    dunn_genus <- dunnTest(sugar_concentration ~ Genus, data = bee_data, method = "bonferroni")
-    dunn_genus_results <- dunn_genus$res
-
-    # Extract significant comparisons for Genus level
-    significant_genus <- dunn_genus_results %>%
-      mutate(
-        comparison = Comparison  # Use 'Comparison' column directly
-      ) %>%
-      filter(P.adj < 0.05) %>%
-      arrange(P.adj)
-
-    print("Significant Pairwise Comparisons Between Genera:")
-    print(significant_genus)
-
-    # Visualize Results: Top Significant Comparisons at Family Level
-    ggplot(significant_family, aes(x = reorder(comparison, P.adj), y = P.adj)) +
-      geom_bar(stat = "identity", fill = "steelblue") +
-      coord_flip() +
-      labs(
-        title = "Significant Pairwise Comparisons: Family Level",
-        x = "Family Pair",
-        y = "Adjusted P-Value"
-      ) +
-      theme_minimal()
-
-    # Visualize Results: Top Significant Comparisons at Genus Level
-    ggplot(significant_genus, aes(x = reorder(comparison, P.adj), y = P.adj)) +
-      geom_bar(stat = "identity", fill = "steelblue") +
-      coord_flip() +
-      labs(
-        title = "Significant Pairwise Comparisons: Genus Level",
-        x = "Genus Pair",
-        y = "Adjusted P-Value"
-      ) +
-      theme_minimal()
 
 
 ```
@@ -433,28 +382,19 @@ The random effects analysis using a **linear mixed-effects model** assessed th
 **Figure 6**: Top and Bottom 10 random effects estimates
 
 ```{r, message=FALSE, warning=FALSE}
-
-# Convert necessary columns to factors
-bee_data$Family <- as.factor(bee_data$Family)
-bee_data$Genus <- as.factor(bee_data$Genus)
-
-# Remove rows with missing sugar concentration
-bee_data <- bee_data %>% filter(!is.na(sugar_concentration))
-
 # -------------------------------
 # Fit the Linear Mixed-Effects Model
 # -------------------------------
 # Model: Sugar concentration ~ (1 | Family/Genus) for random effects
 lmm_model <- lmer(sugar_concentration ~ 1 + (1 | Family/Genus), data = bee_data)
 
-# View the summary of the model
-summary(lmm_model)
-
 # -------------------------------
-# Extract and Filter Random Effects
+# Extract Random Effects
 # -------------------------------
 # Extract random effects (Genus within Family)
 random_effects <- ranef(lmm_model)$`Genus:Family`
+
+# Convert to data frame
 random_effects_df <- as.data.frame(random_effects)
 colnames(random_effects_df) <- c("Random_Effect")  # Rename the random effects column
 
@@ -465,14 +405,31 @@ random_effects_df$Genus_Family <- rownames(random_effects)
 random_effects_df <- random_effects_df %>%
   separate(Genus_Family, into = c("Family", "Genus"), sep = ":")
 
-# Arrange and select the top 10 and bottom 10 random effects
+# -------------------------------
+# Compute Mean Random Effect by Family
+# -------------------------------
+# Add mean random effect for each family
+random_effects_df <- random_effects_df %>%
+  group_by(Family) %>%
+  mutate(Mean_Family_Effect = mean(Random_Effect)) %>%
+  ungroup()
+
+# Arrange by mean family effect
+random_effects_df <- random_effects_df %>%
+  arrange(desc(Mean_Family_Effect))
+
+# -------------------------------
+# Select Top/Bottom 10 Random Effects
+# -------------------------------
+# Filter top and bottom 10 random effects by absolute value
 random_effects_filtered <- random_effects_df %>%
-  arrange(desc(abs(Random_Effect))) %>%  # Sort by absolute value
+  arrange(desc(abs(Random_Effect))) %>%
   slice(c(1:10, (n() - 9):n()))  # Select top 10 and bottom 10
 
 # -------------------------------
-# Visualize Random Effects
+# Visualize Improved Plots
 # -------------------------------
+
 # 1. Histogram of Random Effects
 ggplot(random_effects_df, aes(x = Random_Effect)) +
   geom_histogram(binwidth = 1, fill = "steelblue", color = "black") +
@@ -483,18 +440,25 @@ ggplot(random_effects_df, aes(x = Random_Effect)) +
   ) +
   theme_minimal()
 
-# 2. Barplot for Top/Bottom 10 Random Effects
-ggplot(random_effects_filtered, aes(x = fct_reorder(Genus, Random_Effect), y = Random_Effect, fill = Family)) +
-  geom_bar(stat = "identity", color = "black") +
+# 2. Improved Barplot for Top/Bottom 10 Random Effects
+# Include genus names as labels and order families by mean effect
+ggplot(random_effects_filtered, aes(x = reorder(Family, -Mean_Family_Effect), y = Random_Effect)) +
+  geom_bar(stat = "identity", fill = "steelblue", color = "black") +
+  geom_text(
+    aes(label = Genus),
+    hjust = 0.75,  # Center the labels horizontally
+    vjust = 0.5,  # Center the labels vertically
+    color = "black",  # Ensure labels are visible
+    size = 3
+  ) +
   coord_flip() +
   labs(
-    title = "Top and Bottom 10 Random Effects Estimates",
-    x = "Genus (Family)",
-    y = "Random Effect Estimate",
-    fill = "Family"
+    title = "Top and Bottom 10 Random Effects Estimates with Genus Labels",
+    x = "Family (Ordered by Mean Effect)",
+    y = "Random Effect Estimate"
   ) +
   theme_minimal() +
-  theme(axis.text.y = element_text(size = 8))
+  theme(axis.text.y = element_text(size = 10))
 
 
 ```
