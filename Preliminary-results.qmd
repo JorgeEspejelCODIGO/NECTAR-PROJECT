@@ -192,7 +192,7 @@ required_packages <- c(
   "dplyr", "ggplot2", "tidyr", "FSA", "ggpubr", 
   "lme4", "sjPlot", "forcats", "car", 
   "sf", "rnaturalearth", "rnaturalearthdata", 
-  "viridis", "rotl", "stringdist", "ggtree"
+  "viridis", "rotl", "stringdist", "ggtree", "emmeans"
 )
 
 # Load required library
@@ -867,7 +867,59 @@ ggplot(heatmap_data, aes(x = "", y = Tree_Family, fill = mean_sugar_concentratio
 
 ```
 
-```         
+```{r}
+# Perform Dunn's Test
+dunn_result <- dunnTest(sugar_concentration ~ type, data = bee_data, method = "bonferroni")
+
+# Extract results into a data frame
+dunn_result_df <- dunn_result$res
+
+# Create a named vector of adjusted p-values with comparisons as names
+p_values_named <- setNames(dunn_result_df$P.adj, dunn_result_df$Comparison)
+
+# Generate significance groups using multcompView
+significance_groups <- multcompView::multcompLetters(p_values_named)$Letters
+
+# Map the significance groups back to plant types
+# Extract unique types and create a significance label mapping
+type_mapping <- data.frame(
+  type = unique(bee_data$type),
+  group = sapply(unique(bee_data$type), function(t) {
+    # Identify comparisons involving this type
+    comparisons <- names(significance_groups)
+    relevant_groups <- significance_groups[grep(t, comparisons)]
+    paste(unique(relevant_groups), collapse = "")
+  })
+)
+
+# Plot with significance letters
+ggplot(bee_data, aes(x = type, y = sugar_concentration, fill = type)) +
+  geom_boxplot() +
+  geom_text(
+    data = type_mapping,
+    aes(x = type, y = max(bee_data$sugar_concentration) + 5, label = group),
+    inherit.aes = FALSE,
+    size = 5,
+    fontface = "bold"
+  ) +
+  labs(
+    title = "Nectar Sugar Concentration by Plant Type",
+    x = "Plant Type (Crop, Weed, Wild)",
+    y = "Sugar Concentration (%)"
+  ) +
+  scale_fill_manual(values = c("crop" = "lightgreen", "weed" = "tomato", "wild" = "skyblue")) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 14),
+    legend.position = "none"
+  )
+
+
+
+```
+
+```
+```
 ```
 
 ### Discussion
