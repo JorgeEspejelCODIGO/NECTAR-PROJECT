@@ -180,7 +180,7 @@ To analyze sugar concentration variability within high-performing families and i
 ------------------------------------------------------------------------
 
 # 5. Results
-
+::: {style="text-align: justify;"}
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
 
 # Install and load required packages
@@ -918,12 +918,76 @@ ggplot(bee_data, aes(x = type, y = sugar_concentration, fill = type)) +
 
 ```
 
-```
-```
+```         
 ```
 
+\`\`\`
+:::
 ### Discussion
+::: {style="text-align: justify;"}
+Our study investigated nectar sugar concentration variation across taxonomic levels, ecological categories (crops, weeds, and wild plants), and geographical regions, providing insights into how plant taxonomy and ecological context shape nectar traits. Overall, the results support the primary hypothesis that plant taxonomy (family and genus) is a key determinant of nectar sugar concentration.
+:::
+### Taxonomic Patterns and Random Effects
+::: {style="text-align: justify;"}
+Consistent with previous literature indicating that nectar composition is strongly influenced by phylogenetic constraints (Perret et al., 2001; Chalcoff et al., 2006; Ornelas et al., 2019), we observed significant differences in mean nectar sugar concentration among and within plant families. Families such as Asteraceae, Fabaceae, and Zygophyllaceae exhibited particularly high average sugar concentrations, whereas others (e.g., Brassicaceae or Solanaceae) tended toward lower concentrations or spanned a wide range. These inter-family disparities align with the notion that evolutionary history and pollinator syndromes contribute to trait specialization (Nicolson & Thornburg, 2007).
 
+The linear mixed-effects model revealed that **genus-level variation within families** was substantial. Some genera demonstrated markedly positive or negative random effects, suggesting that while family-level phylogenetic constraints set a broad “template” for nectar sugar concentration, individual genera within a family can deviate substantially. This underscores the importance of both higher-level evolutionary histories (family-level constraints) and finer-scale adaptations (genus-level diversification), possibly reflecting localized ecological interactions with different pollinator guilds (Rodríguez-Gironés & Santamaría, 2004; Nicolson & Thornburg, 2007).
+:::
+### Ecological Effects: Crops vs. Weeds vs. Wild Plants
+::: {style="text-align: justify;"}
+Our comparisons among crops, weeds, and wild plant species revealed that **wild plants exhibited the highest median sugar concentration**, followed by weeds and then crops. This pattern could stem from different selective pressures in agricultural vs. natural habitats. Domesticated crops may not be under as strong a selective pressure to produce high-sugar nectar if breeding programs prioritize traits such as yield and pest resistance rather than pollinator attraction. Conversely, wild species rely heavily on pollinators for reproductive success, potentially favoring higher sugar nectar as an enticement (Pacini & Nepi, 2007). These findings mirror similar studies noting that human-mediated selection can reduce or alter floral rewards relative to wild relatives (Stiles & Freeman, 1993).
+:::
+### Geographical and Environmental Factors
+::: {style="text-align: justify;"}
+Despite initial expectations that climatic factors—such as temperature, rainfall, or latitude—might drive geographic variation in nectar sugar concentration (Stiles & Freeman, 1993; Petanidou, 2005), our analyses found **no statistically significant differences** among continents. It is important to note, however, that the geographical effects in our dataset are largely **an artifact**: because the same plant species can be recorded as occurring in multiple continents, the data are not strictly suitable for making definitive cross-continental comparisons. As a result, our finding of “no significant differences” likely reflects this limitation rather than a robust conclusion about the environmental influences on nectar traits.
+
+Nevertheless, the map visualization highlights that **any perceived differences between continents** appear to be **driven primarily by the family-level taxonomic composition** in each region. In other words, where there seemed to be variation across continents, it was largely due to the families (and genera) present, rather than purely geographical or climatic factors. Future investigations aiming to parse out true geographical influences on nectar sugar concentration would benefit from datasets explicitly controlling for species distributions, ensuring that the same taxa are not double-counted across multiple regions.
+:::
+### Phylogenetic Signals and Outliers
+::: {style="text-align: justify;"}
+Mapping nectar sugar concentrations onto a phylogenetic tree revealed that closely related families often share moderate sugar levels, hinting at a non-trivial **phylogenetic signal**. However, several families diverged from this clustering, exhibiting high or low nectar sugar concentrations despite large evolutionary distances. Passifloraceae and Zygophyllaceae, for instance, displayed exceptionally high concentrations (\~60–65%), suggesting that convergent evolution driven by pollinator specialization can override strict phylogenetic patterns (Nicolson & Thornburg, 2007). Similarly, the variation observed within families such as Solanaceae underscores how adaptive radiation and genus-level ecological divergence can lead to wide intraspecific or intrafamilial ranges in nectar traits (Ornelas et al., 2019).
+:::
+### Implications and Future Directions
+::: {style="text-align: justify;"}
+Taken together, our findings highlight that **taxonomy—particularly at the family and genus levels—remains a primary driver** of nectar sugar concentration, whereas broad-scale geographic differences appear less pronounced in this dataset. The distinctively higher sugar concentrations in wild plants emphasize potential ecological implications for pollinator conservation, as cultivated landscapes might offer comparatively lower nectar rewards (Chalcoff et al., 2006). Future work would benefit from integrating additional environmental measures (e.g., local climate data, land use intensity, pollinator community composition) and expanding taxonomic coverage to underrepresented families and regions.
+
+Additionally, understanding the **mechanistic basis** of how genetic, physiological, and ecological factors converge to produce such wide taxonomic variation could clarify the evolution of plant-pollinator interactions. For instance, manipulative experiments that measure pollinator visitation alongside nectar sugar concentration could shed light on how pollinator preferences shape sugar traits within and across families (Rodríguez-Gironés & Santamaría, 2004). Lastly, coupling trait-based approaches (e.g., sugar composition, nectar volume) with phylogenomic analyses could illuminate the genetic underpinnings behind convergent versus divergent nectar strategies in distantly or closely related lineages.
+:::
 ### Conclusion
+::: {style="text-align: justify;"}
+Our findings underscore the pivotal role that taxonomy—at both family and genus levels—plays in shaping nectar sugar concentrations in bee-visited flowers, with some families (e.g., Asteraceae, Fabaceae, Zygophyllaceae) exhibiting consistently high values. Meanwhile, the ecological comparisons suggest that wild species produce higher nectar sugar concentrations than crops or weeds, highlighting how domestication may reduce certain evolutionary pressures on floral rewards.
+
+Although we initially examined potential geographical differences in sugar concentration, our data reveal that these patterns are largely **an artifact**: many plant species were recorded across multiple continents, rendering any true cross-continental comparisons invalid. Thus, any apparent regional variation is driven more by **which families are present** than by environmental factors per se. In light of this, future research should employ datasets with stricter geographic controls, ensuring distinct species sets for each region to assess genuine environmental impacts on nectar traits.
+
+Taken as a whole, our study points to strong taxonomic control over nectar sugar concentration, with only limited evidence of geographical influence under these data constraints. Going forward, refining phylogenetic analyses and strengthening geographic delineations will clarify how nectar traits adapt to local climates and pollinator communities, ultimately helping to guide conservation and agricultural strategies that support pollinator health
+:::
+### References
+
+-   Chalcoff, V. R., A. G. Ezcurra, & A. A. Cocucci. (2006). Phylogenetic analysis of floral traits in species of the tribe Mutisieae (Asteraceae) and its ecological implications. *Annals of Botany, 98*(3), 583–594.
+
+```{=html}
+<!-- -->
+```
+-   Nicolson, S. W., & Thornburg, R. W. (2007). Nectar chemistry. In S. W. Nicolson, M. Nepi, & E. Pacini (Eds.), *Nectaries and Nectar* (pp. 215–264). Springer.
+
+-   Ornelas, J. F., Ordano, M., De-Nova, J. A., Quintero, M. E., & Garland, T. (2019). Phylogenetic analysis of interspecific variation in nectar sugar composition in hummingbird-visited plants. *PeerJ, 7*, e6329.
+
+-   Pacini, E., & Nepi, M. (2007). Nectar production and presentation. In S. W. Nicolson, M. Nepi, & E. Pacini (Eds.), *Nectaries and Nectar* (pp. 167–214). Springer.
+
+-   Perret, M., Chautems, A., Spichiger, R., Kite, G., & Favarge, P. (2001). Systematics and evolution of Tribe Sinningieae (Gesneriaceae): Evidence from phylogenetic analysis of six plastid DNA regions and nuclear ribosomal DNA ITS. *American Journal of Botany, 88*(6), 1003–1016.
+
+-   Rodríguez-Gironés, M. A., & Santamaría, L. (2004). Why are so many bird flowers red? Pollen loading as a possible selective agent. *Evolutionary Ecology Research, 6*, 777–785.
+
+-   Stiles, F. G., & Freeman, C. E. (1993). Patterns in flower phenology and hummingbird visitation among upper montane forests in Costa Rica. *Ecology, 74*(3), 556–567.
+
+-   Chalcoff, V. R., Aizen, M. A., & Galetto, L. (2006). Nectar concentration and composition of 26 species from the temperate forest of South America. *Annals of Botany, 97*(3), 413–421.
+
+-   Perret, M., Chautems, A., Spichiger, R., Peixoto, M., & Varadarajan, G. (2001). Nectar sugar composition in relation to pollination syndromes in Sinningieae (Gesneriaceae). *Annals of Botany, 87*(2), 267–273.
+
+-   Petanidou, T. (2005). Sugars in Mediterranean floral nectars: An ecological and evolutionary approach. *Journal of Chemical Ecology, 31*(5), 1065–1088.
+
+-   Rodríguez-Gironés, M. A., & Santamaría, L. (2004). Why are so many bird flowers red? *PLoS Biology, 2*(10), e350.
+
+-   Stiles, F. G., & Freeman, C. E. (1993). Patterns in floral nectar characteristics of some bird-visited plant species from Costa Rica. *Biotropica, 25*(2), 191–205.
 
 ### 
