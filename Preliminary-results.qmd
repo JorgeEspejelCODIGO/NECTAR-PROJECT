@@ -44,7 +44,7 @@ To investigate the relationships between plant taxonomy (e.g., family, genus), g
 
 **Secondary Objective**
 
-To analyze sugar concentration variability within high-performing families and identify key genera.
+To investigate sugar concentration variability between crops and weeds, identifying ecological factors driving the observed differences.
 
 ## Hypotheses
 
@@ -62,11 +62,11 @@ To analyze sugar concentration variability within high-performing families and i
 
 **H₁**: Nectar sugar concentration varies significantly across geographical regions.
 
-**Taxonomic Contribution**:
+**Ecological Effects:**
 
-**H₀**: Within high-performing families, genera do not significantly differ in their contributions to higher average sugar concentrations.
+**H₀:** Nectar sugar concentrations do not significantly differ among crops, weeds, and wild plants.
 
-**H₁**: Certain genera within high-performing families significantly drive higher average sugar concentrations.
+**H₁:** Nectar sugar concentrations significantly differ among crops, weeds, and wild plants, with wild plants exhibiting higher median concentrations, crops showing the lowest concentrations, and weeds displaying intermediate values.
 :::
 
 # 4. Methods
@@ -870,13 +870,14 @@ heatmapphylo
 
 ```
 
-```{r, message=FALSE, warning=FALSE} 
+```{r, message=FALSE, warning=FALSE}
 #| column: screen-inset 
 #| layout-ncol: 2
 phylotree
 heatmapphylo
-```         
 ```
+
+\`\`\`
 
 \`\`\`
 :::
